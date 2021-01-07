@@ -19,9 +19,6 @@ async function startServer() {
   try {
     await connectToDatabase()
 
-  app.use(express.json())
-  
-  app.use(logger)
     console.log(' Database has connected')
     app.listen(port, () => console.log(`Up and running on port ${port}`))
   } catch (err) {
@@ -51,6 +48,10 @@ const itemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', itemSchema)
 
+
+app.use(express.json())
+  
+app.use(logger)
 
 app.get('/items', async (_req, res) => {
   const items = await Item.find()
