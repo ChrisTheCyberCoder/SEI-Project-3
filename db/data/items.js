@@ -8,7 +8,7 @@ export default [
     image: 'test'
   },
   {
-    name: 'pokeball',
+    name: 'cherish-ball',
     stock: '999',
     description: 'You can catch pokemon!',
     price: '200',
@@ -16,7 +16,7 @@ export default [
     image: 'test'
   },
   {
-    name: 'pokeball',
+    name: 'dusk-ball',
     stock: '999',
     description: 'You can catch pokemon!',
     price: '200',
