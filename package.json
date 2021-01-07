@@ -1,0 +1,30 @@
+{
+  "name": "pokezon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ChrisTheCyberCoder/sei-project-4.git",
+  "author": "Daniel Fernandez De Ascencao <dfernandezda21@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "concurrently": "^5.3.0",
+    "eslint-plugin-react": "^7.22.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.10",
+    "mongoose-unique-validator": "^2.0.3",
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.1"
+  },
+  "scripts": {
+    "dev": "npx nodemon",
+    "seed": "node db/seeds.js",
+    "dev-fullstack": "concurrently \"yarn dev\" \"cd client && yarn start\""
+  }
+}
