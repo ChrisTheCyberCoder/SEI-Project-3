@@ -22,3 +22,5 @@ const itemSchema = new mongoose.Schema({
 
 itemSchema.plugin(uniqueValidator)
 export default mongoose.model('Item', itemSchema)
+
+
