@@ -7,3 +7,4 @@ new Masa
 new Daniel
 new Christian 
 pikachu
+charizard!!! Flame!!
