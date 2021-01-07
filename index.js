@@ -18,8 +18,11 @@ function connectToDatabase() {
 async function startServer() {
   try {
     await connectToDatabase()
+
+  app.use(express.json())
+  
+  app.use(logger)
     console.log(' Database has connected')
-    app.use(logger)
     app.listen(port, () => console.log(`Up and running on port ${port}`))
   } catch (err) {
     console.log(err)
@@ -35,7 +38,6 @@ const itemSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   image: { type: String, required: true },
-  // comments: [commentSchema],
 })
 
 // const commentSchema = new mongoose.Schema({
@@ -48,8 +50,6 @@ const itemSchema = new mongoose.Schema({
 // })
 
 const Item = mongoose.model('Item', itemSchema)
-app.use(logger)
-app.use(express.json())
 
 
 app.get('/items', async (_req, res) => {
