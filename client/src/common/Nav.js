@@ -3,7 +3,14 @@ import React from 'react'
 function Nav() {
 
 
-  return <h1>This is the Nav page</h1>
+  return (
+    <div className= 'nav'>
+      <div className='search_wrapper'>
+        <input/>
+      </div>
+    </div>
+
+  )
 }
 
 export default Nav
