@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#ffffff",
+    "titleBar.activeBackground": "#bb1a1a",
+    "titleBar.inactiveBackground": "#ffffff",
+    "statusBar.foreground": "#bb1a1a",
+    "titleBar.inactiveForeground": "#bb1a1a",
+    "titleBar.activeForeground": "#ffffff",
+  },
+  "window.title": "Pokezon by Pokeybros"
+}
