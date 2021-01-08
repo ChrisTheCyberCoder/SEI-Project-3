@@ -19,4 +19,7 @@ router.route('/register')
 router.route('/login')
   .post(auth.loginUser)
 
+// router.route('/items/:id/comments')
+//   .post(secureRoute, items.commentCreate)
+
 export default router

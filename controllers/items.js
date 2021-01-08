@@ -64,10 +64,27 @@ async function itemDelete(req, res, next) {
   }
 }
 
+// create comments
+
+async function itemCommentCreate(req, res, next) {
+  const { id } = req.params
+  try {
+    const film = await Film.findById(id)
+    if (!film) throw new Error(notFound)
+    const newComment = { ...req.body, owner: req.currentUser._id }
+    film.comments.push(newComment)
+    await film.save()
+    return res.status(201).json(film)
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   index: itemIndex,
   create: itemCreate,
   show: itemShow,
   update: itemUpdate,
   delete: itemDelete,
+  commentCreate: itemCommentCreate,
 }
