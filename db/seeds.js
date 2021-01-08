@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import connectToDatabase from '../lib/connectToDb.js'
 import Item from '../models/item.js'
-// import User from '../models/user.js'
+import User from '../models/user.js'
 import itemData from './data/items.js'
-// import userData from './data/users.js'
+import userData from './data/users.js'
 
 
 async function seedDatabase() {
@@ -15,6 +15,10 @@ async function seedDatabase() {
     await mongoose.connection.db.dropDatabase()
 
     console.log('🤖 Database dropped')
+
+    const users = await User.create(userData)
+
+    console.log(`🤖 ${users.length} users created`)
 
     const items = await Item.create(itemData)
 
