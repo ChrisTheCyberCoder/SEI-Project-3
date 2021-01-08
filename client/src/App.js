@@ -12,7 +12,7 @@ import PokeComment from './PokeComponents/PokeComment'
 import PokePayment from './PokeComponents/PokePayment'
 import PokePurchased from './PokeComponents/PokePurchased'
 import PokeShow from './PokeComponents/PokeShow'
-
+import PokeIndex from './PokeComponents/PokeIndex'
 
 function App() {
 
@@ -24,6 +24,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/pokelogin" component={PokeLogin} />
         <Route exact path="/pokeregister" component={PokeRegister} />
+        <Route exact path="/pokeindex" component={PokeIndex} />
         <Route exact path="/pokebasket" component={PokeBasket} />
         <Route exact path="/pokecomment" component={PokeComment} />
         <Route exact path="/pokepayment" component={PokePayment} />
