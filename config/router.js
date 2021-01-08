@@ -1,5 +1,6 @@
 import express from 'express'
 import items from '../controllers/items.js'
+import auth from '../controllers/auth.js'
 
 const router = express.Router()
 
@@ -11,5 +12,11 @@ router.route('/items/:id')
   .get(items.show)
   .put(items.update)
   .delete(items.delete)
+
+router.route('/register')
+  .post(auth.registerUser)
+
+router.route('/login')
+  .post(auth.loginUser)
 
 export default router
