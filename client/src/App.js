@@ -1,17 +1,17 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Home from './common/Home.js'
-import Nav from './common/Nav.js'
+import Home from './common/Home'
+import Nav from './common/Nav'
 
-import PokeLogin from './auth/PokeLogin.js'
-import PokeRegister from './auth/PokeRegister.js'
+import PokeLogin from './auth/PokeLogin'
+import PokeRegister from './auth/PokeRegister'
 
-import PokeBasket from './PokeComponents/PokeBasket.js'
-import PokeComment from './PokeComponents/PokeComment.js'
-import PokePayment from './PokeComponents/PokePayment.js'
-import PokePurchased from './PokeComponents/PokePurchased.js'
-import PokeShow from './PokeComponents/PokeShow.js'
+import PokeBasket from './PokeComponents/PokeBasket'
+import PokeComment from './PokeComponents/PokeComment'
+import PokePayment from './PokeComponents/PokePayment'
+import PokePurchased from './PokeComponents/PokePurchased'
+import PokeShow from './PokeComponents/PokeShow'
 
 
 function App() {
@@ -33,11 +33,6 @@ function App() {
     </BrowserRouter>
 
   )
-
-
-
-
-
 
 }
 
