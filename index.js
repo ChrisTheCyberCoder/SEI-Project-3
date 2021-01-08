@@ -16,7 +16,7 @@ async function startServer() {
 
     app.use(logger)
 
-    app.use(router)
+    app.use('/api', router)
 
     //error handler needed here
 

@@ -7,18 +7,18 @@ const itemSchema = new mongoose.Schema({
   description: { type: String, required: true, maxlength: 400 },
   price: { type: Number, required: true },
   category: { type: String, required: true },
-  image: { type: String, required: true }
+  image: { type: String, required: true },
   // comments: [commentSchema],
 })
 
-// const commentSchema = new mongoose.Schema({
-//   text: { type: String, required: true, maxlength: 300 },
-//   rating: { type: Number, required: true, min: 1, max: 5 },
+export const commentSchema = new mongoose.Schema({
+  text: { type: String, required: true, maxlength: 300 },
+  rating: { type: Number, required: true, min: 1, max: 5 },
 
-//   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true  },
-// }, {
-//   timestamps: true,
-// })
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true  },
+}, {
+  timestamps: true,
+})
 
 itemSchema.plugin(uniqueValidator)
 export default mongoose.model('Item', itemSchema)
