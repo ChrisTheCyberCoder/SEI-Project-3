@@ -17,6 +17,9 @@ router.route('/items/:id')
 router.route('/items/:id/comments')
   .post(secureRoute, items.commentCreate)
 
+router.route('/items/:id/comments/:commentId')
+  .delete(secureRoute, items.commentDelete)
+
 router.route('/register')
   .post(auth.registerUser)
 

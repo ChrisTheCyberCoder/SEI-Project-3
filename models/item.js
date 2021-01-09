@@ -21,9 +21,19 @@ const itemSchema = new mongoose.Schema({
   comments: [commentSchema],
 })
 
+itemSchema.virtual('avgRating').get(function () {
+  if (!this.comments.length) return 'Unrated'
+  const avg = this.comments.reduce((sum, currentComment) => {
+    return sum + currentComment.rating
+  }, 0)
+  return Math.round(avg / this.comments.length)
+})
+
+itemSchema.set('toJSON', { virtuals: true })
 
 
 itemSchema.plugin(uniqueValidator)
+
 export default mongoose.model('Item', itemSchema)
 
 //pseudo code

@@ -22,7 +22,36 @@ async function seedDatabase() {
     console.log(`🤖 ${users.length} users created`)
     // console.log(usersWithBasket)
 
-    const items = await Item.create(itemData)
+    // add users basket in the scehme and set the type to array and required to false. 
+
+    const itemsWithComments = itemData.map(item => {
+
+      function randomGen() {
+        return Math.floor(Math.random() * userData.length)
+      }  
+
+      item.comments = {
+        text: "very good", //need to randomise the comments here using a randome generator // I need to randomise how many comments are posted to each item too. // Create a text database
+        rating: 2, // this needs to be randomised too, perhaps according to brands of pokemon. 
+        owner: users[randomGen()].id
+      }
+
+      //item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
+      
+      
+      return item 
+    })
+
+    
+
+    const items = await Item.create(itemsWithComments)
+
+    // const pushMoreComments = items.map(item => {
+    //   item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
+    // })
+
+    //push from here. 
+    console.log(itemsWithComments)
 
     console.log(`🤖 ${items.length} items created`)
 

@@ -80,6 +80,24 @@ async function itemCommentCreate(req, res, next) {
   }
 }
 
+// delete comments
+
+async function itemCommentDelete(req, res, next) {
+  const { id, commentId } = req.params
+  try {
+    const item = await Item.findById(id)
+    if (!item) throw new Error(notFound)
+    const commentToDelete = item.comments.id(commentId)
+    if (!commentToDelete) throw new Error(notFound)
+    if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error(forbidden)
+    await commentToDelete.remove()
+    await item.save()
+    return res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+}
+
 
 
 export default {
@@ -89,4 +107,5 @@ export default {
   update: itemUpdate,
   delete: itemDelete,
   commentCreate: itemCommentCreate,
+  commentDelete: itemCommentDelete
 }
