@@ -1,9 +1,13 @@
 import express from 'express'
 import items from '../controllers/items.js'
+import users from '../controllers/users.js'
 import auth from '../controllers/auth.js'
 import secureRoute from '../lib/secureRoute.js'
 
 const router = express.Router()
+
+router.route('/users')
+  .get(users.userIndex)
 
 router.route('/items')
   .get(items.index)

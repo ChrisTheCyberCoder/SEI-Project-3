@@ -5,7 +5,7 @@ export default [
     description: `Catches a wild Pokémon every time.`,
     price: 1500,
     category: 'standard-balls',
-    image: 'tobecreated'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208774/pokezon/master-ball.png'
 },
 {
     name: 'ultra-ball',
@@ -13,7 +13,7 @@ export default [
     description: `Tries to catch a wild Pokémon. Success rate is 2×.`,
     price: 800,
     category: 'standard-balls',
-    image: 'tobecreated'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208871/pokezon/ultra-ball.png'
 },
 {
     name: 'great-ball',
@@ -21,7 +21,7 @@ export default [
     description: `Tries to catch a wild Pokémon. Success rate is 1.5×.`,
     price: 600,
     category: 'standard-balls',
-    image: 'tobecreated'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208893/pokezon/great-ball.png'
 },
 {
     name: 'poke-ball',
@@ -29,7 +29,7 @@ export default [
     description: `Tries to catch a wild Pokémon.`,
     price: 200,
     category: 'standard-balls',
-    image: 'tobecreated'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
 },
 {
     name: 'safari-ball',
@@ -37,7 +37,7 @@ export default [
     description: `Tries to catch a wild Pokémon in the Great Marsh or Safari Zone. Success rate is 1.5×.`,
     price: 250,
     category: 'standard-balls',
-    image: 'tobecreated'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208922/pokezon/safari-ball.png'
 }
 ]
 // {
