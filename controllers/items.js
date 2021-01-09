@@ -27,7 +27,7 @@ async function itemCreate (req, res, next) {
 async function itemShow(req, res, next) {
   const { id } = req.params
   try {
-    const item = await Item.findById(id)
+    const item = await Item.findById(id).populate('comments.owner')
     if (!item) throw new Error(notFound)
     return res.status(200).json(item)
   } catch (err) {
@@ -69,16 +69,18 @@ async function itemDelete(req, res, next) {
 async function itemCommentCreate(req, res, next) {
   const { id } = req.params
   try {
-    const film = await Film.findById(id)
-    if (!film) throw new Error(notFound)
+    const item = await Item.findById(id)
+    if (!item) throw new Error(notFound)
     const newComment = { ...req.body, owner: req.currentUser._id }
-    film.comments.push(newComment)
-    await film.save()
-    return res.status(201).json(film)
+    item.comments.push(newComment)
+    await item.save()
+    return res.status(201).json(item)
   } catch (err) {
     next(err)
   }
 }
+
+
 
 export default {
   index: itemIndex,

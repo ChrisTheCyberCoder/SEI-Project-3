@@ -15,18 +15,18 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('passwordConfirmation')
   .set(function(passwordConfirmation) {
     this._passwordConfirmation = passwordConfirmation
-})
+  })
 
 userSchema.pre('validate', function(next) {
-    if (this.isModified('password') && this.password !== this._passwordConfirmation) {
-      this.invalidate('passwordConfirmation', 'does not match')
-    }
-    next()
-  })
+  if (this.isModified('password') && this.password !== this._passwordConfirmation) {
+    this.invalidate('passwordConfirmation', 'does not match')
+  }
+  next()
+})
 
 userSchema.pre('save', function(next) {
   if (this.isModified('password')) {
-      this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
+    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
   }
   next()
 })
