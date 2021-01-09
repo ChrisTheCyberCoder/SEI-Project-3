@@ -4,7 +4,7 @@ import Item from '../models/item.js'
 import User from '../models/user.js'
 import itemData from './data/items.js'
 import userData from './data/users.js'
-import commentSchema from '../models/item.js'
+// import commentSchema from '../models/item.js'
 
 
 async function seedDatabase() {
@@ -17,48 +17,44 @@ async function seedDatabase() {
 
     console.log('🤖 Database dropped')
 
-    const usersWithBasket = userData.map(user => {
-      user.basket = []
-      user.purchased = []
-      // more stuff to be added later. 
-      return user
-    })
-
-    const users = await User.create(usersWithBasket)
+    const users = await User.create(userData)
 
     console.log(`🤖 ${users.length} users created`)
     // console.log(usersWithBasket)
 
-    // add basket to the user schema 
+    // add users basket in the scehme and set the type to array and required to false. 
 
-    // const randomNumberGen = Math.floor(Math.random() * 3)
-
-    
-    
     const itemsWithComments = itemData.map(item => {
-      const randomNumberGen = Math.floor(Math.random() * 3)
 
-      // function commentGen() {
+      function randomGen() {
+        return Math.floor(Math.random() * userData.length)
+      }  
 
-      //   if (randomNumberGen === 0 ) {
-      //   return 'good'
-      //   } else if (randomNumberGen === 1) {
-      //   return 'bad'
-      //   } else if (randomNumberGen === 2) {
-      //   return 'awful!'
-      //   }
-      // }
+      item.comments = {
+        text: "very good", //need to randomise the comments here using a randome generator // I need to randomise how many comments are posted to each item too. // Create a text database
+        rating: 2, // this needs to be randomised too, perhaps according to brands of pokemon. 
+        owner: users[randomGen()].id
+      }
 
-      item.comments = [commentSchema]
+      //item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
+      
+      
       return item 
     })
 
+    
 
     const items = await Item.create(itemsWithComments)
 
+    // const pushMoreComments = items.map(item => {
+    //   item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
+    // })
+
+    //push from here. 
+    console.log(itemsWithComments)
+
     console.log(`🤖 ${items.length} items created`)
 
-    console.log(itemsWithComments)
 
     await mongoose.connection.close()
 
