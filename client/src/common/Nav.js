@@ -7,7 +7,7 @@ function Nav() {
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
   const searchWidth = 500 - categoryWidth
-  const [isLoggedIn] = React.useState(true)
+  const [isLoggedIn] = React.useState(false)
 
   const username = 'Pokebros'
 
