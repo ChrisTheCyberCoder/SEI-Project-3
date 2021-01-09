@@ -1,10 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Nav() {
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
   const searchWidth = 500 - categoryWidth
+  const [isLoggedIn] = React.useState(false)
+
+  const username = 'Pokebros'
 
   const handleSelect = e =>{
     resizeCategoryWidth(e)
@@ -15,7 +19,7 @@ function Nav() {
     setSearchCriteria(e.target.value)
   }
   
-  const handleSubmit = e => {
+  const handleSubmit = e =>{
     e.preventDefault()
     window.alert(`search ${searchCriteria} within ${category}`)
   }
@@ -30,9 +34,9 @@ function Nav() {
 
   return (
     <div className="nav">
-      <div className="logo">
+      <Link to="/" className="logo">
         <img src="../assets/logo.svg" alt="Pokezon logo" />
-      </div>  
+      </Link>
       <div className="search_wrapper">
 
         <form className="search"
@@ -73,19 +77,41 @@ function Nav() {
         </form>
       </div>
       <div className="user_nav">
-        <button>
-          <img className= "pokeball" src="../assets/pokeball_grey.svg" alt="pokeball" /> register
-        </button>
-        <button>
-          <img className= "pika" src="../assets/pika_face_icon.svg" alt="pikachu" /> 
-          login
-        </button>
-        <div className="basket">
-          <div className="item_qty">
-            <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-          </div>
-          <img src="../assets/basket.svg" alt="shopping basket" />
-        </div>  
+        {
+          !isLoggedIn ? 
+            <>
+              <Link to="/pokeregister">
+                <button>
+                  <img className= "pokeball" src="../assets/pokeball_grey.svg" alt="pokeball" /> register
+                </button>
+              </Link>
+              <Link to="/pokelogin">
+                <button>
+                  <img className= "pika" src="../assets/pika_face_icon.svg" alt="pikachu" /> 
+                login
+                </button>
+              </Link>
+            </>
+            :
+            <>
+              <div className="profile_wrapper">
+                <div className="user_greeting">
+                  Hello {username}!
+                </div>  
+                <div className="profile_image">
+                  <img src="../assets/test_profile_image.jpg" alt="user profile image" />
+                </div> 
+              </div>
+            </>
+        }
+        <Link to="/pokebasket">
+          <div className="basket">
+            <div className="item_qty">
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+            </div>
+            <img src="../assets/basket.svg" alt="shopping basket" />
+          </div>  
+        </Link>
       </div>  
     </div>
 

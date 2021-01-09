@@ -48,6 +48,11 @@ body {
   display: flex;
   align-items: center;
 
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
   button {
     border: 0;
     border-radius: 20px;
@@ -57,6 +62,7 @@ body {
     align-items: center;
     background-color: $orange;
     transition: 0.3s;
+    cursor: pointer;
 
     img {
       margin-right: 5px;
@@ -105,6 +111,23 @@ body {
 
     }
   }
+
+  .user_greeting {
+    font-size: 12px;
+    color: white;
+  }
+
+  .profile_image {
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 .basket:hover {
@@ -115,14 +138,6 @@ body {
     }
   }
 }
-
-// @keyframes rotating_small {
-//   0% {bottom: 20px; transform: scale(1) rotate(0deg);}
-//   40% {bottom: 25px; transform: scale(0.9,1.1);}
-//   45% {bottom: 25px; transform: scale(1.08,0.9);}
-//   60% {bottom: 25px; transform: scale(1.08,1);}
-//   100% {bottom: 20px; transform: scale(1) rotate(360deg);}
-// }
 
 .search_wrapper {
   width: 50%;
@@ -160,16 +175,16 @@ body {
       background-image:
       linear-gradient(45deg, transparent 50%, gray 50%),
       linear-gradient(135deg, gray 50%, transparent 50%);
- 
-    background-position:
-      calc(100% - 12px) calc(1em + 12px),
-      calc(100% - 7px) calc(1em + 12px),
-      calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
-    background-repeat: no-repeat;
+      background-position:
+        calc(100% - 12px) calc(1em + 12px),
+        calc(100% - 7px) calc(1em + 12px),
+        calc(100% - 2.5em) 0.5em;
+      background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+      background-repeat: no-repeat;
+      cursor: pointer;
     }  
 
     select:focus {
@@ -205,6 +220,8 @@ body {
     justify-content: center;
     align-items: center;
     background-color: $orange;
+    cursor: pointer;
+    outline: none;
   }
 
   button:hover {
@@ -231,10 +248,8 @@ body {
 
 @keyframes rotating {
   0% {bottom: 0; transform: scale(1) rotate(0deg);}
-  // 30% {bottom: 5px; }
-  // 60% {bottom: -3px; }
-  40% {bottom: 5px; transform: scale(0.9,1.1);}
-  45% {bottom: 0; transform: scale(1.08,0.9);}
-  60% {bottom: 0; transform: scale(1.08,1);}
-  100% {bottom: 0; transform: scale(1) rotate(360deg);}
+  45% {bottom: 5px; transform: scale(0.9,1.1) rotate(360deg);}
+  50% {bottom: 0px; transform: scale(1.2,0.8);}
+  60% {bottom: 0; transform: scale(1.08,1); }
+  100% {bottom: 0; transform: scale(1);}
 }
