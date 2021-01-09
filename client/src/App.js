@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from './common/Home'
-import Nav from './common/Nav'
+// import Nav from './common/Nav'
 
 import PokeLogin from './auth/PokeLogin'
 import PokeRegister from './auth/PokeRegister'
@@ -19,7 +19,7 @@ function App() {
   return (
 
     <BrowserRouter>
-      <Nav />
+      {/* <Nav /> */}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/pokelogin" component={PokeLogin} />
