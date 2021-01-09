@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
+import ImageUploadField from './ImageUploadField'
+
 function PokeRegister() {
 
   const history = useHistory() 
@@ -38,8 +40,15 @@ function PokeRegister() {
     return axios.post('/api/register', formdata)
   }
 
+  //   <input 
+  //   placeholder="Image"
+  //   name="image"
+  //   onChange={handleChange}
+  //   value={formdata.image}
+  // />
+
   return (
-    <section>
+    <section className="page_wrapper">
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
@@ -81,12 +90,8 @@ function PokeRegister() {
         </div>
         <div>
           <label>Image</label>
-          <input 
-            placeholder="Image"
-            name="image"
-            onChange={handleChange}
-            value={formdata.image}
-          />
+    
+          <ImageUploadField/>
         </div>
         <div>
           <label>Address</label>

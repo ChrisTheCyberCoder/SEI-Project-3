@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Nav() {
+  const history = useHistory()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
@@ -21,6 +22,7 @@ function Nav() {
   
   const handleSubmit = e =>{
     e.preventDefault()
+    history.push('/pokeindex')
     window.alert(`search ${searchCriteria} within ${category}`)
   }
 
@@ -98,9 +100,11 @@ function Nav() {
                 <div className="user_greeting">
                   Hello {username}!
                 </div>  
-                <div className="profile_image">
-                  <img src="../assets/test_profile_image.jpg" alt="user profile image" />
-                </div> 
+                <Link to="/pokepurchased">
+                  <div className="profile_image">
+                    <img src="../assets/test_profile_image.jpg" alt="user profile image" />
+                  </div> 
+                </Link>
               </div>
             </>
         }

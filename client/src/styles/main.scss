@@ -3,6 +3,7 @@ $dark_color:  #1f1f1f;
 $light_color: rgb(255, 255, 255);
 $orange: #ffc200;
 $amazon_orange: #ff9900;
+$main_font: 'Roboto', sans-serif;
 
 * {
   box-sizing: border-box;
@@ -11,9 +12,26 @@ $amazon_orange: #ff9900;
 body {
   padding: 0;
   margin: 0;
-  // font-family: 'Rubik', sans-serif;
+  font-family: $main_font;
   background-color: $light_color;
 }
+
+.page_wrapper {
+  display: flex;
+  height: calc(100vh - 55px);
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    background-color: beige;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: $main_font;
+  }
+}
+
+
 
 .nav {
   position: absolute;
@@ -157,7 +175,6 @@ body {
   width: 50%;
   height: 100%;
   // border:red 1px solid;
-  // background-color: blue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,6 +216,7 @@ body {
         1px 1.5em;
       background-repeat: no-repeat;
       cursor: pointer;
+      font-family: $main_font;
     }  
 
     select:focus {
@@ -212,6 +230,7 @@ body {
       padding: 15px;
       font-size: 17px;
       color: black;
+      font-family: $main_font;
     }
 
     input:focus {
@@ -236,6 +255,7 @@ body {
     background-color: $orange;
     cursor: pointer;
     outline: none;
+    font-family: $main_font;
   }
 
   button:hover {
