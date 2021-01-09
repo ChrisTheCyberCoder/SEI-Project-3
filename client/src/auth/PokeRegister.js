@@ -91,7 +91,11 @@ function PokeRegister() {
         <div>
           <label>Image</label>
     
-          <ImageUploadField/>
+          <ImageUploadField
+            value={formdata.image}
+            name="image"
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label>Address</label>
