@@ -1,7 +1,7 @@
 import React from 'react'
 import { getItems } from '../lib/api'
 
-import PokeCard from './PokeCard'
+import PokeCard from './PokeCardIndex'
 
 function PokeIndex() {
   const [items, setItems] = React.useState(null)

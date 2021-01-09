@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function PokeCard({  _id, name, price, image, stock }) {
+function PokeCard({  _id, name, price, image, stock, avgRating }) {
   return (
     <div className="">
-      <Link to={`/items/${_id}`}>
+      <Link to={`/pokeindex/${_id}`}>
         <div className="">
           <figure className="">
             <img src={image} alt={name}/>
@@ -16,6 +16,9 @@ function PokeCard({  _id, name, price, image, stock }) {
         <div className="">
           <div className="">
             <div className="">{name}</div>
+          </div>
+          <div>
+            <div>{avgRating}</div>
           </div>
           <div className="">
             <div className="">{price}</div>
