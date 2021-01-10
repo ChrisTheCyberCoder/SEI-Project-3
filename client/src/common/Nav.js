@@ -25,16 +25,9 @@ function Nav() {
   const handleSubmit = e =>{
     e.preventDefault()
     // if (!searchCriteria) return
-
-    let chosenCategory = category.toLowerCase()
-    if (!category) chosenCategory = 'all'
-
-    let chosenSearchCriteria = searchCriteria.toLowerCase()
-    if (!searchCriteria) chosenSearchCriteria = '0'
-
-    history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`)
-  
-    // window.alert(`search ${searchCriteria} within ${category.toLowerCase()}`)
+    const chosenCategory = category ? category.toLowerCase() : 'all'
+    const chosenSearchCriteria = searchCriteria ? searchCriteria.toLowerCase() : '0'
+    history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`) 
   }
 
   const resizeCategoryWidth = e => {

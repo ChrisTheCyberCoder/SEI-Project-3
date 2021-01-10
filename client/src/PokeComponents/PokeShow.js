@@ -1,36 +1,67 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { getSingleItem } from '../lib/api'
+import { getSingleItem, getItems } from '../lib/api'
 
 function PokeShow() {
   const { id } = useParams()
   const [ hasError, setHasError ] = React.useState(false)
-  const [ item, setItems ] = React.useState(null)
+  const [ item, setItem] = React.useState(null)
+  const [ items, setItems ] = React.useState(null)
   const [ itemQty, setItemQty ] = React.useState(null)
   
+  //* get single item
   React.useEffect(() => {
     const getData = async () => {
       try { 
         const { data } = await getSingleItem(id)
-        setItems(data)
+        setItem(data)
       } catch (err) {
         setHasError(true)
-        console.log(err)
+        // console.log(err)
       }
     }
     getData()
   },[id])
+ 
+  //* get all items
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await getItems()
+        setItems(data)
+      } catch (err) {
+        setHasError(true)
+      }
+    }
+    getData()
+  }, [])
+  
+  const filteredItems = []
+  const filterItems = (items)=> {
+    if (!item) return
+    return items.filter(ele => {
+      return ele.category === item.category
+    })
+  }
+  if (items) {
+    if (!item) return null
+    const limit = filterItems(items).length < 4 ? filterItems(items).length : 4
+    for (let i = 0; i < limit; i++){
+      filteredItems.push(filterItems(items)[i])
+    }
+  }
 
-  if (id) console.log('id',id)
+  console.log(filteredItems)
+  // if (id) console.log('id',id)
 
   function addToBasket(e){
     e.preventDefault()
     if (itemQty < 1) return
-    console.log(`add qty of ${itemQty} item id ${id} to the basket`)
+    // console.log(`add qty of ${itemQty} item id ${id} to the basket`)
   }
 
   function itemRating(n){
-    console.log('n',n)
+    // console.log('n',n)
     const rating = []
     for (let i = 0; i < n; i++) rating.push('star') 
     // console.log('test',rating)
@@ -80,14 +111,30 @@ function PokeShow() {
 
           <div className="similar_items_wrapper">
             similar items
+            {item ?
+              <div className="inner_wrapper">
+                {filteredItems.map(item=>{
+                  return (
+                    <div className="similar_items" key={item.name}>
+                      {item.name}
+                      <img src={item.image} alt={item.name} />
+                      <div>
+                        <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
+                        {item.price}
+                      </div>
+                    </div>  
+                  )
+                })}
+              </div>
+              :
+              <p>loading</p>
+            }
+
           </div>  
 
           <div className="comments_wrapper">
             comments
 
-            {/* <div className="comment_box">
-                comments
-            </div>   */}
           </div>  
         </>
         :

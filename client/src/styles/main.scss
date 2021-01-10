@@ -51,6 +51,40 @@ body {
   width: calc(100% - 50px);
   height: 250px;
 }
+.inner_wrapper {
+  height: calc(100% - 20px);
+  display: flex;
+  justify-content: space-evenly;
+  .similar_items {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgba(94, 61, 2, 0.507);
+    border-radius: 8px;
+    height: 100%;
+    width: calc(25% - 5px);
+    text-transform: capitalize;
+  
+    img {
+      height: calc(100% - 70px);
+      width: auto;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 13px;
+      width: 100%;
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+}
+
 
 .product_wrapper {
   margin-top: 15px;

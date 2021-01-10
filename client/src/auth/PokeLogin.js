@@ -43,9 +43,9 @@ function PokeLogin() {
   
 
   return (
-    <section>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <section className="page_wrapper">
+      <form onSubmit={handleSubmit} className="float_up">
+        <div className="input_box">
           <label>Email</label>
           <input 
             placeholder="Email"
@@ -54,7 +54,7 @@ function PokeLogin() {
             value={formdata.email}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Password</label>
           <input 
             type="password" 
@@ -64,8 +64,11 @@ function PokeLogin() {
             value={formdata.password}
           />
         </div>
-        <div>
-          <button type="submit">Log Me In!</button>
+        <div className="button_wrapper">
+          <button type="submit">
+            <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+            Log Me In!
+          </button>
         </div>
       </form>
     </section>

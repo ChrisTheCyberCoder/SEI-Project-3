@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function PokeCard({  _id, name, price, image, stock, avgRating }) {
   return (
     <div className="">
-      <Link to={`/pokeindex/${_id}`}>
+      <Link to={`/pokeshow/${_id}`}>
         <div className="">
           <figure className="">
             <img src={image} alt={name}/>

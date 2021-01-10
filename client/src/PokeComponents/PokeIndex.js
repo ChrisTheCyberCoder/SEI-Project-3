@@ -23,10 +23,10 @@ function PokeIndex() {
     getData()
   }, [])
   
-  let filteredItem = null
+  let filteredItems = null
 
   
-  const filteredItems = (items)=> {
+  const filterItems = (items)=> {
     return items.filter(item => {
       if (category === 'all' && searchCriteria === '0') {
         return item
@@ -40,7 +40,7 @@ function PokeIndex() {
     })
   }
 
-  if (items) filteredItem = filteredItems(items)
+  if (items) filteredItems = filterItems(items)
   // console.log('PokeIndex items:', items)
   // console.log('PokeIndex category:', category)
   // console.log('PokeIndex searchValue:', searchValue)
@@ -50,7 +50,7 @@ function PokeIndex() {
       <div className="">
         {items ?
           <div className="">
-            {filteredItem.map(item => (
+            {filteredItems.map(item => (
               <PokeCard key={item._id} {...item} />
             ))}
           </div>
