@@ -40,35 +40,29 @@ function PokeRegister() {
     return axios.post('/api/register', formdata)
   }
 
-  //   <input 
-  //   placeholder="Image"
-  //   name="image"
-  //   onChange={handleChange}
-  //   value={formdata.image}
-  // />
 
   return (
     <section className="page_wrapper">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input_box">
           <label>Username</label>
           <input 
-            placeholder="Username"
+            placeholder="Pikachu"
             name="username"
             onChange={handleChange}
             value={formdata.username}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Email</label>
           <input 
-            placeholder="Email"
+            placeholder="pikachu@ichooseyou.com"
             name="email"
             onChange={handleChange}
             value={formdata.email}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Password</label>
           <input 
             type="password" 
@@ -78,7 +72,7 @@ function PokeRegister() {
             value={formdata.password}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Password Confirmation</label>
           <input 
             type="password" 
@@ -88,8 +82,8 @@ function PokeRegister() {
             value={formdata.passwordConfirmation}
           />
         </div>
-        <div>
-          <label>Image</label>
+        <div className="input_box">
+          <label>Profile Image</label>
     
           <ImageUploadField
             value={formdata.image}
@@ -97,26 +91,30 @@ function PokeRegister() {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Address</label>
           <input 
-            placeholder="Address"
+            placeholder="eg. 20 Viridian City, Kanto, XXX-XXXX"
             name="address"
             onChange={handleChange}
             value={formdata.address}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Date of Birth</label>
           <input 
-            placeholder="Date of Birth"
+            placeholder="DD / MM / YYYY"
+            type = "date"
             name="dob"
             onChange={handleChange}
             value={formdata.dob}
           />
         </div>
-        <div>
-          <button type="submit">Register</button>
+        <div className="button_wrapper">
+          <button type="submit">
+            <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+            Register
+          </button>
         </div>
       </form>
     </section>

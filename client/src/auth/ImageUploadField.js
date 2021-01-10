@@ -10,7 +10,7 @@ const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
 
 // 
 function ImageUploadField( { value, name, onChange } ) {
-  
+  const [ hover, setHover] = React.useState(false)
   const handleUpload = async e => {
     const data = new FormData()  
     data.append('file', e.target.files[0])
@@ -18,7 +18,10 @@ function ImageUploadField( { value, name, onChange } ) {
     const res = await axios.post(uploadUrl, data)
     onChange({ target: { name, value: res.data.url } }) //* handleChange triggered
   }
-
+  
+  const handleHover = () =>{
+    setHover(!hover)
+  }
 
   return (
     <>
@@ -30,13 +33,20 @@ function ImageUploadField( { value, name, onChange } ) {
         </div>
         :
         <>
-          <input
-            className="input"
-            type="file"
-            accept="jpg"
-            onChange={handleUpload}
-            name={name}
-          />
+          <div className="input_wrapper" onMouseEnter={handleHover} onMouseLeave={handleHover}>
+            <div type="button" className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+              Upload Image
+            </div>
+            <input
+              id="upload"
+              className="input"
+              type="file"
+              accept="jpg"
+              onChange={handleUpload}
+              name={name}
+            />
+          </div>  
         </>  
       }
     </>
