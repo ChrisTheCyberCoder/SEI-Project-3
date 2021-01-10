@@ -6,6 +6,12 @@ import ImageUploadField from './ImageUploadField'
 
 function PokeRegister() {
 
+  const [passwordNotMatch, setPasswordNotMatch] = React.useState(false)
+  const [usernameNotUnique, setUsernameNotUnique] = React.useState(false)
+  const [emailNotUnique, setEmailNotUnique] = React.useState(false)
+  const [passwordHasNoSpecialCharacter, setPasswordHasNoSpecialCharacter] = React.useState(false)
+  const [emailInIncorrectFormat, setEmailInIncorrectFormat] = React.useState(false)
+
   const history = useHistory() 
   const [formdata, setFormdata] = React.useState({
     username: '',
@@ -18,23 +24,79 @@ function PokeRegister() {
   })
 
   const handleChange = (event) => {
-    console.log(event.target.name)
+    // console.log(event.target.name)
+    // console.log(event.target.value)
     setFormdata({ ...formdata, [event.target.name]: event.target.value })
   }
 
-  console.log(formdata)
+  // console.log(formdata)
 
   const handleSubmit = async event => {
     event.preventDefault()
-    
+
+    if (formdata.email.slice(-4) !== '.com' && formdata.email.slice(-6) !== '.co.uk' && formdata.email.slice(-6) !== '.co.jp') { //if neither in field throw error execute code. If one in field code can't execute. 
+      console.log('no .com or co.uk')
+      setEmailInIncorrectFormat(true)
+      return 
+    }
+
+    // if (formdata.email.slice(-6) !== '.co.uk') {
+    //   console.log('no .co.uk')
+    //   return
+    // }
+
+    // console.log(formdata.email.slice(-4))
+
+    const passwordToCheck = formdata.password.split('')
+    // console.log(passwordToCheck)
+    // console.log(typeof passwordToCheck)
+
+    // if (!passwordToCheck.includes('1', '2', '3', '4', '5', '6', '7', '8', '9')) {
+    //   console.log('pw no number')
+    //   setPasswordHasNoSpecialCharacter(true)
+    //   return
+    // }
+
+    const check = passwordToCheck.find(item => {
+      if (item === '1' || item === '2' || item === '3' || item === '4' || item === '5' || item === '6' || item === '7' || item === '8' || item === '9' )
+        return true
+    })
+
+    console.log(check)
+
+    if (!check) {
+      setPasswordHasNoSpecialCharacter(true)
+      return //note to self: keeep this return here so that it does not execute the catch block below
+    }
+
+    const checkCapitals = passwordToCheck.find(item => {
+      if (item === 'A' || item === 'B' || item === 'C' || item === 'D' || item === 'E' || item === 'F' || item === 'G' || item === 'H' || item === 'I' || item === 'J' || item === 'K' || item === 'L' || item === 'M' || item === 'N' || item === 'O' || item === 'P' || item === 'Q' || item === 'R' || item === 'S' || item === 'T' || item === 'U' || item === 'V' || item === 'W' || item === 'X' || item === 'Y' || item === 'Z' )
+        return true
+    })
+
+    if (!checkCapitals) {
+      setPasswordHasNoSpecialCharacter(true)
+      return //note to self: keeep this return here so that it does not execute the catch block below
+    }
 
     try {
-      await registerUser(formdata)
+      const response = await registerUser(formdata)
+      // console.log('check out', response.errors.passwordConfirmation)
+      console.log(response)
       history.push('/pokelogin') 
     } catch (err) {
-      console.log(err.response.data) 
+
+      //console.log(err.response)
+      // console.log('catche error', err.response.data) 
+      // console.log('check if correct', err.response.data.errors.passwordConfirmation)
+      if (err.response.data.errors.passwordConfirmation === 'does not match') setPasswordNotMatch(true)
+      if (err.response.data.errors.username) setUsernameNotUnique(true)
+      if (err.response.data.errors.email) setEmailNotUnique(true)
+        
     }
   }
+
+  
 
   function registerUser(formdata) {
     return axios.post('/api/register', formdata)
@@ -52,8 +114,7 @@ function PokeRegister() {
             onChange={handleChange}
             value={formdata.username}
           />
-          <p>error message will look like this</p>
-          {/* {errors.username && <p>{errors.username}</p>} */}
+          { usernameNotUnique ? <p>Username Not Unique</p> : null }
         </div>
         <div className="input_box">
           <label>Email</label>
@@ -63,6 +124,8 @@ function PokeRegister() {
             onChange={handleChange}
             value={formdata.email}
           />
+          { emailNotUnique ? <p>Email Not Unique</p> : null }
+          { emailInIncorrectFormat ? <p>Email must be in name@email.com or name@email.co.uk</p> : null }
         </div>
         <div className="input_box">
           <label>Password</label>
@@ -83,6 +146,8 @@ function PokeRegister() {
             onChange={handleChange}
             value={formdata.passwordConfirmation}
           />
+          { passwordNotMatch ? <p>Passwords Do Not Match</p> : null}
+          { passwordHasNoSpecialCharacter ? <p>Password must contain atleast one number and one capital Letter</p> : null}
         </div>
         <div className="input_box">
           <label>Profile Image</label>
@@ -92,6 +157,11 @@ function PokeRegister() {
             name="image"
             onChange={handleChange}
           />
+          {/* <input
+            value={formdata.image}
+            name="image"
+            onChange={handleChange}
+          /> */}
         </div>
         <div className="input_box">
           <label>Address</label>
