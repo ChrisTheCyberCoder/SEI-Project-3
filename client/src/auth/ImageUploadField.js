@@ -23,6 +23,8 @@ function ImageUploadField( { value, name, onChange } ) {
     setHover(!hover)
   }
 
+
+
   return (
     <>
       {value ?
@@ -34,10 +36,10 @@ function ImageUploadField( { value, name, onChange } ) {
         :
         <>
           <div className="input_wrapper" onMouseEnter={handleHover} onMouseLeave={handleHover}>
-            <div type="button" className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
+            <label className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
               <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
               Upload Image
-            </div>
+            </label>
             <input
               id="upload"
               className="input"
