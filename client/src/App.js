@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/pokecomment" component={PokeComment} />
         <Route exact path="/pokepayment" component={PokePayment} />
         <Route exact path="/pokepurchased" component={PokePurchased} />
-        <Route exact path="/pokeshow" component={PokeShow} />
+        <Route path="/pokeshow/:id" component={PokeShow} />
       </Switch>
     </BrowserRouter>
   )

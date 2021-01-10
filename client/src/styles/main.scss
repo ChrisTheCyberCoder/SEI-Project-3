@@ -5,6 +5,7 @@ $orange: #ffc200;
 $amazon_orange: #ff9900;
 $main_font: 'Roboto', sans-serif;
 $input_background_color: rgb(252, 245, 235);
+$white_fading: linear-gradient(315deg,rgba(255, 255, 255, 0.37), white 60%,);
 
 
 p, h1, h2, h3, h4 {
@@ -28,6 +29,42 @@ body {
   background-color: $light_color;
   background: url(https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610241445/pokezon/background.png) repeat 0 0;
   animation: bg_scrolling 8s infinite linear; 
+}
+
+.product_wrapper {
+  margin-top: 50px;
+  border: red solid 1px;
+  height: 320px;
+  width: calc(100% - 50px);
+  background-image: $white_fading;
+  padding: 20px;
+  border: 1px solid rgba(94, 61, 2, 0.507);
+  border-width: 1px 1px 6px 1px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img.product_image {
+    background-image: white;
+    border-radius: 8px;
+    height: 100%;
+    width: auto;
+    border: 1px solid rgba(94, 61, 2, 0.507);
+  }
+
+  .product_info {
+    border: 1px solid red;
+    flex: 1;
+    padding: 0 20px;
+    height: 100%;
+  }
+
+  .rating {
+    margin: 0 0 0 auto;
+    width: 150px;
+    border: 1px solid red;
+  }
 }
 
 .profile_preview {
