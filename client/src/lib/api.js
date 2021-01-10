@@ -7,7 +7,7 @@ export function getItems() {
   return axios.get(`${baseUrl}/items`)
 }
 
-export function getItem(id) {
+export function getSingleItem(id) {
   return axios.get(`${baseUrl}/items/${id}`)
 }
 

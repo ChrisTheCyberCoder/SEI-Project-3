@@ -55,7 +55,7 @@ function PokeCardHome({ title, image, price, rating }){
     </>  
   )
 }
-  
+
 export default PokeCardHome
 
 
