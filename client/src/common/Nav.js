@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-function Nav() {
+function Nav({ search, categoryFilter }) {
   const history = useHistory()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
@@ -19,7 +19,7 @@ function Nav() {
   const handleInput = e =>{
     setSearchCriteria(e.target.value)
   }
-  
+
   const handleSubmit = e =>{
     e.preventDefault()
     history.push('/pokeindex')
@@ -38,10 +38,10 @@ function Nav() {
     setCategoryWidth(textLength + 30) 
   }
   //* this function resizes select's width
+
+
+  //! note, value is deliberately spelt with capitals to get the correct string width  
   
-
-  //! note, value is deliberately spelt with capitals to get the correct string width
-
   return (
     <div className="nav">
       <Link to="/" className="logo">
@@ -54,7 +54,10 @@ function Nav() {
         >
           <select 
             style={{ width: `${categoryWidth}px` }}
-            onChange={handleSelect}
+            onChange={()=>{
+              categoryFilter()
+              handleSelect()
+            }}
             value={category}
           >
             <option value="All">All</option>
@@ -78,7 +81,11 @@ function Nav() {
           </select>  
           <input 
             style={{ width: `${searchWidth}` }}
-            onChange={handleInput}
+            onChange={()=>{
+              search()
+              handleInput()
+            }}
+            type="text"
             value={searchCriteria}
           />
           <button>
@@ -126,8 +133,6 @@ function Nav() {
         </Link>
       </div>  
     </div>
-
-
   )
 }
 
