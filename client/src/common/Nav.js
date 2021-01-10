@@ -1,28 +1,40 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
-function Nav({ search, categoryFilter, selectedCategory }) {
+function Nav() {
+  const history = useHistory()
+  const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
-  const history = useHistory()
-  const [isLoggedIn] = React.useState(false)
-  
   const searchWidth = `calc(100% - ${categoryWidth}px)`
+  const [isLoggedIn] = React.useState(false)
+
   const username = 'Pokebros'
 
   const handleSelect = e =>{
     resizeCategoryWidth(e)
-    // setCategory(e.target.value)
+    setCategory(e.target.value)
   }
 
   const handleInput = e =>{
     setSearchCriteria(e.target.value)
   }
 
+ 
+  
   const handleSubmit = e =>{
     e.preventDefault()
-    history.push('/pokeindex')
+    // if (!searchCriteria) return
+
+    let chosenCategory = category.toLowerCase()
+    if (!category) chosenCategory = 'all'
+
+    let chosenSearchCriteria = searchCriteria.toLowerCase()
+    if (!searchCriteria) chosenSearchCriteria = '0'
+
+    history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`)
+  
+    // window.alert(`search ${searchCriteria} within ${category.toLowerCase()}`)
   }
 
   const resizeCategoryWidth = e => {
@@ -32,15 +44,14 @@ function Nav({ search, categoryFilter, selectedCategory }) {
       else if (letter === '&') textLength  -= 7
       else textLength += 9
     })
-    // console.log(textLength + 30)
-    // const value = (e.target.value.replace('i','').replace('r','').length * 10 + 20) > 190 ? 190 : (e.target.value.replace('i','').length * 10 + 20)
+  
     setCategoryWidth(textLength + 30) 
   }
   //* this function resizes select's width
-
-
-  //! note, value is deliberately spelt with capitals to get the correct string width  
   
+
+  //! note, value is deliberately spelt with capitals to get the correct string width
+
   return (
     <div className="nav">
       <Link to="/" className="logo">
@@ -53,38 +64,31 @@ function Nav({ search, categoryFilter, selectedCategory }) {
         >
           <select 
             style={{ width: `${categoryWidth}px` }}
-            onChange={()=>{
-              categoryFilter()
-              handleSelect()
-            }}
-            value={selectedCategory}
+            onChange={handleSelect}
+            value={category}
           >
-            <option value="all">All</option>
-            <option value="standard-balls">Pokeballs</option>
-            <option value="medicine">Medicine</option>
-            <option value="food &amp; drink">Food &amp; Drink</option>
-            <option value="vitamins">Vitamins</option>
-            <option value="adventure &amp; outdoors">Adventure &amp; Outdoors</option>
-            <option value="musical instruments">Musical Instruments</option>
-            <option value="evolution">Evolution</option>
-            <option value="treasure">Treasure</option>
-            <option value="gardening">Gardening</option>
-            <option value="fossil">Fossil</option>
-            <option value="stationary">Stationary</option>
-            <option value="berries &amp; apricorns">Berries &amp; Apricorns</option>
-            <option value="battle items">Battle Items</option>
-            <option value="training">Training</option>
-            <option value="potions">Potions</option>
-            <option value="clothing">Clothing</option>
-            <option value="jewels">Jewels</option>
+            <option value="All">All</option>
+            <option value="Pokeballs">Pokeballs</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Food &amp; Drink">Food &amp; Drink</option>
+            <option value="Vitamins">Vitamins</option>
+            <option value="Adventure &amp; Outdoors">Adventure &amp; Outdoors</option>
+            <option value="Musical Instruments">Musical Instruments</option>
+            <option value="Evolution">Evolution</option>
+            <option value="Treasure">Treasure</option>
+            <option value="Gardening">Gardening</option>
+            <option value="Fossil">Fossil</option>
+            <option value="Stationary">Stationary</option>
+            <option value="Berries &amp; apricorns">Berries &amp; Apricorns</option>
+            <option value="Battle Items">Battle Items</option>
+            <option value="Training">Training</option>
+            <option value="Potions">Potions</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Jewels">Jewels</option>
           </select>  
           <input 
             style={{ width: `${searchWidth}` }}
-            onChange={()=>{
-              search()
-              handleInput()
-            }}
-            type="text"
+            onChange={handleInput}
             value={searchCriteria}
           />
           <button>
@@ -98,13 +102,13 @@ function Nav({ search, categoryFilter, selectedCategory }) {
             <>
               <Link to="/pokeregister">
                 <button>
-                  <img className= "pokeball" src="../assets/pokeball_grey.svg" alt="pokeball" /> register
+                  <img className= "pokeball" src="../assets/pokeball_grey.svg" alt="pokeball" /> Register
                 </button>
               </Link>
               <Link to="/pokelogin">
                 <button>
                   <img className= "pika" src="../assets/pika_face_icon.svg" alt="pikachu" /> 
-                login
+                Login
                 </button>
               </Link>
             </>
@@ -114,9 +118,11 @@ function Nav({ search, categoryFilter, selectedCategory }) {
                 <div className="user_greeting">
                   Hello {username}!
                 </div>  
-                <div className="profile_image">
-                  <img src="../assets/test_profile_image.jpg" alt="user profile image" />
-                </div> 
+                <Link to="/pokepurchased">
+                  <div className="profile_image">
+                    <img src="../assets/test_profile_image.jpg" alt="user profile image" />
+                  </div> 
+                </Link>
               </div>
             </>
         }
@@ -130,6 +136,8 @@ function Nav({ search, categoryFilter, selectedCategory }) {
         </Link>
       </div>  
     </div>
+
+
   )
 }
 
