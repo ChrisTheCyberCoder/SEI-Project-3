@@ -17,7 +17,6 @@ import PokeIndex from './PokeComponents/PokeIndex'
 function App() {
 
   return (
-
     <BrowserRouter>
       <Nav />
       <Switch>
@@ -32,9 +31,7 @@ function App() {
         <Route exact path="/pokeshow" component={PokeShow} />
       </Switch>
     </BrowserRouter>
-
   )
-
 }
 
 export default App
