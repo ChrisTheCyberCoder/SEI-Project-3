@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getSingleItem, getItems } from '../lib/api'
 
 function PokeShow() {
@@ -51,19 +51,20 @@ function PokeShow() {
     }
   }
 
-  console.log(filteredItems)
+  // console.log(filteredItems)
   // if (id) console.log('id',id)
 
   function addToBasket(e){
     e.preventDefault()
     if (itemQty < 1) return
-    // console.log(`add qty of ${itemQty} item id ${id} to the basket`)
+    console.log(`add qty of ${itemQty} item id ${id} to the basket`)
   }
 
   function itemRating(n){
     // console.log('n',n)
     const rating = []
-    for (let i = 0; i < n; i++) rating.push('star') 
+    for (let a = 0; a < n; a++) rating.push('star') 
+    for (let b = 0; b < (5 - n); b++) rating.push('blank') 
     // console.log('test',rating)
     return rating
   }
@@ -71,12 +72,16 @@ function PokeShow() {
   function mapStars(rating){
     let starId = 0
     //* may need to call this outside function if this function get's used number of times
-    return rating.map(()=>{
+    const staryus = rating.map((ele)=>{
       starId ++
       return (
-        <img key={starId} src="../assets/staryu.svg" alt="staryu" />
+        ele === 'star' ?
+          <img className="staryu" key={starId} src="../assets/staryu.svg" alt="staryu" />
+          :
+          <img key={starId} src="../assets/blank_star.svg" alt="blank star" />
       )
     })
+    return staryus
   }
   
   return (
@@ -115,17 +120,22 @@ function PokeShow() {
               <div className="inner_wrapper">
                 {filteredItems.map(item=>{
                   return (
-                    <div className="similar_items" key={item.name}>
-                      {item.name}
-                      <img src={item.image} alt={item.name} />
-                      <div>
-                        <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
-                        {item.price}
-                      </div>
-                    </div>  
+                    <>
+                      <Link to={`/pokeshow/${item._id}`}>
+                        <div className="similar_items" key={item.name}>
+                          {item.name}
+                          <img src={item.image} alt={item.name} />
+                          <div>
+                            <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
+                            {item.price}
+                          </div>
+                        </div>  
+                      </Link>
+                    </>
                   )
                 })}
               </div>
+              
               :
               <p>loading</p>
             }
