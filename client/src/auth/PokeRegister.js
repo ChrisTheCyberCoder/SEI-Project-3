@@ -43,7 +43,7 @@ function PokeRegister() {
 
   return (
     <section className="page_wrapper">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="float_up">
         <div className="input_box">
           <label>Username</label>
           <input 
@@ -52,6 +52,8 @@ function PokeRegister() {
             onChange={handleChange}
             value={formdata.username}
           />
+          <p>error message will look like this</p>
+          {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="input_box">
           <label>Email</label>
