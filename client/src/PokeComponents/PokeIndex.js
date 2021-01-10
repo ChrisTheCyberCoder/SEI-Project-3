@@ -19,6 +19,8 @@ function PokeIndex() {
     getData()
   }, [])
 
+
+
   return (
     <section className="">
       <div className="">

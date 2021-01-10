@@ -16,8 +16,10 @@ import { getItems } from '../lib/api'
 function PokeCardHome({ title, image, price, rating }){
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  console.log(items)
-  console.log(hasError)
+  // console.log(items)
+  console.log('error', hasError)
+  
+  if (items) console.log('items',items)
 
   React.useEffect(() => {
     const getData = async () => {

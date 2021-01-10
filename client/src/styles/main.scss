@@ -17,7 +17,6 @@ p, h1, h2, h3, h4 {
 }
 
 
-
 * {
   box-sizing: border-box;
 }
@@ -29,6 +28,21 @@ body {
   background-color: $light_color;
   background: url(https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610241445/pokezon/background.png) repeat 0 0;
   animation: bg_scrolling 8s infinite linear; 
+}
+
+.profile_preview {
+
+  display: flex;
+  justify-content: center;
+
+  div {
+    border: $orange solid 1px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+
 }
 
 @keyframes bg_scrolling {
@@ -44,10 +58,10 @@ body {
 
 @keyframes float_up {
   0% { transform: scale(1); margin-top: 200vh;}
-  70% { transform: scale(1.04,0.96); margin-top: 50px;}
-  80% { transform: scale(0.96,1.04); margin-top: 100px;}
+  70% { transform: scale(1.04,0.96); margin-top: 30px;}
+  80% { transform: scale(0.96,1.04); margin-top: 50px;}
   90% { transform: scale(1.04,0.96); }
-  100% { transform: scale(1); margin-top: 100px;}
+  100% { transform: scale(1); margin-top: 50px;}
 }
 
 
@@ -68,7 +82,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     font-family: $main_font;
-    margin-top: 100px;
+    margin-top: 50px;
 
     p {
       padding: 0 20px;
@@ -223,8 +237,6 @@ body {
     } 
 
   }
-
- 
 }
 
 .input_box {
@@ -248,7 +260,6 @@ body {
 }
 
 .logo {
-
   position: absolute;
   left: 0;
   height: 55%;

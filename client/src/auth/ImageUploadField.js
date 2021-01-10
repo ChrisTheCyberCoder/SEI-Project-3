@@ -28,8 +28,8 @@ function ImageUploadField( { value, name, onChange } ) {
   return (
     <>
       {value ?
-        <div>
-          <div style={{ width: '300px' }}>
+        <div className="profile_preview">
+          <div>
             <img src={value} alt="profileImage" style={{ width: '100%', height: 'auto' }}/>
           </div>
         </div>
