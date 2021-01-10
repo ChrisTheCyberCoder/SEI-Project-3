@@ -62,7 +62,7 @@ function PokeShow() {
               <p><img src="../assets/poke_dollar.svg" alt="pokedollar sign" />price {item.price}</p>
               <p>description {item.description}</p>
               <button>
-                <img src="../assets/pokeball_grey.svg" alt="add review" /> comment
+                <img src="../assets/speech_bubble.svg" alt="speech bubble" /> comment
               </button>
             </div>
             <form className="buy_wrapper" onSubmit={addToBasket}>

@@ -82,6 +82,23 @@ body {
     border-radius: 8px;
     width: 400px;
     margin-left: 20px;
+
+    button {
+      border: 0;
+      border-radius: 20px;
+      padding: 8px 12px 8px 10px;
+      display: flex;
+      align-items: center;
+      background-color: $orange;
+      transition: 0.3s;
+      cursor: pointer;
+  
+      img {
+        margin-right: 5px;
+        height: 20px;
+        width: auto;
+      }
+    }
   }
 
   .rating {
