@@ -2,35 +2,45 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-function Nav({ search, categoryFilter }) {
-  // const [categoryWidth, setCategoryWidth] = React.useState(50)
-  // const searchWidth = 500 - categoryWidth
+function Nav({ search, categoryFilter, selectedCategory }) {
+  const [searchCriteria, setSearchCriteria] = React.useState('')
+  const [categoryWidth, setCategoryWidth] = React.useState(50)
   const history = useHistory()
   const [isLoggedIn] = React.useState(false)
-
+  
+  const searchWidth = `calc(100% - ${categoryWidth}px)`
   const username = 'Pokebros'
 
-  // const handleSelect = e =>{
-  //   resizeCategoryWidth(e)
-  //   setCategory(e.target.value)
-  // }
+  const handleSelect = e =>{
+    resizeCategoryWidth(e)
+    // setCategory(e.target.value)
+  }
 
-  // const handleInput = e =>{
-  //   setSearchCriteria(e.target.value)
-  // }
+  const handleInput = e =>{
+    setSearchCriteria(e.target.value)
+  }
+
   const handleSubmit = e =>{
     e.preventDefault()
     history.push('/pokeindex')
   }
 
-  // const resizeCategoryWidth = e => {
-  //   const value = (e.target.value.replace('i','').replace('r','').length * 10 + 20) > 190 ? 190 : (e.target.value.replace('i','').length * 10 + 20)
-  //   setCategoryWidth(value) 
-  // }
-  // conside refactoring this syntax (standardise function syntax)
-  //* this function resizes select's width 3
+  const resizeCategoryWidth = e => {
+    let textLength = 0
+    e.target.value.split('').forEach(letter=>{
+      if (letter === 'I' || letter === 'i' || letter === 'j' || letter === 'l' || letter === 't' || letter === 'r' ) textLength += 5
+      else if (letter === '&') textLength  -= 7
+      else textLength += 9
+    })
+    // console.log(textLength + 30)
+    // const value = (e.target.value.replace('i','').replace('r','').length * 10 + 20) > 190 ? 190 : (e.target.value.replace('i','').length * 10 + 20)
+    setCategoryWidth(textLength + 30) 
+  }
+  //* this function resizes select's width
 
 
+  //! note, value is deliberately spelt with capitals to get the correct string width  
+  
   return (
     <div className="nav">
       <Link to="/" className="logo">
@@ -42,9 +52,12 @@ function Nav({ search, categoryFilter }) {
           onSubmit={handleSubmit}
         >
           <select 
-            // style={{ width: `${categoryWidth}px` }}
-            onChange={categoryFilter}
-            // value={category}
+            style={{ width: `${categoryWidth}px` }}
+            onChange={()=>{
+              categoryFilter()
+              handleSelect()
+            }}
+            value={selectedCategory}
           >
             <option value="all">All</option>
             <option value="standard-balls">Pokeballs</option>
@@ -66,10 +79,13 @@ function Nav({ search, categoryFilter }) {
             <option value="jewels">Jewels</option>
           </select>  
           <input 
-            // style={{ width: `${searchWidth}px` }}
-            onChange={search}
+            style={{ width: `${searchWidth}` }}
+            onChange={()=>{
+              search()
+              handleInput()
+            }}
             type="text"
-            // value={searchCriteria}
+            value={searchCriteria}
           />
           <button>
             <img src="../assets/search_icon.svg" alt="search icon" />
