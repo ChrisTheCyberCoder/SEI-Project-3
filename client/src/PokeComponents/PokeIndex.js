@@ -1,25 +1,29 @@
 import React from 'react'
-import { getItems } from '../lib/api'
+// import { getItems } from '../lib/api'
 
 import PokeCard from './PokeCardIndex'
 
-function PokeIndex() {
-  const [items, setItems] = React.useState(null)
-  const [hasError, setHasError] = React.useState(false)
+function PokeIndex({ items, category, searchValue }) {
+  // const [items, setItems] = React.useState(null)
+  // const [hasError, setHasError] = React.useState(false)
 
-  React.useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await getItems()
-        setItems(data)
-      } catch (err) {
-        setHasError(true)
-      }
-    }
-    getData()
-  }, [])
+  // React.useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       // const { data } = await getItems()
+  //       setItems(selected)
+  //       console.log('pokedexselected:', selected)
+  //       console.log('pokedexitems:', items)
+  //     } catch (err) {
+  //       setHasError(true)
+  //     }
+  //   }
+  //   getData()
+  // }, [selected])
 
-
+  console.log('PokeIndex items:', items)
+  console.log('PokeIndex category:', category)
+  console.log('PokeIndex searchValue:', searchValue)
 
   return (
     <section className="">
@@ -32,7 +36,8 @@ function PokeIndex() {
           </div>
           :
           <h2 className="">
-            {hasError ? 'Error' : 'loading'}
+            error
+            {/* {hasError ? 'Error' : 'loading'} */}
           </h2>
         }
       </div>

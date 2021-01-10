@@ -1,45 +1,320 @@
 export default [
 {
     name: 'master-ball',
-    stock: 5,
+    stock: 10,
     description: `Catches a wild Pokémon every time.`,
-    price: 1500,
-    category: 'standard-balls',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208774/pokezon/master-ball.png'
+    price: 0,
+    category: 'pokeballs',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
 },
 {
     name: 'ultra-ball',
     stock: 10,
     description: `Tries to catch a wild Pokémon. Success rate is 2×.`,
     price: 800,
-    category: 'standard-balls',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208871/pokezon/ultra-ball.png'
-},
-{
-    name: 'great-ball',
-    stock: 1,
-    description: `Tries to catch a wild Pokémon. Success rate is 1.5×.`,
-    price: 600,
-    category: 'standard-balls',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208893/pokezon/great-ball.png'
-},
-{
-    name: 'poke-ball',
-    stock: 2,
-    description: `Tries to catch a wild Pokémon.`,
-    price: 200,
-    category: 'standard-balls',
+    category: 'pokeballs',
     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
 },
 {
-    name: 'safari-ball',
-    stock: 3,
-    description: `Tries to catch a wild Pokémon in the Great Marsh or Safari Zone. Success rate is 1.5×.`,
-    price: 250,
-    category: 'standard-balls',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208922/pokezon/safari-ball.png'
+    name: 'potion',
+    stock: 10,
+    description: `Restores 20 HP.`,
+    price: 200,
+    category: 'medicine',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'antidote',
+    stock: 10,
+    description: `Cures poison.`,
+    price: 200,
+    category: 'medicine',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'fresh-water',
+    stock: 10,
+    description: `Restores 50 HP.`,
+    price: 200,
+    category: 'food & drink',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'soda-pop',
+    stock: 10,
+    description: `Restores 60 HP.`,
+    price: 300,
+    category: 'food & drink',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'hp-up',
+    stock: 10,
+    description: `Raises HP effort and happiness.`,
+    price: 10000,
+    category: 'vitamins',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'protein',
+    stock: 10,
+    description: `Raises Attack effort and happiness.`,
+    price: 10000,
+    category: 'vitamins',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'poke-doll',
+    stock: 10,
+    description: `Ends a wild battle.`,
+    price: 100,
+    category: 'adventure & outdoors',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'fluffy-tail',
+    stock: 10,
+    description: `Ends a wild battle.`,
+    price: 100,
+    category: 'adventure & outdoors',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'blue-flute',
+    stock: 10,
+    description: `Cures sleep.`,
+    price: 20,
+    category: 'musical instruments',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'yellow-flute',
+    stock: 10,
+    description: `Cures confusion.`,
+    price: 20,
+    category: 'musical instruments',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'sun-stone',
+    stock: 10,
+    description: `Evolves a Cottonee into Whimsicott, a Gloom into Bellossom, a Petilil into Lilligant, or a Sunkern into Sunflora.`,
+    price: 3000,
+    category: 'evolution',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'moon-stone',
+    stock: 10,
+    description: `Evolves a Clefairy into Clefable, a Jigglypuff into Wigglytuff, a Munna into Musharna, a Nidorina into Nidoqueen, a Nidorino into Nidoking, or a Skitty into Delcatty.`,
+    price: 3000,
+    category: 'evolution',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'tiny-mushroom',
+    stock: 10,
+    description: `Fire Red and Leaf Green: Trade two for prior Level-up moves. Sell for 250 Pokédollars, or to Hungry Maid for 500 Pokédollars.`,
+    price: 500,
+    category: 'treasure',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'big-mushroom',
+    stock: 10,
+    description: `Fire Red and Leaf Green: Trade for prior Level-up moves. Sell for 2500 Pokédollars, or to Hungry Maid for 5000 Pokédollars.`,
+    price: 5000,
+    category: 'treasure',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'growth-mulch',
+    stock: 10,
+    description: `Growing time of berries is reduced, but the soil dries out faster.`,
+    price: 200,
+    category: 'gardening',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'damp-mulch',
+    stock: 10,
+    description: `Growing time of berries is increased, but the soil dries out slower.`,
+    price: 200,
+    category: 'gardening',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'root-fossil',
+    stock: 10,
+    description: `Can be revived into a Lileep.`,
+    price: 7000,
+    category: 'fossil',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'claw-fossil',
+    stock: 10,
+    description: `Can be revived into an Anorith.`,
+    price: 7000,
+    category: 'fossil',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'grass-mail',
+    stock: 10,
+    description: `Lets a Trainer write a message and send it via Pokémon trade.`,
+    price: 50,
+    category: 'stationary',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'flame-mail',
+    stock: 10,
+    description: `Lets a Trainer write a message and send it via Pokémon trade.`,
+    price: 50,
+    category: 'stationary',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'cheri-berry',
+    stock: 10,
+    description: `Held: Consumed when paralyzed to cure paralysis.`,
+    price: 20,
+    category: 'berries & apricorns',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'chesto-berry',
+    stock: 10,
+    description: `Held: Consumed when asleep to cure sleep.`,
+    price: 20,
+    category: 'berries & apricorns',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'bright-powder',
+    stock: 10,
+    description: `Increases the holder's evasion by 1/9 (11 1/9%).`,
+    price: 4000,
+    category: 'battle items',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'macho-brace',
+    stock: 10,
+    description: `Held: Holder gains double effort values from battles, but has halved Speed in battle.`,
+    price: 3000,
+    category: 'training',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'exp-share',
+    stock: 10,
+    description: `Held: Half the experience from a battle is split between Pokémon holding this item.`,
+    price: 0,
+    category: 'training',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'quick-claw',
+    stock: 10,
+    description: `Holder has a 3/16 (18.75%) chance to move first.`,
+    price: 4000,
+    category: 'battle items',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'choice-band',
+    stock: 10,
+    description: `Held: Increases Attack by 50%, but restricts the holder to only one move.`,
+    price: 4000,
+    category: 'potions',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'silk-scarf',
+    stock: 10,
+    description: `Held: Normal-Type moves from holder do 20% more damage.`,
+    price: 1000,
+    category: 'clothing',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'red-scarf',
+    stock: 10,
+    description: `Raises the holder's Coolness while in a contest.`,
+    price: 100,
+    category: 'clothing',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'choice-scarf',
+    stock: 10,
+    description: `Held: Increases Speed by 50%, but restricts the holder to only one move.`,
+    price: 4000,
+    category: 'potions',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.pngd'
+},
+{
+    name: 'fire-gem',
+    stock: 10,
+    description: `Held: When the holder uses a damaging []{type:fire}-type move, the move has 1.5× power and this item is consumed.`,
+    price: 200,
+    category: 'jewels',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+},
+{
+    name: 'water-gem',
+    stock: 10,
+    description: `Held: When the holder uses a damaging []{type:water}-type move, the move has 1.5× power and this item is consumed.`,
+    price: 200,
+    category: 'jewels',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
 }
 ]
+
+
+// {
+//     name: 'master-ball',
+//     stock: 5,
+//     description: `Catches a wild Pokémon every time.`,
+//     price: 1500,
+//     category: 'standard-balls',
+//     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208774/pokezon/master-ball.png'
+// },
+// {
+//     name: 'ultra-ball',
+//     stock: 10,
+//     description: `Tries to catch a wild Pokémon. Success rate is 2×.`,
+//     price: 800,
+//     category: 'standard-balls',
+//     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208871/pokezon/ultra-ball.png'
+// },
+// {
+//     name: 'great-ball',
+//     stock: 1,
+//     description: `Tries to catch a wild Pokémon. Success rate is 1.5×.`,
+//     price: 600,
+//     category: 'standard-balls',
+//     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208893/pokezon/great-ball.png'
+// },
+// {
+//     name: 'poke-ball',
+//     stock: 2,
+//     description: `Tries to catch a wild Pokémon.`,
+//     price: 200,
+//     category: 'standard-balls',
+//     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
+// },
+// {
+//     name: 'safari-ball',
+//     stock: 3,
+//     description: `Tries to catch a wild Pokémon in the Great Marsh or Safari Zone. Success rate is 1.5×.`,
+//     price: 250,
+//     category: 'standard-balls',
+//     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208922/pokezon/safari-ball.png'
+// }
+
 // {
 //     name: 'net-ball',
 //     stock: 10,
