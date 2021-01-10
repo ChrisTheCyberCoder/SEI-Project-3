@@ -4,6 +4,7 @@ import logger from './lib/logger.js'
 import { port } from './config/environment.js'
 import connectToDatabase from './lib/connectToDb.js'
 import router from './config/router.js'
+import errorHandler from './lib/errorHandler.js'
 
 const app = express()
 
@@ -19,6 +20,8 @@ async function startServer() {
     app.use('/api', router)
 
     //error handler needed here
+
+    app.use(errorHandler)
 
     app.listen(port, () => console.log(`Up and running on port ${port}`))
   } catch (err) {
