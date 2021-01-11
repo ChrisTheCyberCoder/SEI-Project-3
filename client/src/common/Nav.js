@@ -31,12 +31,15 @@ function Nav() {
   }
 
   const resizeCategoryWidth = e => {
+    const thinLetters = ['I','i','j','l','t','r']
     let textLength = 0
     e.target.value.split('').forEach(letter=>{
-      if (letter === 'I' || letter === 'i' || letter === 'j' || letter === 'l' || letter === 't' || letter === 'r' ) textLength += 5
+      if (thinLetters.indexOf(letter) !== -1) textLength += 5
       else if (letter === '&') textLength  -= 7
       else textLength += 9
     })
+
+    
   
     setCategoryWidth(textLength + 30) 
   }

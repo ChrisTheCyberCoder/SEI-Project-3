@@ -40,6 +40,7 @@ function PokeIndex() {
     })
   }
 
+
   if (items) filteredItems = filterItems(items)
   // console.log('PokeIndex items:', items)
   // console.log('PokeIndex category:', category)

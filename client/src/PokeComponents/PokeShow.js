@@ -8,6 +8,7 @@ function PokeShow() {
   const [ item, setItem] = React.useState(null)
   const [ items, setItems ] = React.useState(null)
   const [ itemQty, setItemQty ] = React.useState(null)
+  let starId = 0
   
   //* get single item
   React.useEffect(() => {
@@ -70,8 +71,6 @@ function PokeShow() {
   }
 
   function mapStars(rating){
-    let starId = 0
-    //* may need to call this outside function if this function get's used number of times
     const staryus = rating.map((ele)=>{
       starId ++
       return (
