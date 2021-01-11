@@ -253,7 +253,7 @@ export default [
     description: `Held: Increases Speed by 50%, but restricts the holder to only one move.`,
     price: 4000,
     category: 'potions',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.pngd'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610208915/pokezon/poke-ball.png'
 },
 {
     name: 'fire-gem',

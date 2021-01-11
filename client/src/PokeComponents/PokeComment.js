@@ -1,7 +1,6 @@
 import React from 'react'
-import { getToken } from '../auth/PokeLogin.js'
-import { useHistory } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { getToken } from '../lib/auth'
+import { useHistory,useParams  } from 'react-router-dom'
 import axios from 'axios'
 
 function PokeComment() {

@@ -1,11 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
-export function getToken() {
-  return window.localStorage.getItem('token')
-}
+// export function getToken() {
+//   return window.localStorage.getItem('token')
+// }
 
 function PokeLogin() {
 
@@ -41,6 +40,7 @@ function PokeLogin() {
 
       setToken(data.token)
       history.push('/')
+      window.location.reload()
 
     } catch (err) {
       console.log(err)
@@ -61,9 +61,9 @@ function PokeLogin() {
   
 
   return (
-    <section>
+    <section className="page_wrapper">
       { ranOutOfAttempts ? 
-        <div>
+        <div >
           <h1>As a Security Precaution, you will no longer be able to access this account for awhile</h1> 
           <Link to={'/'}>
             <button>Home</button> 
@@ -71,12 +71,11 @@ function PokeLogin() {
         </div>
 
         : 
-       
         <>
           { loadfailure ? <h1>We do apologise, the server is down</h1> : null }
           <h1>{error}</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
+          <form onSubmit={handleSubmit} className="float_up">
+            <div className="input_box">
               <label>Email</label>
               <input 
                 placeholder="Email"
@@ -85,7 +84,7 @@ function PokeLogin() {
                 value={formdata.email}
               />
             </div>
-            <div>
+            <div className="input_box">
               <label>Password</label>
               <input 
                 type="password" 
@@ -96,8 +95,11 @@ function PokeLogin() {
               />
             
             </div>
-            <div>
-              <button type="submit">Log Me In!</button>
+            <div className="button_wrapper">
+              <button type="submit">
+                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+                Log Me In!
+              </button>
             </div>
           </form>
         </>}

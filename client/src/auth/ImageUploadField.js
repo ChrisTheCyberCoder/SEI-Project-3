@@ -27,30 +27,26 @@ function ImageUploadField( { value, name, onChange } ) {
 
   return (
     <>
-      {value ?
-        <div className="profile_preview">
-          <div>
-            <img src={value} alt="profileImage" style={{ width: '100%', height: 'auto' }}/>
-          </div>
+      <div className="profile_preview">
+        <div>
+          <img src={value} alt="profileImage" style={{ width: '100%', height: 'auto' }}/>
         </div>
-        :
-        <>
-          <div className="input_wrapper" onMouseEnter={handleHover} onMouseLeave={handleHover}>
-            <label className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
-              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-              Upload Image
-            </label>
-            <input
-              id="upload"
-              className="input"
-              type="file"
-              accept="jpg"
-              onChange={handleUpload}
-              name={name}
-            />
-          </div>  
-        </>  
-      }
+      </div>
+      <div className="upload_button_wrapper">
+        <div className="input_wrapper" onMouseEnter={handleHover} onMouseLeave={handleHover}>
+          <label className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
+            <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+              Upload Your Own Image
+          </label>
+          <input
+            id="upload"
+            type="file"
+            accept="jpg"
+            onChange={handleUpload}
+            name={name}
+          />
+        </div>  
+      </div>
     </>
   )
 }

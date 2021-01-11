@@ -1,13 +1,30 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { isAuthenticated, getPayload, logout } from '../lib/auth' //* get token
+
+
 
 function Nav() {
   const history = useHistory()
+  const isLoggedIn = isAuthenticated()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
   const searchWidth = `calc(100% - ${categoryWidth}px)`
-  const [isLoggedIn] = React.useState(false)
+  const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
+
+  function getUserId(){
+    const payload = getPayload()
+    if (!payload) return false
+    console.log( 'userId',payload.sub )
+  }  
+  getUserId()
+  
+  const handleLogout = () => {
+    logout()
+    history.push('/')
+    window.location.reload()
+  }
 
   const username = 'Pokebros'
 
@@ -28,6 +45,7 @@ function Nav() {
     const chosenCategory = category ? category.toLowerCase() : 'all'
     const chosenSearchCriteria = searchCriteria ? searchCriteria.toLowerCase() : '0'
     history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`) 
+    // window.location.reload()
   }
 
   const resizeCategoryWidth = e => {
@@ -45,6 +63,10 @@ function Nav() {
   }
   //* this function resizes select's width
   
+  function openUserMenu() {
+    console.log('test')
+    setuserMenuDisplay(!userMenuDisplay)
+  }
 
   //! note, value is deliberately spelt with capitals to get the correct string width
 
@@ -114,11 +136,15 @@ function Nav() {
                 <div className="user_greeting">
                   Hello {username}!
                 </div>  
-                <Link to="/pokepurchased">
-                  <div className="profile_image">
-                    <img src="../assets/test_profile_image.jpg" alt="user profile image" />
-                  </div> 
-                </Link>
+                <div className="profile_image" onClick={openUserMenu}>
+                  <img src="../assets/test_profile_image.jpg" alt="user profile image" />
+                </div> 
+                <div className={`user_menu ${userMenuDisplay && 'display'}`}>
+                  <button onClick={handleLogout} >
+                    <img src="../assets/pokeball_grey.svg" alt="pokeball" />
+                    Log out
+                  </button>  
+                </div>
               </div>
             </>
         }
