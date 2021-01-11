@@ -11,6 +11,7 @@ function PokeShow() {
   const [ item, setItem] = React.useState(null)
   const [ items, setItems ] = React.useState(null)
   const [ itemQty, setItemQty ] = React.useState(null)
+  const [commentToDelete, setCommentToDelete] = React.useState(null)
   let starId = 0
   
   //* get single item
@@ -91,11 +92,15 @@ function PokeShow() {
     console.log('delete button triggered')
     console.log(event.target.value)
 
+    
+
     const commentId = event.target.value 
 
 
     try {
       await deleteComment(id, commentId)
+      setCommentToDelete(event.target.value)
+      // window.location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -167,10 +172,10 @@ function PokeShow() {
           <div className="comments_wrapper">
             {!item ? '...Loading' : item.comments.map(comment => 
               <div key={comment._id}>
-                <div>{comment.text}</div>
-                <div>{comment.rating}</div>
-                <div>{comment.owner.username}</div>
-                <button value={comment._id} onClick={handleChangeDelete}>Delete</button>
+                {commentToDelete === comment._id ? null : <div>{comment.text}</div>}
+                {commentToDelete === comment._id ? null : <div>{comment.rating}</div>}
+                {commentToDelete === comment._id ? null : <div>{comment.owner.username}</div>}
+                {commentToDelete === comment._id ? null : <button value={comment._id} onClick={handleChangeDelete}>Delete</button>}
               </div>
             )}
           </div>
