@@ -92,7 +92,7 @@ function App() {
         {/* <Route exact path="/pokeindex" component={() => <PokeIndex items={selectedItems} category={selectedCategory} searchValue={searchCriteria}/>} /> */}
         <Route path="/pokeindex/:category/:searchCriteria" component={PokeIndex} />
         <Route exact path="/pokebasket" component={PokeBasket} />
-        <Route exact path="/pokecomment" component={PokeComment} />
+        <Route exact path="/pokecomment/:id" component={PokeComment} />
         <Route exact path="/pokepayment" component={PokePayment} />
         <Route exact path="/pokepurchased" component={PokePurchased} />
         <Route path="/pokeshow/:id" component={PokeShow} />
