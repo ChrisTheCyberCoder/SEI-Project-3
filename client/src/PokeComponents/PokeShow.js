@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { getSingleItem } from '../lib/api'
+import { Link } from 'react-router-dom'
 
 function PokeShow() {
   const { id } = useParams()
@@ -61,9 +62,11 @@ function PokeShow() {
               <p>{item.name}</p>
               <p><img src="../assets/poke_dollar.svg" alt="pokedollar sign" />price {item.price}</p>
               <p>description {item.description}</p>
-              <button>
-                <img src="../assets/speech_bubble.svg" alt="speech bubble" /> comment
-              </button>
+              <Link to={`/pokecomment/${id}`}>
+                <button>
+                  <img src="../assets/speech_bubble.svg" alt="speech bubble" /> comment
+                </button>
+              </Link>
             </div>
             <form className="buy_wrapper" onSubmit={addToBasket}>
               {item.stock ?

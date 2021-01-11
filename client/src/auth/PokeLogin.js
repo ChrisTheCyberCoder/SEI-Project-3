@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 export function getToken() {
-  return window.logcalStorage.getItem('token')
+  return window.localStorage.getItem('token')
 }
 
 function PokeLogin() {

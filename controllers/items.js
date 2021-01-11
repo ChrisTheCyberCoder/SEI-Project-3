@@ -68,6 +68,8 @@ async function itemDelete(req, res, next) {
 
 async function itemCommentCreate(req, res, next) {
   const { id } = req.params
+
+  console.log('backend id', id)
   try {
     const item = await Item.findById(id)
     if (!item) throw new Error(notFound)

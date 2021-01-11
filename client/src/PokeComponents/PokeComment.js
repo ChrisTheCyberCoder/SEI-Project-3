@@ -1,16 +1,22 @@
 import React from 'react'
 import { getToken } from '../auth/PokeLogin.js'
 import { useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
-
 function PokeComment() {
+
+  // ! Done
 
   // in the comment form we need to collect text and rating
   // we need to axios post 
   // it's a secure route, so we need a header and token. 
   // once comment made it needs to be display on item show
   // so once comment submitted go push history to comment show
+
+  const { id } = useParams()
+
+  console.log('this is the id', id)
 
   const history = useHistory()
 
@@ -32,9 +38,9 @@ function PokeComment() {
     try {
       const response = await createComment(formdata)
       console.log('the response', response)
-      history.push('/pokeshow')
+      history.push(`/pokeshow/${id}`)
     } catch (err) {
-      console.log('da error', err)
+      console.log('da error', err.response)
     }
   }
 
@@ -45,7 +51,7 @@ function PokeComment() {
   }
 
   function createComment(formdata) {
-    return axios.post('api/items/:id/comments', formdata, headers() )
+    return axios.post(`/api/items/${id}/comments`, formdata, headers() )
   }
 
   return (
