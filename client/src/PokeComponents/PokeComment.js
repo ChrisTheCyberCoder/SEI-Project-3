@@ -14,6 +14,8 @@ function PokeComment() {
   // once comment made it needs to be display on item show
   // so once comment submitted go push history to comment show
 
+  const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
+
   const { id } = useParams()
 
   console.log('this is the id', id)
@@ -41,6 +43,11 @@ function PokeComment() {
       history.push(`/pokeshow/${id}`)
     } catch (err) {
       console.log('da error', err.response)
+
+      if (err.response.data.errors) {
+        console.log('Rating way too high')
+        setRatingTooHigh(true)
+      }
     }
   }
 
@@ -56,9 +63,9 @@ function PokeComment() {
 
   return (
 
-    <section>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <section className="page_wrapper">
+      <form onSubmit={handleSubmit} className="float_up">
+        <div className="input_box">
           <label>Text</label>
           <input
             placeholder="Text"
@@ -67,7 +74,7 @@ function PokeComment() {
             value={formdata.text}
           />
         </div>
-        <div>
+        <div className="input_box">
           <label>Rating</label>
           <input
             placeholder="Rating"
@@ -75,8 +82,9 @@ function PokeComment() {
             onChange={handleChange}
             value={formdata.rating}
           />
+          { ratingTooHigh ? <p>Please rate from 1-5</p> : null }
         </div>
-        <div>
+        <div className="button_wrapper">
           <button type="submit">Make a Comment</button>
         </div>
       </form>

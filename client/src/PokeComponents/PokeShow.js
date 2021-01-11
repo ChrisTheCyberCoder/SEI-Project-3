@@ -1,6 +1,9 @@
+
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getSingleItem, getItems } from '../lib/api'
+import { deleteComment } from '../lib/api'
+
 
 function PokeShow() {
   const { id } = useParams()
@@ -82,7 +85,25 @@ function PokeShow() {
     })
     return staryus
   }
+
   
+  const handleChangeDelete = async event => {
+    console.log('delete button triggered')
+    console.log(event.target.value)
+
+    const commentId = event.target.value 
+
+
+    try {
+      await deleteComment(id, commentId)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  console.log(item)
+
+
   return (
     <div className="page_wrapper_column">
       { item ?
@@ -144,9 +165,19 @@ function PokeShow() {
           </div>  
 
           <div className="comments_wrapper">
-            comments
+            {!item ? '...Loading' : item.comments.map(comment => 
+              <div key={comment._id}>
+                <div>{comment.text}</div>
+                <div>{comment.rating}</div>
+                <div>{comment.owner.username}</div>
+                <button value={comment._id} onClick={handleChangeDelete}>Delete</button>
+              </div>
+            )}
+          </div>
+          
+          
 
-          </div>  
+            
         </>
         :
         hasError ? 

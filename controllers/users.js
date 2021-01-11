@@ -12,6 +12,23 @@ async function userIndex (_req, res, next) {
   }
 }
 
-export default {
-  userIndex: userIndex
+// Show single User
+
+async function userShow(req, res, next) {
+  const { id } = req.params
+  try {
+    const user = await User.findById(id) //.populate('comments.owner')
+    if (!user) throw new Error(notFound)
+    return res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
 }
+
+export default {
+  userIndex: userIndex,
+  userShow: userShow
+}
+
+
+

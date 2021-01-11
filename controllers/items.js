@@ -76,11 +76,18 @@ async function itemCommentCreate(req, res, next) {
     const newComment = { ...req.body, owner: req.currentUser._id }
     item.comments.push(newComment)
     await item.save()
-    return res.status(201).json(item)
+    return res.status(201).json(item) // Note to self: this was originally item, but need to change to only get the exact one that was created, since I need its id.
   } catch (err) {
     next(err)
   }
 }
+
+// I need to GET the item to delete first so that I know which one to delete
+// I need to set up a delete button on pokeshow, and I need the response to give me the specific item, and the specific id. 
+
+
+
+
 
 // delete comments
 

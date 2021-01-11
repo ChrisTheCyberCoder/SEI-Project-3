@@ -58,48 +58,61 @@ function PokeLogin() {
   function setToken(token) {
     window.localStorage.setItem('token', token)
   }
+
+  function loadFailure() {
+    if (loadfailure) {
+      return (
+        <>
+          <h1>We do apologise, the server is down</h1>
+          <Link to={'/'}>
+            <button>Home</button> {/*I would need this section to be styled*/}
+          </Link>
+        </>
+      )
+    } else {
+      return (
+        <form onSubmit={handleSubmit} className="float_up">
+          <div className="input_box">
+            <label>Email</label>
+            <input 
+              placeholder="Email"
+              onChange={handleChange}
+              name="email"
+              value={formdata.email}
+            />
+          </div>
+          <div className="input_box">
+            <label>Password</label>
+            <input 
+              type="password" 
+              placeholder="Password"
+              onChange={handleChange}
+              name="password"
+              value={formdata.password}
+            />
+            <p>{error}</p>
+          </div>
+          <div className="button_wrapper">
+            <button type="submit">Log Me In!</button>
+          </div>
+        </form>
+      )
+    }
+  }
   
 
   return (
-    <section>
+    <section className="page_wrapper">
       { ranOutOfAttempts ? 
         <div>
           <h1>As a Security Precaution, you will no longer be able to access this account for awhile</h1> 
           <Link to={'/'}>
-            <button>Home</button> 
+            <button>Home</button> {/*I would need this section to be styled*/}
           </Link>
         </div>
-
         : 
-       
         <>
-          { loadfailure ? <h1>We do apologise, the server is down</h1> : null }
-          <h1>{error}</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Email</label>
-              <input 
-                placeholder="Email"
-                onChange={handleChange}
-                name="email"
-                value={formdata.email}
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <input 
-                type="password" 
-                placeholder="Password"
-                onChange={handleChange}
-                name="password"
-                value={formdata.password}
-              />
-            
-            </div>
-            <div>
-              <button type="submit">Log Me In!</button>
-            </div>
-          </form>
+          {loadFailure()}
         </>}
     </section>
   )

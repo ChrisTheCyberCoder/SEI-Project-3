@@ -9,6 +9,9 @@ const router = express.Router()
 router.route('/users')
   .get(users.userIndex)
 
+router.route('/users/:id')
+  .get(users.userShow)
+
 router.route('/items')
   .get(items.index)
   .post(items.create)
