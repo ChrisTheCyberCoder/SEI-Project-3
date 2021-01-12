@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../auth/PokeLogin.js'
+import { getToken } from './auth.js'
 
 const baseUrl = '/api'
 
@@ -21,5 +21,6 @@ export function headers() {
 export function deleteComment(id, commentId) {
   return axios.delete(`/api/items/${id}/comments/${commentId}`, headers())
 }
+
 
 
