@@ -34,6 +34,48 @@ body {
   animation: bg_scrolling 4s infinite linear; 
 }
 
+
+.center_box {
+  position: absolute;
+  top: 55px;
+  margin: 0 auto;
+  height: calc(100vh - 55px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:rgba(165, 111, 11, 0.5);
+
+  img {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    margin-bottom: 100px;
+    left: 5%; /* half width of pika*/
+    transition: 1s;
+  }
+  
+}
+
+.bar {
+  margin-left:25px;
+  width: calc(100% - 50px);
+  height: 20px;
+  border-radius: 50px;
+  background-color: white;
+  overflow: hidden;
+} 
+
+.inside {
+  // position: absolute;
+  float: left;
+  width: 0%;
+  height: 50px;
+  background-color: rgb(122, 226, 122);
+  transition: 1s;
+  /* animation: load forwards 2s; */
+}
+
 .comments_wrapper {
   background-image: $white_fading;
   padding: 20px;
@@ -683,6 +725,7 @@ img.staryu {
   .user_greeting {
     font-size: 14px;
     color: white;
+    text-transform: capitalize;
   }
 
   .profile_image {

@@ -16,7 +16,7 @@ function PokePayment() {
             <p>Order Total :</p> <span>$14500.50</span>
           </div>
           <div>
-            <button className="button_wrapper" type="button">
+            <button className="button_wrapper_checkout" type="button">
               <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
               <p>Place Order</p>
             </button>

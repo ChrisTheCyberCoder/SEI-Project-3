@@ -93,7 +93,10 @@ function PokeLogin() {
             <p>{error}</p>
           </div>
           <div className="button_wrapper">
-            <button type="submit">Log Me In!</button>
+            <button type="submit">
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+              Log Me In!
+            </button>
           </div>
         </form>
       )
