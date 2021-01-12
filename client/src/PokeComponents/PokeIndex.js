@@ -116,4 +116,3 @@ function PokeIndex() {
 
 
 export default PokeIndex
-

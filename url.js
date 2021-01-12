@@ -1,3 +1,5 @@
+
+
 const db = [{
         "asset_id": "edf7c4cd5e122c625bb6fb1a405c7d5d",
         "public_id": "pokezon_db/yellow-scarf",
@@ -16248,3 +16250,5 @@ const db = [{
         "created_by": null,
         "uploaded_by": null
     }]
+
+    console.log(db.length)
