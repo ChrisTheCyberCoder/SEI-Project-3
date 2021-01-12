@@ -8,6 +8,8 @@ $input_background_color: rgb(252, 245, 235);
 $white_fading: linear-gradient(315deg,rgba(255, 255, 255, 0.37), white 60%,);
 $default_div_border: 1px solid rgba(94, 61, 2, 0.507);
 
+$ocean: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610403947/pokezon/ocean.png';
+$test_bg: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610241445/pokezon/background.png';
 
 p, h1, h2, h3, h4 {
   display: inline-block;
@@ -28,8 +30,8 @@ body {
   margin: 0;
   font-family: $main_font;
   background-color: $light_color;
-  background: url(https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610241445/pokezon/background.png) repeat 0 0;
-  animation: bg_scrolling 8s infinite linear; 
+  background: url($ocean) repeat 0 0;
+  animation: bg_scrolling 4s infinite linear; 
 }
 
 .comments_wrapper {
@@ -312,8 +314,8 @@ img.staryu {
 }
 
 @keyframes bg_scrolling {
-  0% { background-position: 0 100px; }
-  100% { background-position: 100px 0; }
+  0% { background-position: 0 20px; }
+  100% { background-position: 20px 0; }
 }
 
 .float_up {
