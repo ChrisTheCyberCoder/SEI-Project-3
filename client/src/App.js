@@ -13,6 +13,7 @@ import PokePayment from './PokeComponents/PokePayment'
 import PokePurchased from './PokeComponents/PokePurchased'
 import PokeShow from './PokeComponents/PokeShow'
 import PokeIndex from './PokeComponents/PokeIndex'
+import PokeConfirmation from './PokeComponents/PokeConfirmation'
 
 
 // import { getItems } from './lib/api'
@@ -96,6 +97,7 @@ function App() {
         <Route exact path="/pokepayment" component={PokePayment} />
         <Route exact path="/pokepurchased" component={PokePurchased} />
         <Route path="/pokeshow/:id" component={PokeShow} />
+        <Route path="/pokeconfirmation" component={PokeConfirmation} />
       </Switch>
     </BrowserRouter>
   )
