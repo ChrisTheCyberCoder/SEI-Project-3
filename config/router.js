@@ -9,8 +9,11 @@ const router = express.Router()
 router.route('/users')
   .get(users.userIndex)
 
-router.route('/users/:id')
+router.route('/users/:id') // use this just to help you code, debugging purposes. 
   .get(users.userShow)
+
+router.route('/userprofile') //use this one for profile as it checks they have a token // goes through secure route. 
+  .get(secureRoute, users.userProfile)
 
 router.route('/items')
   .get(items.index)

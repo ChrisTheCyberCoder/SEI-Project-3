@@ -5,7 +5,6 @@ export default [
     password: 'pass',
     passwordConfirmation: 'pass',
     image: 'imageurld',
-    username: "nidoking",
     address: "1 pokemon street",
     dob: '17/06/93'
   },
@@ -15,7 +14,6 @@ export default [
     password: 'pass',
     passwordConfirmation: 'pass',
     image: 'imageurls',
-    username: "charizard",
     address: "2 pokemon street",
     dob: '3973973'
   },
@@ -25,7 +23,6 @@ export default [
     password: 'pass',
     passwordConfirmation: 'pass',
     image: 'imageurld',
-    username: "pikachu",
     address: "3 pokemon street",
     dob: '3973973'
   }

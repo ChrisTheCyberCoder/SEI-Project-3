@@ -29,32 +29,55 @@ async function seedDatabase() {
       function randomGen() {
         return Math.floor(Math.random() * userData.length)
       }  
+      const randomCommentQuantityGen = Math.floor(Math.random() * 4)
+      const commentDatabase = ['very good', 'bad', 'rubbish', 'awful'] //this needs to be added. 
 
-      item.comments = {
-        text: "very good", //need to randomise the comments here using a randome generator // I need to randomise how many comments are posted to each item too. // Create a text database
-        rating: 2, // this needs to be randomised too, perhaps according to brands of pokemon. 
-        owner: users[randomGen()].id
+      function randomRatingGen() {
+        const randomGen = Math.floor(Math.random() * 5) 
+        return randomGen + 1
       }
 
-      //item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
-      
-      
+      function randomiseComments() {
+        const randomGen = Math.floor(Math.random() * commentDatabase.length)
+        return commentDatabase[randomGen]
+      }
+
+      if (randomCommentQuantityGen === 0) {
+          item.comments = [{
+            text: (randomiseComments()), 
+            rating: randomRatingGen(), 
+            owner: users[randomGen()].id
+          }]
+      } else if (randomCommentQuantityGen === 1) {
+          item.comments = [{
+            text: (randomiseComments()), 
+            rating: randomRatingGen(), 
+            owner: users[randomGen()].id
+          }]
+          item.comments.push({ text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id})
+      } else if (randomCommentQuantityGen === 2) {
+          item.comments = [{
+            text: (randomiseComments()), 
+            rating: randomRatingGen(), 
+            owner: users[randomGen()].id
+        }]
+          item.comments.push({ text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id})
+      } else if (randomCommentQuantityGen === 3) {
+          item.comments = [{
+            text: (randomiseComments()), 
+            rating: randomRatingGen(), 
+            owner: users[randomGen()].id
+      }]
+          item.comments.push({ text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id}, { text: (randomiseComments()), rating: randomRatingGen(), owner: users[randomGen()].id})
+      }
       return item 
     })
 
-    
-
     const items = await Item.create(itemsWithComments)
 
-    // const pushMoreComments = items.map(item => {
-    //   item.comments.push({ text: "awesome", rating: 1, owner: users[randomGen()].id})
-    // })
-
-    //push from here. 
     console.log(itemsWithComments)
 
     console.log(`🤖 ${items.length} items created`)
-
 
     await mongoose.connection.close()
 

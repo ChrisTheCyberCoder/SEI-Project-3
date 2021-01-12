@@ -13,6 +13,7 @@ import PokePayment from './PokeComponents/PokePayment'
 import PokePurchased from './PokeComponents/PokePurchased'
 import PokeShow from './PokeComponents/PokeShow'
 import PokeIndex from './PokeComponents/PokeIndex'
+import PokeProfile from './PokeComponents/PokeProfile'
 
 
 // import { getItems } from './lib/api'
@@ -89,6 +90,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/pokelogin" component={PokeLogin} />
         <Route exact path="/pokeregister" component={PokeRegister} />
+        <Route exact path="/pokeprofile" component={PokeProfile} />
         {/* <Route exact path="/pokeindex" component={() => <PokeIndex items={selectedItems} category={selectedCategory} searchValue={searchCriteria}/>} /> */}
         <Route path="/pokeindex/:category/:searchCriteria" component={PokeIndex} />
         <Route exact path="/pokebasket" component={PokeBasket} />

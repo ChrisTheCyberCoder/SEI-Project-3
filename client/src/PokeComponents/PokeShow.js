@@ -87,6 +87,11 @@ function PokeShow() {
     return staryus
   }
 
+  // if (commentToDelete) {
+  //   window.location.reload()
+  //   return
+  // }
+
   
   const handleChangeDelete = async event => {
     console.log('delete button triggered')
