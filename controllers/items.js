@@ -28,7 +28,7 @@ async function itemShow(req, res, next) {
   const { id } = req.params
   try {
     const item = await Item.findById(id).populate('comments.owner')
-    if (!item) throw new Error(notFound)
+    if (!item) throw new Error('notFound')
     return res.status(200).json(item)
   } catch (err) {
     next(err)

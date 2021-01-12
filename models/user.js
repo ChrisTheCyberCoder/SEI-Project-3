@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
   image: { type: String, required: true },
   address: { type: String, required: true }, 
   dob: { type: String, required: true },
-  basket: {type: Array}
+  basket: {type: Array},
+  basket1: {type: Array}
 })
 
 userSchema.virtual('passwordConfirmation')

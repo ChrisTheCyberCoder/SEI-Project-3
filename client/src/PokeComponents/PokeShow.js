@@ -1,8 +1,10 @@
-
+import axios from 'axios'
+// import { headers } from '../lib/api'
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getSingleItem, getItems } from '../lib/api'
 import { deleteComment } from '../lib/api'
+import { getPayload } from '../lib/auth'
 
 
 function PokeShow() {
@@ -20,6 +22,7 @@ function PokeShow() {
       try { 
         const { data } = await getSingleItem(id)
         setItem(data)
+        console.log(item) //chris added
       } catch (err) {
         setHasError(true)
         // console.log(err)
@@ -56,14 +59,86 @@ function PokeShow() {
     }
   }
 
-  // console.log(filteredItems)
-  // if (id) console.log('id',id)
+  console.log(filteredItems)
+  if (id) console.log('id',id)
 
-  function addToBasket(e){
+  //
+
+  // let userProfileData = null
+
+  // React.useEffect(() => {
+  //   const getData = async () => {
+  //     try { 
+  //       const { data } = await axios.get('api/userprofile', headers())
+        
+  //       //data.basket.push('5')
+  //       userProfileData = data
+  //       console.log('im looking for this', userProfileData)
+  //       console.log('data of the user', userProfileData)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
+  //   getData()
+
+  // }, [1])
+
+
+
+  const addToBasket = async e => {
     e.preventDefault()
     if (itemQty < 1) return
     console.log(`add qty of ${itemQty} item id ${id} to the basket`)
+
+    //input axios here. 
+
+    setFormData({ ...formdata })
+
+
+    try {
+      //const response = await axios.put(`/api/userprofile/${getUserId()}`, formdata)
+      const response = await axios.put(`/api/userprofile/${getUserId()}/basket`, formdata)
+      console.log('new updated profile', response)
+      console.log('it worked!')
+    } catch (err) {
+      console.log('Bloody error', err)
+    }
   }
+
+  function getUserId(){
+    const payload = getPayload()
+    if (!payload) return false
+    console.log( 'userId on pokeshow',payload.sub )
+    return payload.sub
+  }  
+  getUserId()
+
+  const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
+    // _id: `${getUserId()}`,
+
+    // basket1: 
+    //   {
+    //     item: `${id}`,
+    //     quantity: `${itemQty}`, 
+    //     wentthrough: 'test'
+    //     // price can be extracted from the item api 
+    //   }
+
+     
+    
+    item: `${id}`,
+    quantity: `${itemQty}`, 
+    wentthrough: 'test'
+    // price can be extracted from the item api 
+    
+
+  })
+
+  //note to self: if you reload page after stopping and starting the server it could lead to error because the id in url has changed. 
+
+  console.log('this is the form data', formdata)
+
+  //
 
   function itemRating(n){
     // console.log('n',n)
