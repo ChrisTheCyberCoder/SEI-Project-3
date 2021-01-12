@@ -1,13 +1,37 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { isAuthenticated, getPayload, logout } from '../lib/auth' //* get token
+
+import logo from '../assets/logo.svg'
+import searchIcon from '../assets/search_icon.svg'
+import pokeballGrey from '../assets/pokeball_grey.svg'
+import pikaFace from '../assets/pika_face_icon.svg'
+import testProfile from  '../assets/test_profile_image.jpg'
+import pokeballOrange from '../assets/pokeball_orange.svg'
+import basket from '../assets/basket.svg'
+
 
 function Nav() {
   const history = useHistory()
+  const isLoggedIn = isAuthenticated()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
   const searchWidth = `calc(100% - ${categoryWidth}px)`
-  const [isLoggedIn] = React.useState(false)
+  const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
+
+  function getUserId(){
+    const payload = getPayload()
+    if (!payload) return false
+    console.log( 'userId',payload.sub )
+  }  
+  getUserId()
+  
+  const handleLogout = () => {
+    logout()
+    history.push('/')
+    window.location.reload()
+  }
 
   const username = 'Pokebros'
 
@@ -28,6 +52,7 @@ function Nav() {
     const chosenCategory = category ? category.toLowerCase() : 'all'
     const chosenSearchCriteria = searchCriteria ? searchCriteria.toLowerCase() : '0'
     history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`) 
+    // window.location.reload()
   }
 
   const resizeCategoryWidth = e => {
@@ -45,13 +70,17 @@ function Nav() {
   }
   //* this function resizes select's width
   
+  function openUserMenu() {
+    console.log('test')
+    setuserMenuDisplay(!userMenuDisplay)
+  }
 
   //! note, value is deliberately spelt with capitals to get the correct string width
 
   return (
     <div className="nav">
       <Link to="/" className="logo">
-        <img src="../assets/logo.svg" alt="Pokezon logo" />
+        <img src={logo} alt="Pokezon logo" />
       </Link>
       <div className="search_wrapper">
 
@@ -88,7 +117,7 @@ function Nav() {
             value={searchCriteria}
           />
           <button>
-            <img src="../assets/search_icon.svg" alt="search icon" />
+            <img src={searchIcon} alt="search icon" />
           </button>  
         </form>
       </div>
@@ -98,12 +127,12 @@ function Nav() {
             <>
               <Link to="/pokeregister">
                 <button>
-                  <img className= "pokeball" src="../assets/pokeball_grey.svg" alt="pokeball" /> Register
+                  <img className= "pokeball" src={pokeballGrey} alt="pokeball" /> Register
                 </button>
               </Link>
               <Link to="/pokelogin">
                 <button>
-                  <img className= "pika" src="../assets/pika_face_icon.svg" alt="pikachu" /> 
+                  <img className= "pika" src={pikaFace} alt="pikachu" /> 
                 Login
                 </button>
               </Link>
@@ -114,20 +143,24 @@ function Nav() {
                 <div className="user_greeting">
                   Hello {username}!
                 </div>  
-                <Link to="/pokepurchased">
-                  <div className="profile_image">
-                    <img src="../assets/test_profile_image.jpg" alt="user profile image" />
-                  </div> 
-                </Link>
+                <div className="profile_image" onClick={openUserMenu}>
+                  <img src={testProfile} alt="user profile image" />
+                </div> 
+                <div className={`user_menu ${userMenuDisplay && 'display'}`}>
+                  <button onClick={handleLogout} >
+                    <img src={pokeballGrey} alt="pokeball" />
+                    Log out
+                  </button>  
+                </div>
               </div>
             </>
         }
         <Link to="/pokebasket">
           <div className="basket">
             <div className="item_qty">
-              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+              <img src={pokeballOrange} alt="pokeball" /> 
             </div>
-            <img src="../assets/basket.svg" alt="shopping basket" />
+            <img src={basket} alt="shopping basket" />
           </div>  
         </Link>
       </div>  

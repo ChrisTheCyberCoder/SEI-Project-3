@@ -1,11 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
-export function getToken() {
-  return window.localStorage.getItem('token')
-}
+// export function getToken() {
+//   return window.localStorage.getItem('token')
+// }
 
 function PokeLogin() {
 
@@ -41,6 +40,7 @@ function PokeLogin() {
 
       setToken(data.token)
       history.push('/')
+      window.location.reload()
 
     } catch (err) {
       console.log(err)
@@ -104,7 +104,7 @@ function PokeLogin() {
   return (
     <section className="page_wrapper">
       { ranOutOfAttempts ? 
-        <div>
+        <div >
           <h1>As a Security Precaution, you will no longer be able to access this account for awhile</h1> 
           <Link to={'/'}>
             <button>Home</button> {/*I would need this section to be styled*/}
