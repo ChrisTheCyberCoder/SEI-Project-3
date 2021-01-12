@@ -23,12 +23,7 @@ function Nav() {
   const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
 
-  // function getUserToken(){
-  //   const token = getToken()
-  //   if (!token) return false
-  //   console.log( 'token',token )
-  // }  
-  // getUserToken()
+
 
   React.useEffect(() => {
     const getData = async () => {

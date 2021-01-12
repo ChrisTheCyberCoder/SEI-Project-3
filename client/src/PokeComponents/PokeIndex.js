@@ -3,7 +3,7 @@ import { getItems } from '../lib/api'
 import { useParams } from 'react-router-dom'
 
 import pika from '../assets/pika_anim.gif'
-
+import dynamicSort from '../lib/sort'
 
 
 import PokeCard from './PokeCardIndex'
@@ -26,22 +26,22 @@ function PokeIndex() {
     return result
   }
 
-  function dynamicSort(property) {
-    let sortOrder = 1
+  // function dynamicSort(property) {
+  //   let sortOrder = 1
 
-    if (property[0] === '-') {
-      sortOrder = -1
-      property = property.substr(1)
-    }
+  //   if (property[0] === '-') {
+  //     sortOrder = -1
+  //     property = property.substr(1)
+  //   }
 
-    return function (a,b) {
-      if (sortOrder === -1){
-        return b[property].localeCompare(a[property])
-      } else {
-        return a[property].localeCompare(b[property])
-      }        
-    }
-  }
+  //   return function (a,b) {
+  //     if (sortOrder === -1){
+  //       return b[property].localeCompare(a[property])
+  //     } else {
+  //       return a[property].localeCompare(b[property])
+  //     }        
+  //   }
+  // }
   
   //* styling for the load animation
   function load() {
