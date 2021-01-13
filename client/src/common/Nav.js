@@ -68,7 +68,7 @@ function Nav() {
     // if (!searchCriteria) return
     const chosenCategory = category ? category.toLowerCase() : 'all'
     const chosenSearchCriteria = searchCriteria ? searchCriteria.toLowerCase() : '0'
-    history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}`) 
+    history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}/1`) 
     // window.location.reload()
   }
 

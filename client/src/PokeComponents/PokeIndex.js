@@ -1,7 +1,9 @@
 import React from 'react'
 import { getItems } from '../lib/api'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
+import leftArrow from '../assets/arrow_left_orange.svg'
+import rightArrow from '../assets/arrow_right_orange.svg'
 import pika from '../assets/pika_anim.gif'
 import dynamicSort from '../lib/sort'
 
@@ -9,10 +11,11 @@ import dynamicSort from '../lib/sort'
 import PokeCard from './PokeCardIndex'
 
 function PokeIndex() {
-  const { category, searchCriteria } = useParams()
+  const history = useHistory()
+  const { category, searchCriteria, page } = useParams()
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  const [page, setPage] = React.useState(1)
+  // const [pageNo, setPageNo] = React.useState(page)
   // const [pikaPos, setPikaPos] = React.useState({  
   //   pika: '0%',
   //   bar: '0%'
@@ -31,8 +34,10 @@ function PokeIndex() {
   //   setPikaPos({ pika: 'calc(100% - 100px)', bar: '100%' })
   // }
   
-
- 
+  //* scrolls to top of page when page is changed 
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page])
   
 
   React.useEffect(() => {
@@ -44,10 +49,6 @@ function PokeIndex() {
         setHasError(true)
       }
     }
-    // load()
-    // setTimeout(()=>{
-    //   getData()
-    // },1000)
     getData()
     
   }, [])
@@ -57,25 +58,63 @@ function PokeIndex() {
   const itemToDisplay = 12
   const firstItem = (page - 1) * itemToDisplay
   
-  const togglePage = e =>{
-    console.log(e.target.innerText)
-    if (e.target.innerText === 'prev') setPage(page - 1)
-    if (e.target.innerText === 'next') setPage(page + 1)
-    // window.location.reload()
+  
+  function prevPage(){
+    history.push(`/pokeindex/${category}/${searchCriteria}/${Number(page) - 1}`)
+  }
+  function nextPage(){
+    history.push(`/pokeindex/${category}/${searchCriteria}/${Number(page) + 1}`)
+  }
+
+  function goToPage(pageNo){
+    if (pageNo === '...' || pageNo === '...+' ) return
+    history.push(`/pokeindex/${category}/${searchCriteria}/${pageNo}`)
   }
  
   if (items) {
     filteredItems = filterItems(items).sort(dynamicSort('name')).slice(firstItem,page * itemToDisplay)
   }
   
-  // React.useEffect(() => {
-  //   load()
-  // }, [items])
- 
-  
   //! sort based on price
   // if (items) console.log(filterItems(items).sort((a, b) => a.price - b.price))
- 
+
+  function mapPageLinks(maxvalue){
+    const pages = []
+    for (let i = 1; i <= maxvalue; i++ ){
+      switch (i) {
+        case 1: pages.push(i)
+          break
+        case Number(page): pages.push(i)
+          break    
+        case (Number(page) - 1): 
+          pages.push(i)
+          break
+        case (Number(page) + 1): 
+          pages.push(i)
+          break  
+        case maxvalue - 1: 
+          pages.push('...+')
+          break  
+        case maxvalue: pages.push(i)
+          break
+        default: pages.push('...')
+      }
+    } 
+    const buttonsToDisplay =  [...new Set(pages)]
+    return buttonsToDisplay.map(eachPage=>{
+      return (
+        <button className={`page_button ${eachPage === Number(page) ? 'current' : ''} ${eachPage[0] === '.' ? 'null' : ''}`} key={`page${eachPage}` } alt="button" onClick={()=>{
+          goToPage(eachPage)
+        }}>{eachPage === '...+' ? '...' : eachPage}</button>
+      )
+    })
+  }
+
+  // if (items) mapPageLinks(Math.ceil(filterItems(items).length / 12))
+
+
+  // Math.ceil(filterItems(items).length / 12)
+
   return (
     <section className="card_wrapper">
       {items ?
@@ -83,19 +122,26 @@ function PokeIndex() {
           {filteredItems.map(item => (
             <PokeCard key={item._id} {...item} />
           ))}
-          <div className="page_wrapper">
-            {
-              page !== 1 &&
-              <button onClick={togglePage}>
-              prev
-              </button>
-            }
-            {
-              page !== Math.ceil(filterItems(items).length / 12) &&
-              <button onClick={togglePage}>
-              next
-              </button>
-            }
+          <div className="pagination_wrapper red_border">
+            <div className="inner_wrapper">
+              {
+                Number(page) !== 1 &&
+                <button onClick={prevPage}>
+                  <img className="left" src={leftArrow} alt="left arrow" />
+                Prev
+                </button>
+              }
+              { 
+                mapPageLinks(Math.ceil(filterItems(items).length / 12))
+              }
+              {
+                Number(page) !== Math.ceil(filterItems(items).length / 12) &&
+                <button onClick={nextPage}>   
+                  Next
+                  <img className="right" src={rightArrow} alt="right arrow" />
+                </button>
+              }
+            </div>
           </div> 
         </>
         :
