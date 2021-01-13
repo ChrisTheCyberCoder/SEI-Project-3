@@ -15,6 +15,12 @@ router.route('/users/:id') // use this just to help you code, debugging purposes
 router.route('/userprofile') //use this one for profile as it checks they have a token // goes through secure route. 
   .get(secureRoute, users.userProfile)
 
+router.route('/userprofile/:id')
+  .put(users.userProfileUpdate)
+
+router.route('/userprofile/:id/basket')
+  .put(users.userBasketUpdate)
+
 router.route('/items')
   .get(items.index)
   .post(items.create)
