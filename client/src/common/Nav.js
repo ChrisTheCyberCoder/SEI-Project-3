@@ -1,31 +1,48 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { isAuthenticated, getPayload, logout } from '../lib/auth' //* get token
+import { logout } from '../lib/auth' //* get token
+// isAuthenticated,
+import { getUserInfo } from '../lib/api'
 
 import logo from '../assets/logo.svg'
 import searchIcon from '../assets/search_icon.svg'
 import pokeballGrey from '../assets/pokeball_grey.svg'
 import pikaFace from '../assets/pika_face_icon.svg'
-import testProfile from  '../assets/test_profile_image.jpg'
+// import testProfile from  '../assets/test_profile_image.jpg'
 import pokeballOrange from '../assets/pokeball_orange.svg'
 import basket from '../assets/basket.svg'
 
 
 function Nav() {
   const history = useHistory()
-  const isLoggedIn = isAuthenticated()
+  // const isLoggedIn = isAuthenticated()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
   const searchWidth = `calc(100% - ${categoryWidth}px)`
   const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
+  const [userData, setUserData] = React.useState(null)
 
-  function getUserId(){
-    const payload = getPayload()
-    if (!payload) return false
-    console.log( 'userId',payload.sub )
-  }  
-  getUserId()
+
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await getUserInfo()
+        // console.log()
+        setUserData(data)
+
+        // console.log('pokedexselected:', selected)
+        // console.log('pokedexitems:', items)
+      } catch (err) {
+        // setHasError(true)
+        console.log(err)
+      }
+    }
+    getData()
+  }, [])
+  
+  if (userData) console.log(userData)
   
   const handleLogout = () => {
     logout()
@@ -33,7 +50,7 @@ function Nav() {
     window.location.reload()
   }
 
-  const username = 'Pokebros'
+  // const username = 'Pokebros'
 
   const handleSelect = e =>{
     resizeCategoryWidth(e)
@@ -87,7 +104,7 @@ function Nav() {
         <form className="search"
           onSubmit={handleSubmit}
         >
-          <select 
+          <select
             style={{ width: `${categoryWidth}px` }}
             onChange={handleSelect}
             value={category}
@@ -123,7 +140,7 @@ function Nav() {
       </div>
       <div className="user_nav">
         {
-          !isLoggedIn ? 
+          !userData ? 
             <>
               <Link to="/pokeregister">
                 <button>
@@ -140,18 +157,27 @@ function Nav() {
             :
             <>
               <div className="profile_wrapper">
-                <div className="user_greeting">
-                  Hello {username}!
-                </div>  
-                <div className="profile_image" onClick={openUserMenu}>
-                  <img src={testProfile} alt="user profile image" />
-                </div> 
-                <div className={`user_menu ${userMenuDisplay && 'display'}`}>
-                  <button onClick={handleLogout} >
-                    <img src={pokeballGrey} alt="pokeball" />
-                    Log out
-                  </button>  
-                </div>
+            
+                {userData ?
+                  <>
+                    <div className="user_greeting">
+                      Hello {userData.username}!
+                    </div>  
+                    <div className="profile_image" onClick={openUserMenu}>
+                      <img src={userData.image} alt="user profile image" />
+                    </div> 
+                    <div className={`user_menu ${userMenuDisplay && 'display'}`}>
+                      <button onClick={handleLogout} >
+                        <img src={pokeballGrey} alt="pokeball" />
+                  Log out
+                      </button>  
+                    </div>
+                  </>
+                  :
+                  <p>error</p>
+              
+                }
+                
               </div>
             </>
         }
