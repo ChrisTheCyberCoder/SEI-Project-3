@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { logout } from '../lib/auth' //* get token
 // isAuthenticated,
-import { getUserInfo } from '../lib/api'
+import { getUserInfo } from '../lib/api.js'
 
 import logo from '../assets/logo.svg'
 import searchIcon from '../assets/search_icon.svg'
@@ -42,7 +42,7 @@ function Nav() {
     getData()
   }, [])
   
-  if (userData) console.log(userData)
+  if (userData) console.log('user_data',userData)
   
   const handleLogout = () => {
     logout()

@@ -13,10 +13,10 @@ function PokeIndex() {
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
   const [page, setPage] = React.useState(1)
-  const [pikaPos, setPikaPos] = React.useState({  
-    pika: '0%',
-    bar: '0%'
-  })
+  // const [pikaPos, setPikaPos] = React.useState({  
+  //   pika: '0%',
+  //   bar: '0%'
+  // })
 
   const filterItems = (items)=> {
     if (category === 'all' && searchCriteria === '0') return items
@@ -25,29 +25,14 @@ function PokeIndex() {
     result = searchCriteria === '0' ? result : result.filter(item => item.name.includes(searchCriteria))
     return result
   }
-
-  // function dynamicSort(property) {
-  //   let sortOrder = 1
-
-  //   if (property[0] === '-') {
-  //     sortOrder = -1
-  //     property = property.substr(1)
-  //   }
-
-  //   return function (a,b) {
-  //     if (sortOrder === -1){
-  //       return b[property].localeCompare(a[property])
-  //     } else {
-  //       return a[property].localeCompare(b[property])
-  //     }        
-  //   }
-  // }
   
   //* styling for the load animation
-  function load() {
-    setPikaPos({ pika: 'calc(100% - 100px)', bar: '100%' })
-  }
+  // function load() {
+  //   setPikaPos({ pika: 'calc(100% - 100px)', bar: '100%' })
+  // }
+  
 
+ 
   
 
   React.useEffect(() => {
@@ -59,10 +44,11 @@ function PokeIndex() {
         setHasError(true)
       }
     }
-    load()
-    setTimeout(()=>{
-      getData()
-    },1000)
+    // load()
+    // setTimeout(()=>{
+    //   getData()
+    // },1000)
+    getData()
     
   }, [])
   
@@ -70,9 +56,6 @@ function PokeIndex() {
 
   const itemToDisplay = 12
   const firstItem = (page - 1) * itemToDisplay
-
-  
- 
   
   const togglePage = e =>{
     console.log(e.target.innerText)
@@ -85,15 +68,14 @@ function PokeIndex() {
     filteredItems = filterItems(items).sort(dynamicSort('name')).slice(firstItem,page * itemToDisplay)
   }
   
+  // React.useEffect(() => {
+  //   load()
+  // }, [items])
+ 
+  
   //! sort based on price
   // if (items) console.log(filterItems(items).sort((a, b) => a.price - b.price))
  
-
-
-
-  
-
-
   return (
     <section className="card_wrapper">
       {items ?
@@ -126,9 +108,11 @@ function PokeIndex() {
             : 
             <div className="center_box">
               <div className="bar">
-                <div className="inside" style = {{ width: `${pikaPos.bar}` }}></div>
+                {/* <div className="inside" style = {{ width: `${pikaPos.bar}` }}></div> */}
+                <div className="inside"></div>
               </div>
-              <img className="pika" style = {{ left: `${pikaPos.pika}` }} src={pika} alt="pikachu" />
+              {/* <img className="pika" style = {{ left: `${pikaPos.pika}` }} src={pika} alt="pikachu" /> */}
+              <img className="pika" src={pika} alt="pikachu" />
             </div> 
 
           }

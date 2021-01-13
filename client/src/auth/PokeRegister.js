@@ -26,22 +26,25 @@ function PokeRegister() {
   })
   //* add default image
 
-  const handleChange = (event) => {
-    if (event.target.name === 'dob') event.target.style.color = 'black'
+  function errorShake(form){
+    form.classList.remove('float_up')
+    form.classList.add('shake')
+    setTimeout(()=>{
+      form.classList.remove('shake') 
+    },500)
+  }
+
+  const handleChange = e => {
+    if (e.target.name === 'dob') e.target.style.color = 'black'
     // console.log(event.target.name)
     // console.log(event.target.value)
-    setFormdata({ ...formdata, [event.target.name]: event.target.value })
+    setFormdata({ ...formdata, [e.target.name]: e.target.value })
   }
 
   // console.log(formdata)
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-
-    // if (formdata.image === '') {
-    //   setFormdata({ ...formdata, image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610368867/pokezon/default_user_image.png' })
-    //   handleSubmit()
-    // }
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     
     if (formdata.email.slice(-4) !== '.com' && formdata.email.slice(-6) !== '.co.uk' && formdata.email.slice(-6) !== '.co.jp') { //if neither in field throw error execute code. If one in field code can't execute. 
@@ -61,12 +64,6 @@ function PokeRegister() {
     // console.log(passwordToCheck)
     // console.log(typeof passwordToCheck)
 
-    // if (!passwordToCheck.includes('1', '2', '3', '4', '5', '6', '7', '8', '9')) {
-    //   console.log('pw no number')
-    //   setPasswordHasNoSpecialCharacter(true)
-    //   return
-    // }
-
     const check = passwordToCheck.find(item => {
       const num = ['0','1','2','3','4','5','6','7','8','9']
       if (num.indexOf(item) !== -1)
@@ -82,7 +79,7 @@ function PokeRegister() {
 
     const checkCapitals = passwordToCheck.find(item => {
       const capitals = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-      if (capitals.indexOf(item) !== -1)
+      if (capitals.indexOf(item) !== -1) 
         return true
     })
 
@@ -90,15 +87,24 @@ function PokeRegister() {
       setPasswordHasNoSpecialCharacter(true)
       return //note to self: keeep this return here so that it does not execute the catch block below
     }
-    
 
 
     try {
       const response = await registerUser(formdata)
       // console.log('check out', response.errors.passwordConfirmation)
       console.log(response)
-      history.push('/pokelogin') 
+      
+      e.target.classList.remove('float_up_more')
+      e.target.classList.add('accepted')
+      setTimeout(()=>{
+        history.push('/pokelogin') 
+      },500)
+
+
+      
     } catch (err) {
+
+      errorShake(e.target)
 
       //console.log(err.response)
       // console.log('catche error', err.response.data) 
@@ -139,8 +145,8 @@ function PokeRegister() {
   }
 
   return (
-    <section className="page_wrapper">
-      <form onSubmit={handleSubmit} className="float_up">
+    <section className="page_wrapper float_up_register">
+      <form onSubmit={handleSubmit} className={`${passwordNotMatch || usernameNotUnique || emailNotUnique || passwordHasNoSpecialCharacter || emailInIncorrectFormat ? 'shake_once' : '' }`}>
         <div className="input_box">
           <label>Username</label>
           <input 
@@ -221,7 +227,7 @@ function PokeRegister() {
             value={formdata.dob}
           />
         </div>
-        <div className="button_wrapper">
+        <div className="button_wrapper flexend">
           <button type="submit">
             <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
             Register

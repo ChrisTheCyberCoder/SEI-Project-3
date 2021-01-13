@@ -109,19 +109,19 @@ function Home() {
       {items ?
         <>
           <div className="home_content_wrapper">
-            <div className="home_section quarter">
+            <div className="home_section default_box_style quarter">
             </div>  
-            <div className="home_section quarter">
+            <div className="home_section default_box_style quarter">
             </div>  
-            <div className="home_section quarter">
+            <div className="home_section default_box_style quarter">
             </div>  
-            <div className="home_section quarter">
+            <div className="home_section  default_box_style quarter">
             </div>  
           </div> 
           <div className="home_content_wrapper">
-            <div className="home_section half">
+            <div className="home_section default_box_style half">
             </div>  
-            <div className="home_section half">
+            <div className="home_section  default_box_style half">
             </div>  
           </div> 
         </>

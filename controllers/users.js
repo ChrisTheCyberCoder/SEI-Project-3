@@ -29,7 +29,7 @@ async function userShow(req, res, next) {
 
 async function userProfile(req, res, next) {
   try {
-    const user = await User.findById(req.currentUser._id).populate(basket1.item)
+    const user = await User.findById(req.currentUser._id)
     if (!user) throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {

@@ -2,9 +2,17 @@ import React from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 
-// export function getToken() {
-//   return window.localStorage.getItem('token')
-// }
+import marchamp from '../assets/marchamp.svg'
+import slowpoke from '../assets/slowpoke.svg'
+import questionMark from '../assets/question_mark.svg'
+
+import desk from '../assets/desk.svg'
+import leftEar from '../assets/eevee_left_ear.svg'
+import rightEar from '../assets/eevee_right_ear.svg'
+import face from '../assets/eevee_face.svg'
+import body from '../assets/eevee_body.svg'
+import tail from '../assets/eevee_tail.svg'
+
 
 function PokeLogin() {
 
@@ -24,13 +32,21 @@ function PokeLogin() {
     setFormdata({ ...formdata, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = async event => { 
-    event.preventDefault()
+  const handleSubmit = async e => { 
+    e.preventDefault()
+    // console.log('etarget',e.target)
 
     try {
       const { data } = await loginUser(formdata)
 
       if (data.message === 'Unauthorized') {
+
+        e.target.classList.remove('float_up')
+        e.target.classList.add('shake')
+        setTimeout(()=>{
+          e.target.classList.remove('shake') 
+        },500)
+
         console.log(data.message)
         setError(`The Information you provided is incorrect. You have ${numberOfAttempts} attempt(s) remaining`) 
         if (numberOfAttempts === 0 ) setRanOutOfAttempts(true)
@@ -38,14 +54,25 @@ function PokeLogin() {
         return 
       }
 
-      setToken(data.token)
-      history.push('/')
-      window.location.reload()
+
+      e.target.classList.remove('float_up')
+      e.target.classList.add('accepted')
+      setTimeout(()=>{
+        setToken(data.token)
+        history.push('/')
+        window.location.reload()
+      },500)
 
     } catch (err) {
       console.log(err)
       console.log('Sorry failure to load the login page')
       setLoadFailure(true)
+
+      e.target.classList.remove('float_up')
+      e.target.classList.add('shake')
+      setTimeout(()=>{
+        e.target.classList.remove('shake') 
+      },500)
     }
 
     console.log('submitting', formdata)
@@ -60,17 +87,27 @@ function PokeLogin() {
   }
  
 
-  //* we do apologise slowpoke
 
   function loadFailure() {
     if (loadfailure) {
       return (
-        <>
-          <h1>We do apologise, the server is down  slowpoke</h1>
-          <Link to={'/'}>
-            <button>Home</button> {/*I would need this section to be styled*/}
-          </Link>
-        </>
+        <div className="message default_box_style float_up">
+          <h2>We do apologise, the server is down.</h2>
+          <div className="slowpoke">
+            <img className="question" src={questionMark} alt="question mark" />
+            <img className="main" src={slowpoke} alt="confused slowpoke" />
+          </div>  
+            
+          <div className="button_wrapper"> 
+            <Link to={'/'}>
+              <button>
+                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+                Home
+              </button> 
+            </Link>
+          </div>  
+          
+        </div>
       )
     } else {
       return (
@@ -95,7 +132,26 @@ function PokeLogin() {
             />
             <p>{error}</p>
           </div>
-          <div className="button_wrapper">
+
+          <div className="eevee_wrapper">
+
+            <div className="eevee">
+              <div className="head">
+                <img className="left_ear" src={leftEar} alt="eevee left ear" />
+                <img className="right_ear" src={rightEar} alt="eevee right ear" />
+                <img className="face" src={face} alt="eevee face" />
+              </div>  
+
+              <div className="body">
+                <img className="tail" src={tail} alt="eevee tail" />
+                <img className="main" src={body} alt="eevee body" />
+              </div>  
+            </div>
+
+            <img className="desk" src={desk} alt="reception desk" /> 
+
+          </div>
+          <div className="button_wrapper flexend">
             <button type="submit">
               <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
               Log Me In!
@@ -110,11 +166,20 @@ function PokeLogin() {
   return (
     <section className="page_wrapper">
       { ranOutOfAttempts ? 
-        <div >
-          <h1>As a Security Precaution, you will no longer be able to access this account for awhile  /marchomp</h1> 
-          <Link to={'/'}>
-            <button>Home</button> {/*I would need this section to be styled*/}
-          </Link>
+        <div className="message default_box_style float_up">
+          <h2>As a Security Precaution, you are blocked.</h2>
+          <div className="marchamp">
+            <img className="main" src={marchamp} alt="marchamp security guard" />
+          </div>  
+            
+          <div className="button_wrapper"> 
+            <Link to={'/'}>
+              <button>
+                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+                Home
+              </button> 
+            </Link>
+          </div>  
         </div>
         : 
         <>

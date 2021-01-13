@@ -1,3 +1,5 @@
+@import 'animation';
+
 
 $dark_color:  #1f1f1f;
 $light_color: rgb(255, 255, 255);
@@ -33,6 +35,174 @@ body {
   background: url($bg) repeat 0 0;
   animation: bg_scrolling 4s infinite linear; 
 }
+
+.default_box_style {
+  border: $default_div_border;
+  border-width: 1px 1px 6px 1px;
+  border-radius: 8px;
+  background-image: $white_fading;
+}
+
+.red_border {
+  border: red 1px solid;
+}
+
+.message {
+  margin-top: 40px;
+  padding: 35px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 460px;
+  font-size:15px;
+
+  .button_wrapper {
+    height: 60px;
+    margin-top: 0px;
+    padding: 0;
+    
+    button {
+      margin: 0;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    height: 250px;
+    width: calc(25% - 40px);
+    margin: 20px;
+  }
+}
+
+.slowpoke {
+  position: relative;
+  margin-top:10px;
+  height: 240px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  
+  img.question {
+    position: absolute;
+    right: 50px;
+    margin: auto 0 0 0;
+    height: 50px;
+    width: auto;
+    animation: confused infinite ease 1s;
+  }
+
+  img.main {
+    margin: auto 0 0 0;
+    height: 180px;
+    width: auto;
+    // border: blue 1px solid;
+    animation: squidge infinite ease 1s;
+  }
+
+}
+
+.marchamp {
+  margin-top:10px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+
+  img {
+    margin: auto 0 0 0;
+    height: 250px;
+    width: auto;
+    // border: blue 1px solid;
+    animation: squidge infinite ease 1s;
+  }
+}
+
+.eevee_wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+
+  .eevee {
+    position: absolute;
+    // border: purple 1px solid;
+    height: 150px;
+    width:100px;
+    animation: pop_up forwards 1.3s;
+    // bottom: 70px;
+
+    .head {
+      position: absolute;
+      width: 75px;
+      height: 83px;
+      left:8px;
+      z-index: 20;
+      transform-origin: 50% 100%;
+      animation: head_tilt 8s ease infinite;
+
+      img.face {
+        position: absolute;
+        width: 100%;
+        height: auto;
+      }
+      img.left_ear {
+        position: absolute;
+        top: -53px;
+        width: 28px;
+        height: auto;
+        animation: left_twitch 5s  ease infinite;
+        transform-origin: 100% 100%;
+      
+      }
+      img.right_ear {
+        top: -43px;
+        right:5px;
+        position: absolute;
+        width: 28px;
+        height: auto;
+        animation: right_twitch 5s  ease infinite;
+        transform-origin: 100% 100%;
+      }
+    }
+  
+  
+
+    .body {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      img.main {
+        width: 100%;
+        height: auto;
+      }
+
+      img.tail {
+        top: -50px;
+        right:5px;
+        position: absolute;
+        width: 70px;
+        height: auto;
+        z-index: -1;
+        animation: tail_wag 3s  ease infinite;
+        transform-origin: 100% 100%;
+        // transform: rotate(45deg);
+      }
+      
+    }  
+  }
+
+  img.desk {
+    margin: auto 0 0 0;
+    width: 280px;
+    height: auto;
+    // border: blue 1px solid;
+    z-index: 10;
+    // opacity: 0.2;
+  }
+}
+
 
 .home_hero_wrapper {
   width: 100%;
@@ -102,11 +272,12 @@ body {
   height: 200px;
  
   .home_section {
-    background-image: $white_fading;
+
     padding: 20px;
-    border: $default_div_border;
-    border-width: 1px 1px 6px 1px;
-    border-radius: 8px;
+    // background-image: $white_fading;
+    // border: $default_div_border;
+    // border-width: 1px 1px 6px 1px;
+    // border-radius: 8px;
     margin: 16px;
     /*height: 250px; */
     
@@ -120,7 +291,6 @@ body {
   .home_section.half {
     width: calc(50% - 16px);
   }
-
 
 }
 
@@ -160,9 +330,23 @@ body {
   float: left;
   width: 0%;
   height: 50px;
-  background-color: rgb(122, 226, 122);
+  background-color: $orange;
   transition: 1s;
-  /* animation: load forwards 2s; */
+  animation: bar_load forwards 0.8s; 
+}
+
+@keyframes bar_load {
+  0%{ width: 0%;}
+  100%{ width: 100%;}
+}
+
+.pika {
+  animation: pika_load forwards 0.8s; 
+}
+
+@keyframes pika_load {
+  0%{ left: 0%;}
+  100%{ left: calc(100% - 100px);}
 }
 
 .comments_wrapper {
@@ -238,11 +422,7 @@ img.staryu {
   animation: staryu_motion infinite 1s;
 }
 
-@keyframes staryu_motion {
-  0% {transform: scale(1);}
-  40% {transform: scale(0.95,1.05);}
-  100% {transform: scale(1);}
-}
+
 
 .similar_items_wrapper {
   background-image: $white_fading;
@@ -357,11 +537,7 @@ img.staryu {
     }
   }
 
-  @keyframes bubble {
-    0% { transform: scale(1);}
-    30% { transform: scale(1.2);}
-    100% {transform: scale(1);}
-  }
+
 
   .rating {
     margin: 0 0 0 auto;
@@ -444,24 +620,6 @@ img.staryu {
 
 }
 
-@keyframes bg_scrolling {
-  0% { background-position: 0 50px; }
-  100% { background-position: 50px 0; }
-}
-
-.float_up {
-  position: relative;
-  animation: float_up forwards 0.8s;
-}
-
-
-@keyframes float_up {
-  0% { transform: scale(1); margin-top: 200vh;}
-  70% { transform: scale(1.04,0.96); margin-top: 30px;}
-  80% { transform: scale(0.96,1.04); margin-top: 50px;}
-  90% { transform: scale(1.04,0.96); }
-  100% { transform: scale(1); margin-top: 50px;}
-}
 
 .page_wrapper_column {
   width: 100%;
@@ -603,43 +761,43 @@ img.staryu {
   }
 }
 
-  .button_wrapper {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
+  // .button_wrapper {
+  //   margin-top: 20px;
+  //   display: flex;
+  //   justify-content: flex-end;
 
-    button {
-      border: 1px solid rgb(243, 82, 18);
-      border-radius: 20px;
-      padding: 8px 12px 8px 10px;
-      margin: 5px 5px 5px 8px;
-      display: flex;
-      align-items: center;
-      background-color: transparent;
-      transition: 0.3s;
-      color: rgb(243, 82, 18);
-      cursor: pointer;
+  //   button {
+  //     border: 1px solid rgb(243, 82, 18);
+  //     border-radius: 20px;
+  //     padding: 8px 12px 8px 10px;
+  //     margin: 5px 5px 5px 8px;
+  //     display: flex;
+  //     align-items: center;
+  //     background-color: transparent;
+  //     transition: 0.3s;
+  //     color: rgb(243, 82, 18);
+  //     cursor: pointer;
   
-      img {
-        margin-right: 5px;
-        height: 20px;
-        width: auto;
-      }
-    }
+  //     img {
+  //       margin-right: 5px;
+  //       height: 20px;
+  //       width: auto;
+  //     }
+  //   }
   
-    button:hover {
-      border: 1px solid rgba(243, 146, 18, 0.671);
-      background-color: rgba(243, 146, 18, 0.671);
-      color: white;
+  //   button:hover {
+  //     border: 1px solid rgba(243, 146, 18, 0.671);
+  //     background-color: rgba(243, 146, 18, 0.671);
+  //     color: white;
   
-      img {
-        position: relative;
-        filter: brightness(500%) contrast(200%);
-        animation: rotating infinite linear 0.6s;
-      }
-    } 
+  //     img {
+  //       position: relative;
+  //       filter: brightness(500%) contrast(200%);
+  //       animation: rotating infinite linear 0.6s;
+  //     }
+  //   } 
 
-  }
+  // }
 }
 
 .input_box {
@@ -890,7 +1048,6 @@ img.staryu {
       outline:none;
     }
 
-
     input {
       height: 40px;
       border: 0;
@@ -939,18 +1096,45 @@ img.staryu {
 
 }
 
-@keyframes hop {
-  0% {bottom: 0; transform: scale(1);}
-  50% {bottom: 5px; transform: scale(0.9,1.1);}
-  55% {bottom: 0; transform: scale(1.08,0.9);}
-  70% {bottom: 0; transform: scale(1.08,1);}
-  100% {bottom: 0; transform: scale(1);}
+
+
+.button_wrapper {
+  margin-top: 20px;
+  display: flex;
+
+  button {
+    border: 1px solid rgb(243, 82, 18);
+    border-radius: 20px;
+    padding: 8px 12px 8px 10px;
+    margin: 5px 5px 5px 8px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    transition: 0.3s;
+    color: rgb(243, 82, 18);
+    cursor: pointer;
+
+    img {
+      margin-right: 5px;
+      height: 20px;
+      width: auto;
+    }
+  }
+
+  button:hover {
+    border: 1px solid rgba(243, 146, 18, 0.671);
+    background-color: rgba(243, 146, 18, 0.671);
+    color: white;
+
+    img {
+      position: relative;
+      filter: brightness(500%) contrast(200%);
+      animation: rotating infinite linear 0.6s;
+    }
+  } 
+
 }
 
-@keyframes rotating {
-  0% {bottom: 0; transform: scale(1) rotate(0deg);}
-  45% {bottom: 5px; transform: scale(0.9,1.1) rotate(360deg);}
-  50% {bottom: 0px; transform: scale(1.2,0.8);}
-  60% {bottom: 0; transform: scale(1.08,1); }
-  100% {bottom: 0; transform: scale(1);}
+.button_wrapper.flexend {
+  justify-content: flex-end;
 }
