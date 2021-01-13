@@ -23,4 +23,10 @@ export function deleteComment(id, commentId) {
 }
 
 
+<<<<<<< HEAD
 
+=======
+export function getUserInfo() {
+  return axios.get('/api/userprofile', headers())
+} 
+>>>>>>> 179611ff44514cb95246798faf948062575b006c

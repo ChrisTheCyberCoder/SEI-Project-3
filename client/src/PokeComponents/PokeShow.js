@@ -183,6 +183,7 @@ function PokeShow() {
   }
 
   console.log(item)
+  
 
 
   return (

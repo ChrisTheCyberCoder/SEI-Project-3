@@ -4,15 +4,16 @@ import { v4 as uuidv4 } from 'uuid'
 
 
 function PokeCard({  _id, name, price, image, stock, avgRating }) {
+  
 
+
+  //* function for displaying the rating
   let starId = null
-
+  
   function itemRating(n){
-    // console.log('n',n)
     const rating = []
     for (let a = 0; a < n; a++) rating.push('star') 
     for (let b = 0; b < (5 - n); b++) rating.push('blank') 
-    // console.log('test',rating)
     return rating
   }
  
@@ -20,9 +21,13 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
       // console.log('id',starId)
+      const random = Math.ceil(Math.random() * 50)
       return (
         ele === 'star' ?
-          <img className="staryu" key={starId} src="../../assets/staryu.svg" alt="staryu" />
+          random === 50 ? 
+            <img className="staryu" key={starId} src="../../assets/staryu.svg" alt="staryu" />
+            :
+            <img key={starId} src="../../assets/star.svg" alt="staryu" />
           :
           <img key={starId} src="../../assets/blank_star.svg" alt="blank star" />
       )
