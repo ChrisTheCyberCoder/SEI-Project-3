@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from './auth'
+import { getToken } from './auth.js'
 
 const baseUrl = '/api'
 
@@ -23,3 +23,6 @@ export function deleteComment(id, commentId) {
 }
 
 
+export function getUserInfo() {
+  return axios.get('/api/userprofile', headers())
+} 

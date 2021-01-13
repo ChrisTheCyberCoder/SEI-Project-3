@@ -2,6 +2,10 @@ import React from 'react'
 import { getItems } from '../lib/api'
 import { useParams } from 'react-router-dom'
 
+import pika from '../assets/pika_anim.gif'
+import dynamicSort from '../lib/sort'
+
+
 import PokeCard from './PokeCardIndex'
 
 function PokeIndex() {
@@ -9,6 +13,10 @@ function PokeIndex() {
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
   const [page, setPage] = React.useState(1)
+  const [pikaPos, setPikaPos] = React.useState({  
+    pika: '0%',
+    bar: '0%'
+  })
 
   const filterItems = (items)=> {
     if (category === 'all' && searchCriteria === '0') return items
@@ -18,41 +26,47 @@ function PokeIndex() {
     return result
   }
 
-  function dynamicSort(property) {
-    let sortOrder = 1
+  // function dynamicSort(property) {
+  //   let sortOrder = 1
 
-    if (property[0] === '-') {
-      sortOrder = -1
-      property = property.substr(1)
-    }
+  //   if (property[0] === '-') {
+  //     sortOrder = -1
+  //     property = property.substr(1)
+  //   }
 
-    return function (a,b) {
-      if (sortOrder === -1){
-        return b[property].localeCompare(a[property])
-      } else {
-        return a[property].localeCompare(b[property])
-      }        
-    }
+  //   return function (a,b) {
+  //     if (sortOrder === -1){
+  //       return b[property].localeCompare(a[property])
+  //     } else {
+  //       return a[property].localeCompare(b[property])
+  //     }        
+  //   }
+  // }
+  
+  //* styling for the load animation
+  function load() {
+    setPikaPos({ pika: 'calc(100% - 100px)', bar: '100%' })
   }
+
+  
 
   React.useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await getItems()
-        // console.log()
         setItems(data)
-
-        // console.log('pokedexselected:', selected)
-        // console.log('pokedexitems:', items)
       } catch (err) {
         setHasError(true)
       }
     }
-    getData()
+    load()
+    setTimeout(()=>{
+      getData()
+    },1000)
+    
   }, [])
   
   let filteredItems = null
-  // let maxPage = null
 
   const itemToDisplay = 12
   const firstItem = (page - 1) * itemToDisplay
@@ -103,9 +117,22 @@ function PokeIndex() {
           </div> 
         </>
         :
-        <h2 className="">
-          {hasError ? 'Error' : 'loading'}
-        </h2>
+      
+        <>
+          {hasError ? 
+            <h2 className="">
+              Error
+            </h2>
+            : 
+            <div className="center_box">
+              <div className="bar">
+                <div className="inside" style = {{ width: `${pikaPos.bar}` }}></div>
+              </div>
+              <img className="pika" style = {{ left: `${pikaPos.pika}` }} src={pika} alt="pikachu" />
+            </div> 
+
+          }
+        </>
       }
 
       
