@@ -4,11 +4,14 @@ import React from 'react'
 import { getItems } from '../lib/api'
 import dynamicSort from '../lib/sort'
 
+
 function Home() {
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  const [heroPos, setHeroPos] = React.useState(100)
-
+  const [heroPos, setHeroPos] = React.useState(150)
+  // const [slideIsAuto, setSlideIsAuto] = React.useState(true)
+  
+  let interval = null
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -22,7 +25,8 @@ function Home() {
     
     
     getData()
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
+      // if (slideIsAuto) 
       nextHero()
     }, 2000)
     return () => clearInterval(interval)
@@ -31,13 +35,17 @@ function Home() {
 
 
   const nextHero = () =>{ 
-    const  newPos = heroPos > -100 ? heroPos - 100 : 100
+    clearInterval(interval)
+    const  newPos = heroPos > -150 ? heroPos - 100 : 150
     setHeroPos(newPos)
+    // setSlideIsAuto(false)
   }
 
   const prevHero = () =>{
-    const newPos = heroPos < 100 ? heroPos + 100 : -100
+    clearInterval(interval)
+    const newPos = heroPos < 150 ? heroPos + 100 : -150
     setHeroPos(newPos)
+    // setSlideIsAuto(false)
   }
   
 
@@ -67,24 +75,32 @@ function Home() {
         <div className="inner_wrapper">
           <div className="hero" style = {{ left: `${heroPos}%` }}>
             <img
-              src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg" 
+              src="../assets/prime.png" 
               alt=""
             />  
           </div>
           
           <div className="hero" style = {{ left: `${heroPos}%` }}>
             <img
-              src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg" 
+              src="../assets/catch.png" 
               alt=""
             />  
           </div>
           
           <div className="hero" style = {{ left: `${heroPos}%` }}>
             <img
-              src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg" 
+              src="../assets/battle.png" 
               alt=""
             />  
           </div>
+          
+          <div className="hero" style = {{ left: `${heroPos}%` }}>
+            <img
+              src="../assets/podcast.png" 
+              alt=""
+            />  
+          </div>
+       
         </div>
     
         <div className="right_arrow" onClick={nextHero}>
