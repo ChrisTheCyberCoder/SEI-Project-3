@@ -58,12 +58,15 @@ function PokeLogin() {
   function setToken(token) {
     window.localStorage.setItem('token', token)
   }
+ 
+
+  //* we do apologise slowpoke
 
   function loadFailure() {
     if (loadfailure) {
       return (
         <>
-          <h1>We do apologise, the server is down</h1>
+          <h1>We do apologise, the server is down  slowpoke</h1>
           <Link to={'/'}>
             <button>Home</button> {/*I would need this section to be styled*/}
           </Link>
@@ -108,7 +111,7 @@ function PokeLogin() {
     <section className="page_wrapper">
       { ranOutOfAttempts ? 
         <div >
-          <h1>As a Security Precaution, you will no longer be able to access this account for awhile</h1> 
+          <h1>As a Security Precaution, you will no longer be able to access this account for awhile  /marchomp</h1> 
           <Link to={'/'}>
             <button>Home</button> {/*I would need this section to be styled*/}
           </Link>

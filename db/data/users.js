@@ -13,7 +13,7 @@ export default [
     email: 'masa@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610368867/pokezon/default_user_image.png',
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610530139/pokezon/testsprite.png',
     address: "2 pokemon street",
     dob: '3973973'
   },
