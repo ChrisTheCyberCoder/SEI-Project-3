@@ -103,9 +103,11 @@ function PokeBasket() {
     const itemToDelete = event.target.dataset.item
     const userId = `${getUserId()}`
 
+
     try {
-      const deleteResponse = await axios.delete(`api/userprofile/${userId}/basket/${itemToDelete}`)
+      const deleteResponse = await axios.delete(`api/userprofile/${userId}/${itemToDelete}`)
       console.log('delete response worked', deleteResponse)
+      window.location.reload()
     } catch (err) {
       console.log('delete response failed', err)
     }
