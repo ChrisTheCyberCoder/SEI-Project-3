@@ -12,7 +12,7 @@ function PokeBasket() {
   
   const [itemsToRequestFromAxios, setItemsToRequestFromAxios] = React.useState(null)
   const [requestsArrayForResponse, setRequestsArrayForResponse] = React.useState(null)
-
+  const [iterateResponse, setIterateResponse] = React.useState(null)
   
 
   React.useEffect(() => {
@@ -43,6 +43,8 @@ function PokeBasket() {
         })
 
         console.log('the result of iterateresponse', iterateResponse)
+
+        setIterateResponse(iterateResponse)
 
         setRequestsArrayForResponse(requestsArrayForResponse)
 
@@ -98,17 +100,15 @@ function PokeBasket() {
   
   return (
 
-    <>
-      <h1>Basket</h1>
-    </>
+   
 
-  // <div>
-  //   {!userProfileData ? '...Loading' : userProfileData.basket1.map(item =>
-  //     <div key={item.itemBasketId}>
-  //       <div>{item.item}</div>
-  //     </div>
-  //   )}
-  // </div>
+    <div>
+      {!iterateResponse ? '...Loading' : iterateResponse.map(item =>
+        <div key={item._id}>
+          <div>{item.name}</div>
+        </div>
+      )}
+    </div>
 
     
   // <div>
