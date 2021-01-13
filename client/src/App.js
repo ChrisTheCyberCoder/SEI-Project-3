@@ -15,6 +15,7 @@ import PokeShow from './PokeComponents/PokeShow'
 import PokeIndex from './PokeComponents/PokeIndex'
 import PokeProfile from './PokeComponents/PokeProfile'
 import PokeConfirmation from './PokeComponents/PokeConfirmation'
+import PokeCheckout from './PokeComponents/PokeCheckout'
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/pokepurchased" component={PokePurchased} />
         <Route path="/pokeshow/:id" component={PokeShow} />
         <Route path="/pokeconfirmation" component={PokeConfirmation} />
+        <Route path="/pokecheckout" component={PokeCheckout} />
       </Switch>
     </BrowserRouter>
   )

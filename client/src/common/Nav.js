@@ -104,7 +104,7 @@ function Nav() {
         <form className="search"
           onSubmit={handleSubmit}
         >
-          <select 
+          <select
             style={{ width: `${categoryWidth}px` }}
             onChange={handleSelect}
             value={category}
