@@ -23,23 +23,6 @@ function PokePayment() {
   console.log(cardValid)
 
   return (
-<<<<<<< HEAD
-    <>
-      <div className="full-wrapper">
-        <div className="top-part">
-          <div>
-            Order Confirmation
-          </div>
-          <div>
-            <p>Order Total :</p> <span>$14500.50</span>
-          </div>
-          <div>
-            <button className="button_wrapper_checkout" type="button">
-              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-              <p>Place Order</p>
-            </button>
-          </div>
-=======
     <form className="float_up" onSubmit={handleValidation}>           
       <div className="input_box">
         <label>NAME ON CARD</label>
@@ -103,7 +86,6 @@ function PokePayment() {
             <option value="2001">2040</option>
             <option value="2000">2041</option>
           </select>
->>>>>>> development
         </div>
         <div className="input_box">
           <label>CVC / CVV</label>
