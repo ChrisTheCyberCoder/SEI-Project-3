@@ -20,7 +20,7 @@
   //}
 //}
 
-
+// Similar to the below but push it 
 
 // async function itemUpdate(req, res, next){
 //   const { id } = req.params
