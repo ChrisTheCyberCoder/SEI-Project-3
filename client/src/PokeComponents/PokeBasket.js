@@ -105,7 +105,13 @@ function PokeBasket() {
     <div>
       {!iterateResponse ? '...Loading' : iterateResponse.map(item =>
         <div key={item._id}>
-          <div>{item.name}</div>
+          <div>Name: {item.name}</div>
+          <div>Stock:{item.stock}</div>
+          <div>Description: {item.description}</div>
+          <div>Price:{item.price}</div>
+          <img src={item.image}></img>
+          <br />
+          <br />
         </div>
       )}
     </div>
