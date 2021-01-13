@@ -1,38 +1,85 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 
 function PokePayment() {
-  const history = useHistory() 
-  const [cardValid, setCardValid] = React.useState(true)
+  // const history = useHistory() 
+  const [cardValid, setCardValid] = React.useState(false)
+  const [nameValid, setNameValid] = React.useState(false)
+  const [monthValid, setMonthValid] = React.useState(false)
+  const [yearValid, setYearValid] = React.useState(false)
   // console.log(setCardValid)
   // console.log()
+  const cardnumberRegex = new RegExp('^[0-9]{16}$')
+  const nameRegex = new RegExp('^[a-zA-Z]+$')
+  const monthRegex = new RegExp('^[0-9]{1,2}$')
+  const yearRegex = new RegExp('^[0-9]{4}$')
+
+  function weGood() {
+    if (cardValid === true && nameValid === true && monthValid === true && yearValid === true) {
+      return true
+    }
+    return false
+  }
+
+  function setStates(nombre, bool) {
+    switch (nombre) {
+      case 'cardnumber':
+        setCardValid(bool)
+        break
+      case 'name':
+        setNameValid(bool)
+        break
+      case 'month':
+        setMonthValid(bool)
+        break
+      case 'year':
+        setYearValid(bool)
+    }
+  }
 
   const handleValidation = (event) => {
     event.preventDefault()
-    if (event.target.name === 'cardnumber') {
-      const regex = new RegExp('^[0-9]{16}$')
-      if (regex.test(event.target.value)) {
-        setCardValid(true)
-        history.push('/PokeCheckout') 
-      } else {
-        setCardValid(false)
-        return
-      }
+    let regex = null
+    let nombre = ''
+    switch (event.target.name) {
+      case 'cardnumber':
+        regex = cardnumberRegex
+        nombre = 'cardnumber'
+        break
+      case 'name':
+        regex = nameRegex
+        nombre = 'name'
+        break
+      case 'month':
+        regex = monthRegex
+        nombre = 'month'
+        break
+      case 'year':
+        regex = yearRegex
+        nombre = 'year'
     }
+    if (regex.test(event.target.value)) {
+      setStates(nombre, true)
+      return
+    }
+    setStates(nombre, false)
+    
   }
-  console.log(cardValid)
+  // console.log(cardValid)
 
   return (
-    <form className="float_up" onSubmit={handleValidation}>           
+    <form className="float_up" >           
       <div className="input_box">
         <label>NAME ON CARD</label>
         <input 
           placeholder="name"
           required
+          onChange={handleValidation}
           // onChange={}
           name="name"
           // value={formdata.email}
         />
+        { nameValid ? null : <p>The name cannot contain numbers or special characters</p> }
       </div>
       <div className="input_box">
         <label>CARD NUMBER</label>
@@ -40,52 +87,55 @@ function PokePayment() {
           required
           placeholder="0000 0000 0000 0000"
           name="cardnumber"
+          onChange={handleValidation}
           // value={formdata.password}
         />
-        { !cardValid ? <p>Card number must be equal to 16 digits</p> : null }
+        { cardValid ? null : <p>Card number must be equal to 16 digits</p> }
       </div>
       <div>
         <div className="input_box">
           <label>EXPIRY DATE (MM YYYY)</label>
-          <select name="expirymonth">
-            <option style={{ display: 'none' }}></option>
-            <option value="January">January</option>
-            <option value="Febuary">Febuary</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
+          <select name="month" required onChange={handleValidation}>
+            <option value="Select Month">Select Month</option>
+            <option value="1">January</option>
+            <option value="2">Febuary</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
           </select>
-          <select name="expiryyear">
-            <option style={{ display: 'none' }}></option>
-            <option value="2020">2021</option>
-            <option value="2019">2022</option>
-            <option value="2018">2023</option>
-            <option value="2017">2024</option>
-            <option value="2016">2025</option>
-            <option value="2015">2026</option>
-            <option value="2014">2027</option>
-            <option value="2013">2028</option>
-            <option value="2012">2029</option>
-            <option value="2011">2030</option>
-            <option value="2010">2031</option>
-            <option value="2009">2032</option>
-            <option value="2008">2033</option>
-            <option value="2007">2034</option>
-            <option value="2006">2035</option>
-            <option value="2005">2036</option>
-            <option value="2004">2037</option>
-            <option value="2003">2038</option>
-            <option value="2002">2039</option>
-            <option value="2001">2040</option>
-            <option value="2000">2041</option>
+          { monthValid ? null : <p>tasdfaew</p> }
+          <select name="year" required>
+            <option value="Select Year">Select Year</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+            <option value="2031">2031</option>
+            <option value="2032">2032</option>
+            <option value="2033">2033</option>
+            <option value="2034">2034</option>
+            <option value="2035">2035</option>
+            <option value="2036">2036</option>
+            <option value="2037">2037</option>
+            <option value="2038">2038</option>
+            <option value="2039">2039</option>
+            <option value="2040">2040</option>
+            <option value="2041">2041</option>
           </select>
+          { cardValid ? null : <p>tasdfaew</p> }
         </div>
         <div className="input_box">
           <label>CVC / CVV</label>
@@ -366,7 +416,7 @@ function PokePayment() {
         </div>
       </div>
       <div className="button_wrapper">
-        <button type="submit">Checkout</button>
+        <button type={ weGood() ? 'submit' : 'button' }>Checkout</button>
       </div>
     </form>
   )
