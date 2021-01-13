@@ -124,7 +124,7 @@ function PokeShow() {
     //     // price can be extracted from the item api 
     //   }
 
-    _id: `${id}` //item
+    itemId: `${id}` //item
     // quantity: `${itemQty}`, 
     // price can be extracted from the item api 
     

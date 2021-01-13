@@ -1,56 +1,114 @@
 import React from 'react'
-import axios from 'axios'
-import { headers } from '../lib/api'
+import axios from 'axios' 
+import { headers } from '../lib/api' 
 // import { getSingleItem } from '../lib/api'
 
 function PokeBasket() {
 
-  const [userProfileData, setUserProfileData] = React.useState(null)
+  // const [userProfileData, setUserProfileData] = React.useState(null)
   // const [ item, setItem] = React.useState(null)
+
+  
+  
+  const [itemsToRequestFromAxios, setItemsToRequestFromAxios] = React.useState(null)
+  const [requestsArrayForResponse, setRequestsArrayForResponse] = React.useState(null)
+
+  
 
   React.useEffect(() => {
     const getData = async () => {
       try { 
-        const { data } = await axios.get('api/userprofile', headers())
-        console.log(data)
-        data.basket.push('5')
-        setUserProfileData(data)
+        const { data: { basket1 } } = await axios.get('api/userprofile', headers())
+        console.log(basket1)
+        // data.basket.push('5')
+        // setUserProfileData(data)
+        const requestsArray = basket1.map(item => {
+          return item.itemId
+        })
+        setItemsToRequestFromAxios(requestsArray)
+
+        const requestsArrayForResponse = requestsArray.map(itemToAxios => {
+          console.log('item to axios', itemToAxios)
+          return axios.get(`api/items/${itemToAxios}`)
+        })
+
+        //worked from here
+
+        const response = await Promise.all(requestsArrayForResponse) //const response
+
+        console.log('amazing work', response)
+
+        const iterateResponse = response.map(item => {
+          return item.data
+        })
+
+        console.log('the result of iterateresponse', iterateResponse)
+
+        setRequestsArrayForResponse(requestsArrayForResponse)
+
+        // console.log('da request array', itemsToRequestFromAxios) //note to self: it wont work here as get data not called
+
+        //console.log('the requests array', requestsArray)
+
+
       } catch (err) {
         console.log(err)
       }
     }
     getData()
 
-  }, [1])
+  }, [])
 
-  // //* get single item
+  console.log('da request array', itemsToRequestFromAxios) // note to self: put here instead
 
-  // React.useEffect(() => {
-  //   const getData = async () => {
-  //     try { 
-  //       const { data } = await getSingleItem(id)
-  //       setItem(data)
-  //       console.log(item) //chris added
-  //     } catch (err) {
+  //console.log('check this', itemsToRequestFromAxios[0])
+
+  console.log('did it work?', requestsArrayForResponse) // did it work
+
+  
+
+  
+  /*
+  get single item
+  React.useEffect(() => {
+    const getData = async () => {
+      try { 
+        const { data } = await getSingleItem(`${itemsToRequestFromAxios[0]}`) //(`${itemsToRequestFromAxios[0]}`) //'5ffee9985d401a09d5f512a3'
+        //console.log(data)
+
+        setItem(data)
         
-  //       // console.log(err)
-  //     }
-  //   }
-  //   getData()
-  // },[id])
 
+      } catch (err) {
+        console.log('it failed', err)
+      }
+    }
+    getData()
+  },[itemsToRequestFromAxios]) // [itemsToRequestFromAxios]
+
+  console.log('it worked', item) // needs to be here because getdata needs to be called , so put here rather than in try block 
+
+  */
+
+
+
+  
   
 
   
   return (
 
-    <div>
-      {!userProfileData ? '...Loading' : userProfileData.basket1.map(item =>
-        <div key={item.itemBasketId}>
-          <div>{item.item}</div>
-        </div>
-      )}
-    </div>
+    <>
+      <h1>Basket</h1>
+    </>
+
+  // <div>
+  //   {!userProfileData ? '...Loading' : userProfileData.basket1.map(item =>
+  //     <div key={item.itemBasketId}>
+  //       <div>{item.item}</div>
+  //     </div>
+  //   )}
+  // </div>
 
     
   // <div>

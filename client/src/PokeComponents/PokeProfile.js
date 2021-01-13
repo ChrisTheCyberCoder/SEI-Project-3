@@ -22,7 +22,6 @@ function PokeProfile() {
   }, [1])
 
 
-
   return (
 
     <div>
