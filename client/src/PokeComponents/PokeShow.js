@@ -124,14 +124,10 @@ function PokeShow() {
     //     // price can be extracted from the item api 
     //   }
 
-     
-    
-    item: `${id}`,
-    quantity: `${itemQty}`, 
-    wentthrough: 'test'
+    _id: `${id}` //item
+    // quantity: `${itemQty}`, 
     // price can be extracted from the item api 
     
-
   })
 
   //note to self: if you reload page after stopping and starting the server it could lead to error because the id in url has changed. 

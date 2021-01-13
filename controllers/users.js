@@ -29,7 +29,7 @@ async function userShow(req, res, next) {
 
 async function userProfile(req, res, next) {
   try {
-    const user = await User.findById(req.currentUser._id)
+    const user = await User.findById(req.currentUser._id).populate(basket1.item)
     if (!user) throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {
@@ -60,9 +60,6 @@ async function userBasketUpdate(req, res, next){
   try {
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
-    //Object.assign(userToEdit, req.body) //req.body
-    // let mongoose = require('mongoose')
-    // let assignId = mongoose.Types.ObjectId();
 
     //if item is already in the basket stop them from spamming --> do this in the frontend.
 
@@ -70,12 +67,22 @@ async function userBasketUpdate(req, res, next){
     const itemBasketId = new ObjectId;
     userToEdit.basket1.push({...req.body, itemBasketId}) // this one is better
     // userToEdit.basket1.push(req.body, id1)
+
+    /*
+    const { _id } = req.body
+    console.log('REQUESTBODY',_id)
+    const item = await item.findById(_id)
+    userToEdit.basketcheckout.push(item) */
+
+
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {
     next(err)
   }
 }
+
+
 
 
 

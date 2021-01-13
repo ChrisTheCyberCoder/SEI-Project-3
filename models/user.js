@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   dob: { type: String, required: true },
   basket: {type: Array},
   basket1: {type: Array}
+  // basketcheckout: {type: Array}
 })
 
 userSchema.virtual('passwordConfirmation')
