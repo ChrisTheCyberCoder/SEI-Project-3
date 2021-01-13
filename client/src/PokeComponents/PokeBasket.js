@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios' 
 import { headers } from '../lib/api' 
 // import { getSingleItem } from '../lib/api'
+import { getPayload } from '../lib/auth'
 
 function PokeBasket() {
 
@@ -19,7 +20,7 @@ function PokeBasket() {
     const getData = async () => {
       try { 
         const { data: { basket1 } } = await axios.get('api/userprofile', headers())
-        console.log(basket1)
+        console.log('this is basket1', basket1)
         // data.basket.push('5')
         // setUserProfileData(data)
         const requestsArray = basket1.map(item => {
@@ -68,7 +69,9 @@ function PokeBasket() {
   console.log('did it work?', requestsArrayForResponse) // did it work
 
   
+  //! Debug
 
+  console.log('work with this', iterateResponse)
   
   /*
   get single item
@@ -93,15 +96,42 @@ function PokeBasket() {
   */
 
 
+  const handleBasketItemDelete = async event => {
+    console.log('I have been clicked')
+    console.log(event.target.dataset.item)
 
+    const itemToDelete = event.target.dataset.item
+    const userId = `${getUserId()}`
+
+    try {
+      const deleteResponse = await axios.delete(`api/userprofile/${userId}/basket/${itemToDelete}`)
+      console.log('delete response worked', deleteResponse)
+    } catch (err) {
+      console.log('delete response failed', err)
+    }
+
+    
+
+    // when delete button is clicked 
+    // I need the backend to delete the item
+    //perhaps find by id and delete. 
+
+    // remove from front end and then update in backend. 
+
+  }
+
+  function getUserId(){
+    const payload = getPayload()
+    if (!payload) return false
+    console.log( 'userId on pokeshow',payload.sub )
+    return payload.sub
+  }  
   
   
 
   
   return (
-
-   
-
+    
     <div>
       {!iterateResponse ? '...Loading' : iterateResponse.map(item =>
         <div key={item._id}>
@@ -110,29 +140,12 @@ function PokeBasket() {
           <div>Description: {item.description}</div>
           <div>Price:{item.price}</div>
           <img src={item.image}></img>
+          <button data-item={item._id} onClick={handleBasketItemDelete}>Delete</button>
           <br />
           <br />
         </div>
       )}
     </div>
-
-    
-  // <div>
-  //   {userProfileData ?
-  //     <div>
-  //       <h1>Basket{userProfileData.username}</h1>
-  //       <h1>{userProfileData.email}</h1>
-  //       <h1>{userProfileData.basket}</h1>
-  //       <h1>{userProfileData.dob}</h1>
-  //       <h1>{userProfileData.address}</h1>
-  //       <h1>{userProfileData.image}</h1>
-  //       <h1>{userProfileData.basket1[0].item}</h1>
-  //     </div>
-  //     :
-  //     <p>...Loading</p>}
-  // </div>
-
-
     
   ) 
 }

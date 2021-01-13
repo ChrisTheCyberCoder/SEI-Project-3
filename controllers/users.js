@@ -47,7 +47,7 @@ async function userProfileUpdate(req, res, next){
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
     Object.assign(userToEdit, req.body)
-    userToEdit.basket1.push(req.body)
+    // userToEdit.basket1.push(req.body) //This shouldnt be here.
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {
@@ -55,7 +55,7 @@ async function userProfileUpdate(req, res, next){
   }
 }
 
-async function userBasketUpdate(req, res, next){
+async function userBasketUpdate(req, res, next){ //more like userbasket add. 
   const { id } = req.params 
   try {
     const userToEdit = await User.findById(id)
@@ -63,9 +63,9 @@ async function userBasketUpdate(req, res, next){
 
     //if item is already in the basket stop them from spamming --> do this in the frontend.
 
-    const ObjectId = mongoose.Types.ObjectId;
-    const itemBasketId = new ObjectId;
-    userToEdit.basket1.push({...req.body, itemBasketId}) // this one is better
+    // const ObjectId = mongoose.Types.ObjectId; //! Get rid temporarily
+    // const itemBasketId = new ObjectId; //! Get rid temporarily
+    userToEdit.basket1.push({...req.body}) // this one is better // ({...req.body, itemBasketId}) 
     // userToEdit.basket1.push(req.body, id1)
 
     /*
@@ -81,6 +81,86 @@ async function userBasketUpdate(req, res, next){
     next(err)
   }
 }
+
+async function userBasketDelete(req, res, next){
+  // const {itembasketid} = req.params
+
+  const { id, itemdelete } = req.params 
+  try {
+    const userToEdit = await User.findById(id)
+    if (!userToEdit) throw new Error('notFound')
+    // userToEdit.basket1.pop()
+
+    const check = userToEdit.basket1.filter(item => {
+
+      if (item.itemId !== itemdelete) {
+        console.log('REQPARAM', itemdelete)
+        console.log('THE ITEM', item.itemId)
+        return item.itemId
+      }
+    })
+
+    console.log('CHECK IT', check)
+
+    userToEdit.basket1= check
+
+    //userToEdit.basket1 = []
+
+    //userToEdit.basket1.push(check)
+
+    //console.log(test)
+
+    await userToEdit.save()
+    return res.status(202).json(userToEdit)
+    
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+
+  // const userToEdit = await User.findById(id)
+  //   if (!userToEdit) throw new Error('notFound')
+}
+
+
+
+
+/* 
+
+async function itemCommentDelete(req, res, next) {
+  const { id, commentId } = req.params
+  try {
+    const item = await Item.findById(id)
+    if (!item) throw new Error(notFound)
+    const commentToDelete = item.comments.id(commentId)
+    if (!commentToDelete) throw new Error(notFound)
+    if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error(forbidden)
+    await commentToDelete.remove()
+    await item.save()
+    return res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+}
+
+*/
+
+
+/*
+
+async function itemDelete(req, res, next) {
+  const { id } = req.params
+  try {
+    const itemToDelete = await Item.findById(id)
+    if (!itemToDelete) throw new Error(notFound)
+    await itemToDelete.remove()
+    return res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+}
+
+*/
 
 
 
@@ -106,8 +186,9 @@ export default {
   userIndex: userIndex,
   userShow: userShow,
   userProfile: userProfile, 
-  userProfileUpdate, userProfileUpdate,
-  userBasketUpdate, userBasketUpdate
+  userProfileUpdate: userProfileUpdate,
+  userBasketUpdate: userBasketUpdate,
+  userBasketDelete: userBasketDelete
 }
 
 

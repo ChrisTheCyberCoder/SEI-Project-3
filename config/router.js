@@ -19,7 +19,10 @@ router.route('/userprofile/:id')
   .put(users.userProfileUpdate)
 
 router.route('/userprofile/:id/basket')
-  .put(users.userBasketUpdate)
+  .put(users.userBasketUpdate) //may need secure route
+
+router.route('/userprofile/:id/:itemdelete') //just added in today (wednesday) // '/userprofile/:id/basket/:itemtodelete' BASKET
+  .delete(users.userBasketDelete) //secureroute
 
 router.route('/items')
   .get(items.index)
