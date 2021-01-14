@@ -55,7 +55,7 @@ function Nav() {
   
   const handleLogout = () => {
     logout()
-    history.push('/')
+    history.push('/pokelogin')
     setUserData(null)
     setuserMenuDisplay(false)
     // window.location.reload()

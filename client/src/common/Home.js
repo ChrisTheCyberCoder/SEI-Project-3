@@ -14,7 +14,7 @@ import pokeDollarOrange from '../assets/poke_dollar_orange.svg'
 function Home() {
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  const [heroPos, setHeroPos] = React.useState(150)
+  const [heroPos, setHeroPos] = React.useState(0)
   const [randomItems, setRandomItems] = React.useState([])
   const [randomPokeball, setRandomPokeball] = React.useState({})
   const [randomBerry, setRandomBerry] = React.useState({})
@@ -108,14 +108,16 @@ function Home() {
 
   const nextHero = () =>{ 
     clearInterval(interval)
-    const  newPos = heroPos > -150 ? heroPos - 100 : 150
+    const  newPos = heroPos > -300 ? heroPos - 100 : 0
+    // console.log('page',newPos)
     setHeroPos(newPos)
+   
     // setSlideIsAuto(false)
   }
 
   const prevHero = () =>{
     clearInterval(interval)
-    const newPos = heroPos < 150 ? heroPos + 100 : -150
+    const newPos = heroPos < 0 ? heroPos + 100 : -300
     setHeroPos(newPos)
     // setSlideIsAuto(false)
   }
@@ -212,7 +214,7 @@ function Home() {
         hasError ? 
           <section className="page_wrapper">
             <SlowPokeErrorCard
-              errorMessage='hmm... server might be down...'
+              errorMessage='hmm... server may be down...'
             />
           </section>
           : 

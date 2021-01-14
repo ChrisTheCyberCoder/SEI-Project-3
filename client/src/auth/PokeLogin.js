@@ -175,21 +175,3 @@ function PokeLogin() {
 }
 
 export default PokeLogin
-
-{/* <div className="message default_box_style float_up">
-          <h2>We do apologise, the server is down.</h2>
-          <div className="slowpoke">
-            <img className="question" src={questionMark} alt="question mark" />
-            <img className="main" src={slowpoke} alt="confused slowpoke" />
-          </div>  
-            
-          <div className="button_wrapper"> 
-            <Link to={'/'}>
-              <button>
-                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-                Home
-              </button> 
-            </Link>
-          </div>  
-          
-        </div> */}

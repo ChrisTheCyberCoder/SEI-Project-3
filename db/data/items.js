@@ -3597,7 +3597,7 @@ export default [
     description: `Cures all major status ailments and confusion.`,
     price: 350,
     category: 'food & drink',
-    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610396539/pokezon_db/lumiose-galette.png'
+    image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610660074/pokezon_db2/lumiose-galette.png'
 },
 {
     name: 'jaw-fossil',
