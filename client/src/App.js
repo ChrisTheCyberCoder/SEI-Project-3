@@ -30,7 +30,7 @@ function App() {
         <Route exact path="/pokelogin" component={PokeLogin} />
         <Route exact path="/pokeregister" component={PokeRegister} />
         <Route exact path="/pokeprofile" component={PokeProfile} />
-        <Route path="/pokeindex/:category/:searchCriteria" component={PokeIndex} />
+        <Route path="/pokeindex/:category/:searchCriteria/:page" component={PokeIndex} />
         <Route exact path="/pokebasket" component={PokeBasket} />
         <Route exact path="/pokecomment/:id" component={PokeComment} />
         <Route exact path="/pokepayment" component={PokePayment} />

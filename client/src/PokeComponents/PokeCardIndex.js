@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
+import star from '../assets/star.svg' 
+import staryu from '../assets/staryu.svg' 
+import blankStar from '../assets/blank_star.svg' 
+import pokeDollar from '../assets/poke_dollar.svg'
 
 function PokeCard({  _id, name, price, image, stock, avgRating }) {
   
@@ -25,11 +29,11 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
       return (
         ele === 'star' ?
           random === 50 ? 
-            <img className="staryu" key={starId} src="../../assets/staryu.svg" alt="staryu" />
+            <img className="staryu" key={starId} src={staryu} alt="staryu" />
             :
-            <img key={starId} src="../../assets/star.svg" alt="staryu" />
+            <img key={starId} src={star} alt="staryu" />
           :
-          <img key={starId} src="../../assets/blank_star.svg" alt="blank star" />
+          <img key={starId} src={blankStar} alt="blank star" />
       )
     })
     return staryus
@@ -40,20 +44,12 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
     <Link to={`/pokeshow/${_id}`}>
       <div className="poke_card">
         <img src={image} alt={name}/>
-        {/* <div>
-          PokezonBasics
-        </div> */}
         <div className="">
-          <p>{name} <img src="../../assets/poke_dollar.svg" alt="pokedollar sign" />{price}</p>
+          <p>{name} <img src={pokeDollar} alt="pokedollar sign" />{price}</p>
         </div>
         <div className="rating">
           {mapStars(itemRating(avgRating))}
         </div>
-
-        <div className="">
-          
-        </div>
-
         <div> 
           { stock <= 3 ? 'Only ' + stock + ' left in stock' : '' }
         </div>

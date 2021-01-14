@@ -1,0 +1,236 @@
+
+
+
+
+//* arrows
+@keyframes left_motion{
+  0%{ left: -2px; transform: scale(1.2);}
+  50%{ left: 2px; transform: scale(0.7);}
+  100%{ left: -2px; transform: scale(1.2);}
+} 
+
+
+@keyframes right_motion{
+  0%{ right: -2px; transform: scale(1.2);}
+  50%{ right: 2px; transform: scale(0.7);}
+  100%{ right: -2px; transform: scale(1.2);}
+} 
+
+
+//* page load animation
+
+.float_up_no_margin {
+  position: relative;
+  animation: float_up forwards 0.8s;
+}
+
+@keyframes float_up_no_margin {
+  0% { transform: scale(1); margin-top: 200vh;}
+  70% { transform: scale(1.04,0.96); margin-top: 10px;}
+  80% { transform: scale(0.96,1.04); margin-top: 0px;}
+  90% { transform: scale(1.04,0.96); }
+  100% { transform: scale(1); margin-top: 0px;}
+}
+
+.float_up {
+  position: relative;
+  animation: float_up forwards 0.8s;
+}
+
+@keyframes float_up {
+  0% { transform: scale(1); margin-top: 200vh;}
+  70% { transform: scale(1.04,0.96); margin-top: 30px;}
+  80% { transform: scale(0.96,1.04); margin-top: 50px;}
+  90% { transform: scale(1.04,0.96); }
+  100% { transform: scale(1); margin-top: 50px;}
+}
+
+.float_up_register {
+  position: relative;
+  animation: float_up_register forwards 0.8s;
+}
+
+@keyframes float_up_register {
+  0% { transform: scale(1); margin-top: 200vh;}
+  70% { transform: scale(1.04,0.96); margin-top: -20px;}
+  80% { transform: scale(0.96,1.04); margin-top: 0px;}
+  90% { transform: scale(1.04,0.96); }
+  100% { transform: scale(1); margin-top: 0px;}
+}
+
+
+//* form animation
+
+.shake {
+  animation: shake infinite 0.2s;
+}
+
+@keyframes shake {
+  0% { margin-left: -10px;}
+  50% { margin-left: 10px;}
+  100% { margin-left: -10px;}
+}
+
+.shake_once {
+  animation: shake_once forwards 0.4s;
+}
+
+@keyframes shake_once {
+  0% { margin-left: -10px;}
+  20% { margin-left: 10px;}
+  40% { margin-left: -10px;}
+  60% { margin-left: 10px;}
+  80% { margin-left: -10px;}
+  100% { margin-left: 0px;}
+}
+
+.accepted {
+  position: relative;
+  animation: accepted_effect forwards 0.5s;
+}
+
+@keyframes accepted_effect {
+  0% { transform: scale(1) ; margin-top: 0;}
+  70% { transform: scale(1.2,0.8); margin-top: 10vh; }
+  80% { transform: scale(0.9,1.1); margin-top: -10vh; }
+  100% { transform: scale(1) ;  margin-top: -200vh;}
+}
+
+
+//* staryu (rating)
+
+@keyframes staryu_motion {
+  0% {transform: scale(1);}
+  40% {transform: scale(0.95,1.05);}
+  100% {transform: scale(1);}
+}
+
+
+//* button related animation
+
+@keyframes hop {
+  0% {bottom: 0; transform: scale(1);}
+  50% {bottom: 5px; transform: scale(0.9,1.1);}
+  55% {bottom: 0; transform: scale(1.08,0.9);}
+  70% {bottom: 0; transform: scale(1.08,1);}
+  100% {bottom: 0; transform: scale(1);}
+}
+
+@keyframes rotating {
+  0% {bottom: 0; transform: scale(1) rotate(0deg);}
+  45% {bottom: 5px; transform: scale(0.9,1.1) rotate(360deg);}
+  50% {bottom: 0px; transform: scale(1.2,0.8);}
+  60% {bottom: 0; transform: scale(1.08,1); }
+  100% {bottom: 0; transform: scale(1);}
+}
+
+@keyframes bubble {
+  0% { transform: scale(1);}
+  30% { transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+
+
+//*slowpoke and marchamp animation
+
+@keyframes confused {
+  0% {right:45px; top:0px;  transform-origin: 50% 50%;transform: rotate(0deg);}
+  50% {right:10px; top:20px; transform: rotate(45deg);}
+  100% {right:45px; top:0px; transform: rotate(0deg);}
+}
+
+@keyframes squidge {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.02,0.98);}
+  100% {transform: scale(1);}
+}
+
+
+//* eevee related
+
+@keyframes head_tilt {
+  0% {transform: rotate(15deg);}
+  // 25% {transform: rotate(22deg);}
+  50% {transform: rotate(-15deg);}
+  // 75% {transform: rotate(-22deg);}
+  100% {transform: rotate(15deg);}
+}
+
+@keyframes left_twitch {
+  0% {transform: rotate(-30deg);}
+  50% {transform: rotate(-22deg);}
+  // 51% {transform: rotate(-30deg);}
+  // 52% {transform: rotate(-22deg);}
+  100% {transform: rotate(-30deg);}
+}
+
+
+@keyframes right_twitch {
+  0% {transform: rotate(30deg);}
+  50% {transform: rotate(22deg);}
+  // 51% {transform: rotate(30deg);}
+  // 52% {transform: rotate(22deg);}
+  100% {transform: rotate(30deg);}
+}
+
+
+@keyframes tail_wag {
+  0% {transform: rotate(40deg);}
+  50% {transform: rotate(50deg);}
+  // 51% {transform: rotate(30deg);}
+  // 52% {transform: rotate(22deg);}
+  100% {transform: rotate(40deg);}
+}
+
+@keyframes pop_up {
+  0% {bottom: 2px; transform: scale(1);}
+  75% {bottom: 2px; transform: scale(1);}
+  90% {bottom: 80px; transform: scale(0.95,1.05);}
+  95% {transform: scale(1.1,0.8);}
+  100% {bottom: 70px; transform: scale(1);}
+}
+
+
+//* load bar
+
+
+.bar {
+  margin-left:25px;
+  width: calc(100% - 50px);
+  height: 20px;
+  border-radius: 50px;
+  background-color: white;
+  overflow: hidden;
+} 
+
+.inside {
+  // position: absolute;
+  float: left;
+  width: 0%;
+  height: 50px;
+  background-color: rgb(255, 204, 93);
+  transition: 1s;
+  animation: bar_load forwards 1s; 
+}
+
+@keyframes bar_load {
+  0%{ width: 0%;}
+  100%{ width: 100%;}
+}
+
+.pika {
+  animation: pika_load forwards 1s; 
+}
+
+@keyframes pika_load {
+  0%{ left: 0%;}
+  100%{ left: calc(100% - 100px);}
+}
+
+
+//* background animation
+
+@keyframes bg_scrolling {
+  0% { background-position: 0 50px; }
+  100% { background-position: 50px 0; }
+}
