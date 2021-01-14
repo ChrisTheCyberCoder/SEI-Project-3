@@ -31,9 +31,6 @@ function PokeBasket() {
 
   //! Debug console.log('work with this', iterateResponse)
   
- 
-
-
   const handleBasketItemDelete = async event => {
     console.log(event.target.dataset.item)
     const itemToDelete = event.target.dataset.item
@@ -73,11 +70,7 @@ function PokeBasket() {
   
   
   return (
-
-
-
     
-
 
     <div>
       {user ? user.basket.map(product =>

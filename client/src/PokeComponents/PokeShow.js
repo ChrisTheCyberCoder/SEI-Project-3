@@ -15,6 +15,7 @@ function PokeShow() {
   const [ itemQty, setItemQty ] = React.useState(1)
   const [commentToDelete, setCommentToDelete] = React.useState(null)
   const [itemAlreadyInBasket, setItemAlreadyInBasket] = React.useState(false)
+  //const [unauthorized, setUnauthorized]
 
   // const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
   //   itemId: `${id}`, 
@@ -140,7 +141,10 @@ function PokeShow() {
       setCommentToDelete(event.target.value)
       // window.location.reload() //! Note to self: Leave this here. 
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      // if (err.response.data.message === 'Unauthorized') {
+        
+      // }
     }
   }
 
