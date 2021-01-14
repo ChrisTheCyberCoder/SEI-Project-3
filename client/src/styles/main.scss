@@ -388,7 +388,7 @@ body {
     padding: 8px;
     border-radius: 8px;
 
-    
+    .inner_wrapper {
     a {
       width: calc(50% - 8px);
       text-decoration: none;
@@ -427,6 +427,7 @@ body {
     }
    
   }
+}
 
 
 

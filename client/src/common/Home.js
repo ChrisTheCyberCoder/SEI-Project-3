@@ -65,17 +65,21 @@ function Home() {
     if (!items) return
     console.log('error item',items)
     console.log('error',array)
-    return array.map(item=>{
-      return (
-        <Link to={`/pokeshow/${item._id}`} key={item.name}>
-          <div className="small_box" >
-            <p>{item.name}</p>
-            <img src={item.image} alt={item.name} />
-            <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
-          </div>  
-        </Link>
-      ) 
-    })
+    return (
+      <div className="red_border" >
+        {array.map(item=>{
+          return (
+            <Link to={`/pokeshow/${item._id}`} key={item.name}>
+              <div className="small_box" >
+                <p>{item.name}</p>
+                <img src={item.image} alt={item.name} />
+                <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
+              </div>  
+            </Link>
+          ) 
+        })}
+      </div>
+    )
   }
   
   //* change class
