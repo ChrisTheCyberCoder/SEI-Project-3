@@ -4,6 +4,7 @@ import React from 'react'
 import axios from 'axios' 
 import { headers } from '../lib/api' 
 import { isAuthenticated } from '../lib/auth'
+import { Link } from 'react-router-dom'
 
 
 /* need styling on this page */
@@ -11,6 +12,7 @@ import { isAuthenticated } from '../lib/auth'
 function PokeBasket() {
 
   const [user, setUser] = React.useState(null)
+  const [unauthorized, setUnauthorized] = React.useState(false)
 
   React.useEffect(() => {
 
@@ -18,18 +20,22 @@ function PokeBasket() {
 
     const getData = async () => {
       try { 
-        const { data } = await axios.get('api//userprofile', headers())
+        const { data } = await axios.get('/api/userprofile', headers())
         console.log(data)
         setUser(data)
       } catch (err) {
-        console.log(err)
+        console.log(err.response.status)
+
+        if (err.response.status === 401) {
+          setUnauthorized(true)
+          return
+        } 
+
       }
     }
     getData()
 
   }, [])
-
-  //! Debug console.log('work with this', iterateResponse)
   
   const handleBasketItemDelete = async event => {
     console.log(event.target.dataset.item)
@@ -38,7 +44,7 @@ function PokeBasket() {
 
     try {
       await axios.delete(`/api/userprofile/basket/${itemToDelete}`, headers())
-      const { data } = await axios.get('api//userprofile', headers())
+      const { data } = await axios.get('/api/userprofile', headers())
       console.log(data)
       setUser(data)
       
@@ -46,32 +52,28 @@ function PokeBasket() {
       console.log('delete response failed', err)
     }
 
+  } 
+
+  function checkStatus() { /* need styling here */
+    if (unauthorized) {
+      return  (
+        <>
+          <h1>Access Denied: Please Login to View the Basket</h1> 
+          <Link to={'/pokelogin'}>
+            <button>Login</button>
+          </Link>
+        </>
+      )
+    } else {
+      return (
+        <h1>...Loading</h1>  /* need styling here Or Spinner */
+      )
+    } 
   }
-
-  // function getUserId(){
-  //   const payload = getPayload()
-  //   if (!payload) return false
-  //   console.log( 'userId on pokeshow',payload.sub )
-  //   return payload.sub
-  // }  
-
-
-  // function checkStatus() {
-  //   if (unauthorised) {
-  //     return  (
-  //       <h1>Access Denied: Please Login</h1> /* need styling here */
-  //     )
-  //   } else if (!iterateResponse) {
-  //     return (
-  //       <h1>...Loading</h1>  /* need styling here */
-  //     )
-  //   } 
-  // }
   
   
-  return (
+  return (   /* need styling here */
     
-
     <div>
       {user ? user.basket.map(product =>
         <div key={product._id}>
@@ -88,7 +90,7 @@ function PokeBasket() {
     
         :
 
-        <p>...loading</p>
+        checkStatus()
     
       }
     </div>

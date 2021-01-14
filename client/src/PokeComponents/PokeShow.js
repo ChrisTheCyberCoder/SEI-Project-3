@@ -15,7 +15,9 @@ function PokeShow() {
   const [ itemQty, setItemQty ] = React.useState(1)
   const [commentToDelete, setCommentToDelete] = React.useState(null)
   const [itemAlreadyInBasket, setItemAlreadyInBasket] = React.useState(false)
-  //const [unauthorized, setUnauthorized]
+  const [unauthorized, setUnauthorized] = React.useState(false)
+  const [itemInBasket, setItemInBasket] = React.useState(false)
+  const [notLoggedIn, setNotLoggedIn] = React.useState(false)
 
   // const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
   //   itemId: `${id}`, 
@@ -82,11 +84,19 @@ function PokeShow() {
       item: id
     }
 
+    if (itemInBasket) return 
+
+
     try {
       const response = await axios.post('/api/userprofile/basket', body, headers())
+      setItemInBasket(true)
       console.log('the response', response)
     } catch (err) {
-      console.log(err)
+      // console.log(err.response.status)
+      if (err.response.status === 401) {
+        setNotLoggedIn(true)
+        return
+      }
     }
 
 
@@ -142,9 +152,10 @@ function PokeShow() {
       // window.location.reload() //! Note to self: Leave this here. 
     } catch (err) {
       // console.log(err)
-      // if (err.response.data.message === 'Unauthorized') {
-        
-      // }
+      if (err.response.data.message === 'Unauthorized') {
+        setUnauthorized(true)
+        return 
+      }
     }
   }
 
@@ -152,10 +163,14 @@ function PokeShow() {
 
   return (
 
+    
+
     <div className="page_wrapper_column">
+      
       { item ?
         <>
           <div className="product_wrapper">
+            { unauthorized ? <h1>Access Denied: Not the authenticated user</h1> : null }
             <img className= "product_image" src={item.image} alt={item.name} />
             <div className="product_info">
               <div className="rating">
@@ -176,6 +191,8 @@ function PokeShow() {
                 :
                 <p>sorry, out of stock</p>
               }
+              {notLoggedIn ? <p>Please Log In to add to basket</p> : null}
+              { itemInBasket ? <p>Item already in Basket</p> : null }
               <input type="number" defaultValue="1" name="qty" min="1" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
               <button>
                 <img src="../assets/pokeball_grey.svg" alt="pokeball" /> add to basket

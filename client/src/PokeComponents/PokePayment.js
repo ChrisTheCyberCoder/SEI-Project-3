@@ -11,7 +11,7 @@ function PokePayment() {
   React.useEffect(() => {
     const getData = async () => {
       try { 
-        const { data } = await axios.get('api/userprofile', headers())
+        const { data } = await axios.get('/api/userprofile', headers())
         setUserProfileData(data)
       } catch (err) {
         console.log(err)
