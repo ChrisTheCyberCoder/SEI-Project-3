@@ -45,6 +45,19 @@ function PokeBasket() {
 
         console.log('the result of iterateresponse', iterateResponse)
 
+        const addQuantityToEach = iterateResponse.map(iitem => {
+          const getItFromBasket = basket1.map(item => {
+            const array = [item.quantity]
+            return array
+          })
+
+          return  iitem.quantiy = getItFromBasket //getItFromBasket
+        })
+
+        console.log('the result of iterateresponse NEW NEW NEW', iterateResponse)
+
+        console.log('QUANTITY', addQuantityToEach)
+
         setIterateResponse(iterateResponse)
 
         setRequestsArrayForResponse(requestsArrayForResponse)

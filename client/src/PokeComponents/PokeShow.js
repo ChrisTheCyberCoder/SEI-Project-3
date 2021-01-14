@@ -14,6 +14,7 @@ function PokeShow() {
   const [ items, setItems ] = React.useState(null)
   const [ itemQty, setItemQty ] = React.useState(null)
   const [commentToDelete, setCommentToDelete] = React.useState(null)
+  const [itemAlreadyInBasket, setItemAlreadyInBasket] = React.useState(false)
   let starId = 0
   
   //* get single item
@@ -98,6 +99,10 @@ function PokeShow() {
     try {
       //const response = await axios.put(`/api/userprofile/${getUserId()}`, formdata)
       const response = await axios.put(`/api/userprofile/${getUserId()}/basket`, formdata)
+      if (response.data.message === 'Item already in basket') {
+        setItemAlreadyInBasket(true)
+        return
+      }
       console.log('new updated profile', response)
       console.log('it worked!')
     } catch (err) {
@@ -124,8 +129,8 @@ function PokeShow() {
     //     // price can be extracted from the item api 
     //   }
 
-    itemId: `${id}` //item
-    // quantity: `${itemQty}`, 
+    itemId: `${id}`, //item
+    quantity: `${itemQty}` 
     // price can be extracted from the item api 
     
   })
@@ -187,6 +192,7 @@ function PokeShow() {
 
 
   return (
+
     <div className="page_wrapper_column">
       { item ?
         <>
@@ -216,6 +222,12 @@ function PokeShow() {
                 <img src="../assets/pokeball_grey.svg" alt="pokeball" /> add to basket
               </button>
             </form> 
+            { itemAlreadyInBasket ? 
+              <div>
+                <p>You have already placed the item in the basket</p> 
+                <button onClick={()=>setItemAlreadyInBasket(false)}>Ok</button> 
+              </div>
+              : null }
           </div>
 
           <div className="similar_items_wrapper">

@@ -57,9 +57,16 @@ async function userProfileUpdate(req, res, next){
 
 async function userBasketUpdate(req, res, next){ //more like userbasket add. 
   const { id } = req.params 
+  const {itemId} = req.body
+
+  console.log('DID IT WORK', itemId)
   try {
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
+
+    userToEdit.basket1.find(item => {
+      if (item.itemId === itemId) throw new Error('Item already in basket') // throw new Error('Item Already added to basket')
+    })
 
     //if item is already in the basket stop them from spamming --> do this in the frontend.
 
@@ -78,6 +85,7 @@ async function userBasketUpdate(req, res, next){ //more like userbasket add.
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {
+    //console.log(err.response.message)
     next(err)
   }
 }
