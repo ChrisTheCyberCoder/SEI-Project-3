@@ -1,4 +1,10 @@
 $main_font: 'Roboto', sans-serif;
+$orange: #ffc200;
+$amazon_orange: #ff9900;
+
+html {
+  scroll-behavior: smooth;
+}
 
 #root {
   overflow-x: hidden;
@@ -20,7 +26,7 @@ form > div:nth-child(5) > div:nth-child(1) > select {
 
 h2 {
   font-family: $main_font;
-  color: rgb(255, 128, 128);
+  color: rgb(226, 60, 0);
   margin: 1rem;
 }
 
@@ -30,7 +36,7 @@ select {
   height: 35px;
   padding: 0 12px;
   font-size: 12px;
-  margin: 0px;
+  margin: 10px;
   color: black;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -53,6 +59,30 @@ select {
   font-family: $main_font;
 }
 
+#color1 {
+  color: $orange;
+}
+
+#color2 {
+  color: rgb(114, 0, 0);
+}
+
 .capitalized {
   text-transform: capitalize;
+  // color: $amazon_orange;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#color1:focus {
+  color: #0598b3;
+}
+
+.scrolling-box {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }

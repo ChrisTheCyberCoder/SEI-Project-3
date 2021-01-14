@@ -29,7 +29,7 @@ async function userShow(req, res, next) {
 
 async function userProfile(req, res, next) {
   try {
-    const user = await User.findById(req.currentUser._id).populate(basket1.item)
+    const user = await User.findById(req.currentUser._id)
     if (!user) throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {
@@ -47,7 +47,7 @@ async function userProfileUpdate(req, res, next){
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
     Object.assign(userToEdit, req.body)
-    userToEdit.basket1.push(req.body)
+    // userToEdit.basket1.push(req.body)
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {
