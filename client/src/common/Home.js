@@ -9,6 +9,7 @@ import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
 import leftArrow from '../assets/arrow_left_white.svg'
 import rightArrow from '../assets/arrow_right_white.svg'
 import pokeDollar from '../assets/poke_dollar.svg'
+import pokeDollarOrange from '../assets/poke_dollar_orange.svg'
 
 function Home() {
   const [items, setItems] = React.useState(null)
@@ -17,6 +18,7 @@ function Home() {
   const [randomItems, setRandomItems] = React.useState([])
   const [randomPokeball, setRandomPokeball] = React.useState({})
   const [randomBerry, setRandomBerry] = React.useState({})
+  const [randomCheapItem, setRandomCheapItem] = React.useState({})
 
   
   let interval = null
@@ -28,6 +30,7 @@ function Home() {
         setRandomItems(makeRandomArray(data))
         setRandomPokeball(pickRandomItem(data,'pokeballs'))
         setRandomBerry(pickRandomItem(data,'berries & apricorns'))
+        setRandomCheapItem(pickRandomCheapItem(data))
         // console.log(data)
       } catch (err) {
         setHasError(true)
@@ -49,6 +52,13 @@ function Home() {
     return filteredArray[Math.floor(Math.random() * filteredArray.length)]
   }
 
+  function pickRandomCheapItem(array){
+    const filteredArray = array.filter(item=>{
+      return item.category !== 'berries & apricorns' && item.price < 200
+    })
+    return filteredArray[Math.floor(Math.random() * filteredArray.length)]
+  }
+
 
   function makeRandomArray(array){
     const randomItems = []
@@ -63,10 +73,8 @@ function Home() {
 
   function mapSmallBoxes(array){
     if (!items) return
-    console.log('error item',items)
-    console.log('error',array)
     return (
-      <div className="red_border" >
+      <div className="inner_wrapper" >
         {array.map(item=>{
           return (
             <Link to={`/pokeshow/${item._id}`} key={item.name}>
@@ -86,10 +94,10 @@ function Home() {
   function mapOneItem(item){
     return ( 
       <Link to={`/pokeshow/${item._id}`} key={item.name}>
-        <div className="poke_card" >
-          <p>{item.name}</p>
+        <div className="single_wrapper" >
+          
           <img src={item.image} alt={item.name} />
-          <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
+          <p>{item.name} <img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
         </div>  
       </Link>
     )
@@ -183,13 +191,17 @@ function Home() {
               <label>Random Pick</label>
               {mapSmallBoxes(randomItems)}
             </div>  
-            <div className="home_section default_box_style quarter">
+            <div className="home_section single default_box_style quarter">
+              <label>Catch &apos;em all!</label>
               {mapOneItem(randomPokeball)}
             </div>  
-            <div className="home_section default_box_style quarter">
+            <div className="home_section single default_box_style quarter">
+              <label>Berries!!</label>
               {mapOneItem(randomBerry)}
             </div>  
-            <div className="home_section  default_box_style quarter">
+            <div className="home_section single default_box_style quarter">
+              <label className="cheap_item">Under <img src={pokeDollarOrange} alt="pokedollar sign" />200</label>
+              {mapOneItem(randomCheapItem)}
             </div>  
           </div> 
           <div className="home_content_wrapper">
