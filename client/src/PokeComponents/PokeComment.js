@@ -14,6 +14,7 @@ function PokeComment() {
   // so once comment submitted go push history to comment show
 
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
+  const [unauthorized, setUnauthorized] = React.useState(false)
 
   const { id } = useParams()
 
@@ -43,6 +44,11 @@ function PokeComment() {
     } catch (err) {
       console.log('da error', err.response)
 
+      if (err.response.data.message === 'Unauthorized') {
+        setUnauthorized(true)
+        return
+      }
+
       if (err.response.data.errors) {
         console.log('Rating way too high')
         setRatingTooHigh(true)
@@ -63,30 +69,36 @@ function PokeComment() {
   return (
 
     <section className="page_wrapper">
-      <form onSubmit={handleSubmit} className="float_up">
-        <div className="input_box">
-          <label>Text</label>
-          <input
-            placeholder="Text"
-            name="text"
-            onChange={handleChange}
-            value={formdata.text}
-          />
-        </div>
-        <div className="input_box">
-          <label>Rating</label>
-          <input
-            placeholder="Rating"
-            name="rating"
-            onChange={handleChange}
-            value={formdata.rating}
-          />
-          { ratingTooHigh ? <p>Please rate from 1-5</p> : null }
-        </div>
-        <div className="button_wrapper">
-          <button type="submit">Make a Comment</button>
-        </div>
-      </form>
+      {unauthorized ? <h1>Access Denied: Please Login</h1>
+
+        :
+
+        <form onSubmit={handleSubmit} className="float_up">
+          <div className="input_box">
+            <label>Comment</label>
+            <input
+              placeholder="Comment"
+              name="text"
+              onChange={handleChange}
+              value={formdata.text}
+            />
+          </div>
+          <div className="input_box">
+            <label>Rating</label>
+            <input
+              placeholder="Rate from 1 - 5"
+              name="rating"
+              onChange={handleChange}
+              value={formdata.rating}
+            />
+            { ratingTooHigh ? <p>Please rate from 1-5</p> : null }
+          </div>
+          <div className="button_wrapper">
+            <button type="submit">Make a Comment</button>
+          </div>
+        </form>
+
+      }
     </section>
 
 
