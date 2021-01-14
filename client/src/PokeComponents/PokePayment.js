@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { headers } from '../lib/api'
 import '../styles/PokePayment.scss'
-import { Link, useHistory } from 'react-router-dom'
+// import { Link, useHistory } from 'react-router-dom'
 
 function PokePayment() {
   // const history = useHistory() 
