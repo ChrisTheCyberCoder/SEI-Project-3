@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import { logout } from '../lib/auth' //* get token
 // isAuthenticated,
 import { getUserInfo } from '../lib/api.js'
@@ -14,6 +14,8 @@ import basket from '../assets/basket.svg'
 
 
 function Nav() {
+  // let isLoggedIn = isAuthenticated()
+  const { pathname } = useLocation()
   const history = useHistory()
   // const isLoggedIn = isAuthenticated()
   const [category, setCategory] = React.useState('')
@@ -22,7 +24,10 @@ function Nav() {
   const searchWidth = `calc(100% - ${categoryWidth}px)`
   const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
-
+  
+  // React.useEffect(()=>{ 
+  //   isLoggedIn = isAuthenticated()
+  // },[pathname])
 
 
   React.useEffect(() => {
@@ -40,14 +45,20 @@ function Nav() {
       }
     }
     getData()
-  }, [])
+  }, [pathname])
   
   if (userData) console.log('user_data',userData)
+
+  // React.useEffect(() => {
+  //   if (userData) setUserData(null)
+  // }, [userData])  
   
   const handleLogout = () => {
     logout()
     history.push('/')
-    window.location.reload()
+    setUserData(null)
+    setuserMenuDisplay(false)
+    // window.location.reload()
   }
 
   // const username = 'Pokebros'

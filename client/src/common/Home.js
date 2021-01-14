@@ -120,10 +120,7 @@ function Home() {
     // setSlideIsAuto(false)
   }
   
- 
-  // const randomItems = [
 
-  // ]
   
 
   //! this may not be required

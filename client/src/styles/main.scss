@@ -507,11 +507,11 @@ body {
 
   .home_section.quarter {
     width: calc(25% - 16px);
-        flex-wrap: wrap;
   }
 
   .home_section.half {
     width: calc(50% - 16px);
+    margin: 16px;
   }
 
 }

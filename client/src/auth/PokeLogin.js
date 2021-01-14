@@ -60,7 +60,7 @@ function PokeLogin() {
       setTimeout(()=>{
         setToken(data.token)
         history.push('/')
-        window.location.reload()
+        // window.location.reload() //! put in to reflect login icon change
       },500)
 
     } catch (err) {
