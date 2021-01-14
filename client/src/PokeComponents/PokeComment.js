@@ -83,8 +83,11 @@ function PokeComment() {
           />
           { ratingTooHigh ? <p>Please rate from 1-5</p> : null }
         </div>
-        <div className="button_wrapper">
-          <button type="submit">Make a Comment</button>
+        <div className="button_wrapper flexend">
+          <button type="submit">
+            <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+            Make a Comment
+          </button>
         </div>
       </form>
     </section>

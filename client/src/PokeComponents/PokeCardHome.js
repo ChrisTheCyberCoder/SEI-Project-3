@@ -1,17 +1,7 @@
 import React from 'react'
-// import { useStateValue } from './StateProvider'
 import '../styles/PokeCardHome.scss'
 import { getItems } from '../lib/api'
-// import item from '../../../models/item'
 
-// const randomNumsArr = () => {
-//   const arr = []
-//   while (arr.length < 10){
-//     const r = Math.floor(Math.random() * 400) + 1
-//     if (arr.indexOf(r) === -1) arr.push(r)
-//   }
-//   return arr
-// }
 
 function PokeCardHome({ title, image, price, rating }){
   const [items, setItems] = React.useState(null)

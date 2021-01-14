@@ -1,0 +1,88 @@
+$main_font: 'Roboto', sans-serif;
+$orange: #ffc200;
+$amazon_orange: #ff9900;
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  overflow-x: hidden;
+}
+
+form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(1) {
+  width: 33%;
+}
+
+form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(2) {
+  width: 35%;
+  margin: .5rem;
+}
+
+form > div:nth-child(5) > div:nth-child(1) > select {
+  width: 80%;
+  margin: .5rem;
+}
+
+h2 {
+  font-family: $main_font;
+  color: rgb(226, 60, 0);
+  margin: 1rem;
+}
+
+select {
+  border-radius: 10px;
+  border: 1px solid orange;
+  height: 35px;
+  padding: 0 12px;
+  font-size: 12px;
+  margin: 10px;
+  color: black;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fffcd2;
+  transition: 0.2s;
+  background-image:
+  linear-gradient(45deg, transparent 50%, gray 50%),
+  linear-gradient(135deg, gray 50%, transparent 50%);
+  background-position:
+    calc(100% - 12px) calc(1em + 12px),
+    calc(100% - 7px) calc(1em + 12px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  font-family: $main_font;
+}
+
+#color1 {
+  color: $orange;
+}
+
+#color2 {
+  color: rgb(114, 0, 0);
+}
+
+.capitalized {
+  text-transform: capitalize;
+  // color: $amazon_orange;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#color1:focus {
+  color: #0598b3;
+}
+
+.scrolling-box {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
