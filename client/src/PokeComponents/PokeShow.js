@@ -5,6 +5,12 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 import { getSingleItem, getItems, headers } from '../lib/api'
 import { deleteComment } from '../lib/api'
 import { getPayload } from '../lib/auth'
+import { itemRating } from '../lib/itemRating'
+import { v4 as uuidv4 } from 'uuid'
+
+import star from '../assets/star.svg' 
+import staryu from '../assets/staryu.svg' 
+import blankStar from '../assets/blank_star.svg' 
 
 function PokeShow() {
   const history = useHistory()
@@ -53,8 +59,9 @@ function PokeShow() {
   
   function goToItemPage(id){
     history.push(`/pokeshow/${id}`)
-    window.location.reload()
+    // window.location.reload()
   }
+
 
   const filteredItems = []
   const filterItems = (items)=> {
@@ -103,27 +110,25 @@ function PokeShow() {
 
   //console.log('this is the form data', formdata) //! Debugging purposes 
 
-  function itemRating(n){
-    // console.log('n',n)
-    const rating = []
-    for (let a = 0; a < n; a++) rating.push('star') 
-    for (let b = 0; b < (5 - n); b++) rating.push('blank') 
-    // console.log('test',rating)
-    return rating
-  }
 
   function mapStars(rating){
     const staryus = rating.map((ele)=>{
-      starId ++
+      starId = uuidv4()
+      // console.log('id',starId)
+      const random = Math.ceil(Math.random() * 50)
       return (
         ele === 'star' ?
-          <img className="staryu" key={starId} src="../assets/staryu.svg" alt="staryu" />
+          random === 50 ? 
+            <img className="staryu" key={starId} src={staryu} alt="staryu" />
+            :
+            <img key={starId} src={star} alt="staryu" />
           :
-          <img key={starId} src="../assets/blank_star.svg" alt="blank star" />
+          <img key={starId} src={blankStar} alt="blank star" />
       )
     })
     return staryus
   }
+
 
   // if (commentToDelete) { //! Note to self: Leave here, still need to fix one comment bug. THis can be uncommented (alternative)
   //   window.location.reload()
@@ -144,7 +149,6 @@ function PokeShow() {
     }
   }
 
-  // console.log(item)
 
   return (
 
@@ -157,14 +161,18 @@ function PokeShow() {
               <div className="rating">
                 {mapStars(itemRating(item.avgRating))}
               </div>
-              <p>{item.name}</p>
-              <p><img src="../assets/poke_dollar.svg" alt="pokedollar sign" />price {item.price}</p>
-              <p>description {item.description}</p>
-              <Link to={`/pokecomment/${id}`}>
-                <button>
-                  <img src="../assets/speech_bubble.svg" alt="speech bubble" /> comment
-                </button>
-              </Link>
+              
+              <label>{item.name}
+                <img src="../assets/poke_dollar.svg" alt="pokedollar sign" /> {item.price}
+              </label>
+              <div className="description">description {item.description}</div>
+              <div className="button_wrapper comment">
+                <Link to={`/pokecomment/${id}`}>
+                  <button>
+                    <img src="../assets/speech_bubble.svg" alt="speech bubble" /> Comment
+                  </button>
+                </Link>
+              </div>
             </div>
             <form className="buy_wrapper" onSubmit={addToBasket}>
               {item.stock ?
@@ -186,13 +194,14 @@ function PokeShow() {
           </div>
 
           <div className="similar_items_wrapper">
-            similar items
+            <label>
+              Similar Items
+            </label>  
             {item ?
-              <div className="inner_wrapper">
+              <div className="similar_items_inner_wrapper">
                 {filteredItems.map(item=>{
                   return (
                     <>
-                      {/* <Link to={`/pokeshow/${item._id}`}> */}
                       <div className="similar_items" 
                         key={item.name}
                         onClick={()=>{ 
@@ -205,7 +214,6 @@ function PokeShow() {
                           {item.price}
                         </div>
                       </div>  
-                      {/* </Link> */}
                     </>
                   )
                 })}

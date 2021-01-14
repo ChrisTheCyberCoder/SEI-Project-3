@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import { itemRating } from '../lib/itemRating'
 
 import star from '../assets/star.svg' 
 import staryu from '../assets/staryu.svg' 
@@ -14,12 +15,12 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
   //* function for displaying the rating
   let starId = null
   
-  function itemRating(n){
-    const rating = []
-    for (let a = 0; a < n; a++) rating.push('star') 
-    for (let b = 0; b < (5 - n); b++) rating.push('blank') 
-    return rating
-  }
+  // function itemRating(n){
+  //   const rating = []
+  //   for (let a = 0; a < n; a++) rating.push('star') 
+  //   for (let b = 0; b < (5 - n); b++) rating.push('blank') 
+  //   return rating
+  // }
  
   function mapStars(rating){
     const staryus = rating.map((ele)=>{

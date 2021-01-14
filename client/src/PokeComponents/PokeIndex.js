@@ -11,7 +11,6 @@ import dynamicSort from '../lib/sort'
 
 
 
-
 function PokeIndex() {
   const history = useHistory()
   const { category, searchCriteria, page } = useParams()
