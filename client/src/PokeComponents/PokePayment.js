@@ -49,9 +49,12 @@ function PokePayment() {
   // }
 
   function weGood() {
-    if (everyStateValid === true) {
-      return true
-    }
+    // if (everyStateValid === true) {
+    //   return true
+    // }
+    // return false
+
+    if (everyStateValid) return true
     return false
   }
 
