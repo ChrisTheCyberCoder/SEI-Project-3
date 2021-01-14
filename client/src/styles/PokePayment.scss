@@ -10,19 +10,23 @@ html {
   overflow-x: hidden;
 }
 
-form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(1) {
-  width: 33%;
-}
+// form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(1) {
+//   width: 33%;
+// }
 
-form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(2) {
-  width: 35%;
-  margin: .5rem;
-}
+// form > div:nth-child(4) > div:nth-child(1) > div > select:nth-child(2) {
+//   width: 35%;
+//   margin: .5rem;
+// }
 
-form > div:nth-child(5) > div:nth-child(1) > select {
-  width: 80%;
-  margin: .5rem;
-}
+// form > div:nth-child(5) > div:nth-child(1) > select {
+//   width: 80%;
+//   margin: .5rem;
+// }
+
+// . {
+//   margin-bottom: 40px;
+// }
 
 h2 {
   font-family: $main_font;
@@ -30,7 +34,7 @@ h2 {
   margin: 1rem;
 }
 
-select {
+.selectPokePayment {
   border-radius: 10px;
   border: 1px solid orange;
   height: 35px;
@@ -38,23 +42,8 @@ select {
   font-size: 12px;
   margin: 10px;
   color: black;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
   background-color: #fffcd2;
   transition: 0.2s;
-  background-image:
-  linear-gradient(45deg, transparent 50%, gray 50%),
-  linear-gradient(135deg, gray 50%, transparent 50%);
-  background-position:
-    calc(100% - 12px) calc(1em + 12px),
-    calc(100% - 7px) calc(1em + 12px),
-    calc(100% - 2.5em) 0.5em;
-  background-size:
-    5px 5px,
-    5px 5px,
-    1px 1.5em;
-  background-repeat: no-repeat;
   cursor: pointer;
   font-family: $main_font;
 }

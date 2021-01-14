@@ -1,5 +1,5 @@
 .full-wrapper{
-  margin: 2.5rem 4rem;
+  margin: 1rem 5rem;
   background-color: #fffdf5;
   display: flex;
   flex-direction: column;
@@ -12,12 +12,12 @@
   align-items: center;
   div:nth-child(1) {
     margin-left: 5rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(87, 87, 87);
   }
   div:nth-child(2) {
-    margin-left: 38rem;
+    margin-left: 33rem;
     p{
       color: grey;
       font-size: .9rem;
@@ -37,7 +37,7 @@
   margin-top: 1rem;
   border-radius: 5px;
   border: solid 1px rgb(255, 188, 62);
-  padding: 1.5rem;
+  padding: .5rem 2rem;
   display: flex;
   flex-direction: column;
   background-color: #fffbe7;
@@ -83,7 +83,7 @@
     font-weight: 200;
   }
   h4:nth-child(1) { 
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: rgb(59, 59, 59);
   }
   .name {

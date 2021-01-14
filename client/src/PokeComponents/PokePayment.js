@@ -2,10 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import { headers } from '../lib/api'
 import '../styles/PokePayment.scss'
-// import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function PokePayment() {
-  // const history = useHistory() 
   const [userProfileData, setUserProfileData] = React.useState(null)
 
   React.useEffect(() => {
@@ -21,21 +20,23 @@ function PokePayment() {
 
   }, [1])
 
-  const [cardValid, setCardValid] = React.useState(true)
-  const [nameValid, setNameValid] = React.useState(true)
-  const [monthValid, setMonthValid] = React.useState(true)
-  const [yearValid, setYearValid] = React.useState(true)
-  const [codeValid, setCodeValid] = React.useState(true)
-  const [countryValid, setCountryValid] = React.useState(true)
-  const [postcodeValid, setPostcodeValid] = React.useState(true)
+  const history = useHistory() 
+  console.log(history)
+  const [nameValid, setNameValid] = React.useState('')
+  const [cardValid, setCardValid] = React.useState('')
+  const [monthValid, setMonthValid] = React.useState('')
+  const [yearValid, setYearValid] = React.useState('')
+  const [codeValid, setCodeValid] = React.useState('')
+  const [countryValid, setCountryValid] = React.useState('')
+  const [postcodeValid, setPostcodeValid] = React.useState('')
   // console.log(setCardValid)
   // console.log()
-  const nameRegex = new RegExp(/^([a-zA-Z]+ ?)*$/)
-  const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})$/) // ok no this was harder
+  const nameRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]{1,40}$/)
+  const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]?[A-Za-z0-9]{4})(?:[-\s]?[A-Za-z0-9]{4})(?:[-\s]?[A-Za-z0-9]{4})$/) // ok no this was harder
   const monthRegex = new RegExp(/^[0-9]{1,2}$/)
   const yearRegex = new RegExp(/^[0-9]{4}$/)
   const codeRegex = new RegExp(/^[0-9]{3,4}$/)
-  const countryRegex = new RegExp(/^([a-zA-Z]+ ?)*$/)
+  const countryRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]*\b$/)
   // const postcodeRegex = new RegExp(/^[A-Za-z0-9]{2,4}(?:[-\s][A-Za-z0-9]{3})$/) //hardest regex of my lifetime
   const postcodeRegexSimplified = new RegExp(/^[A-Za-z0-9]{2,10}(?:[-\s]*[A-Za-z0-9]{2,10})/)
   const everyStateValid = cardValid && nameValid && monthValid && yearValid && codeValid && countryValid && postcodeValid
@@ -48,15 +49,8 @@ function PokePayment() {
   //   }
   // }
 
-  function weGood() {
-    if (everyStateValid === true) {
-      return true
-    }
-    return false
-  }
-
-  function setStates(nombre, bool) {
-    switch (nombre) {
+  function setStates(eventName, bool) {
+    switch (eventName) {
       case 'card':
         setCardValid(bool)
         break
@@ -83,46 +77,51 @@ function PokePayment() {
   const handleValidation = (event) => {
     event.preventDefault()
     let regex = null
-    let nombre = ''
+    let eventName = ''
     switch (event.target.name) {
       case 'card':
         regex = cardRegex
-        nombre = 'card'
+        eventName = 'card'
         break
       case 'name':
         regex = nameRegex
-        nombre = 'name'
+        eventName = 'name'
         break
       case 'month':
         regex = monthRegex
-        nombre = 'month'
+        eventName = 'month'
         break
       case 'year':
         regex = yearRegex
-        nombre = 'year'
+        eventName = 'year'
         break
       case 'code':
         regex = codeRegex
-        nombre = 'code'
+        eventName = 'code'
         break
       case 'country':
         regex = countryRegex
-        nombre = 'country'
+        eventName = 'country'
         break
       case 'postcode':
         regex = postcodeRegexSimplified
-        nombre = 'postcode'
+        eventName = 'postcode'
         break
     }
     if (regex.test(event.target.value)) {
-      setStates(nombre, true)
+      setStates(eventName, true)
       return
     }
-    setStates(nombre, false)
+    setStates(eventName, false)
     
     if ((event.target.name === 'card' || event.target.name === 'postcode' || event.target.name === 'code') && event.target.value === '') {
-      setStates(nombre, true)
+      setStates(eventName, true)
     }
+  }
+
+  function weGood() {
+    if (everyStateValid) return true
+    return false
   }
 
   return (
@@ -143,7 +142,7 @@ function PokePayment() {
                 name="name"
                 // value={formdata.email}
               />
-              { nameValid ? null : <p>Name cannot contain numbers or special characters</p> }
+              { nameValid === '' ? null : nameValid ? null : <p>Name cannot contain numbers or special characters</p> }
             </div>
             <div className="input_box">
               <label>Card Number</label>
@@ -157,13 +156,15 @@ function PokePayment() {
                 name="card"
                 onChange={handleValidation}
               />
-              { cardValid ? null : <p>Enter a valid card number</p> }
+              {cardValid === '' ? null : cardValid ? null : <p>Enter a valid card number</p>}
             </div>
             <div>
               <div className="input_box">
                 <label>Expiry Date (MM YYYY)</label>
-                <div>
-                  <select name="month" 
+                <div style={{ display: 'flex' }}>
+                  <select 
+                    className="selectPokePayment"
+                    name="month"
                     required 
                     id="color2"
                     onChange={handleValidation}
@@ -183,9 +184,10 @@ function PokePayment() {
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
-                  </select>
-                  { monthValid ? null : 'select a month' }
-                  <select name="year" 
+                  </select><div>{ monthValid === '' ? null : monthValid ? null : <p style={{ margin: '5px 0' }}>select a month</p> }</div>
+                  <select 
+                    className="selectPokePayment"
+                    name="year"
                     required 
                     id="color2"
                     onChange={handleValidation}
@@ -215,8 +217,9 @@ function PokePayment() {
                     <option value="2040">2040</option>
                     <option value="2041">2041</option>
                   </select>
+                  <div>{ yearValid === '' ? null : yearValid ? null : <p style={{ margin: '5px 0' }}>select a year</p> }</div>
                 </div>
-                { yearValid ? null : 'select a year' }
+                
               </div>
               <div className="input_box">
                 <label>Security Code (CVV)</label>
@@ -229,7 +232,7 @@ function PokePayment() {
                   onChange={handleValidation}
                   name="code"
                 />
-                { codeValid ? null : <p>Enter a valid security code</p> }
+                {codeValid === '' ? null : codeValid ? null : <p>Enter a valid security code</p>}
               </div>
             </div>
             <div>
@@ -238,6 +241,7 @@ function PokePayment() {
                 <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                 <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                 <select
+                  className="selectPokePayment"
                   id="color2"
                   required
                   onChange={handleValidation}
@@ -489,7 +493,7 @@ function PokePayment() {
                   <option value="Zambia">Zambia</option>
                   <option value="Zimbabwe">Zimbabwe</option>
                 </select>
-                { countryValid ? null : 'select a country' }
+                {countryValid === '' ? null : countryValid ? null : <p>select a country</p>}
               </div>
               <div className="input_box">
                 <label>Post Code</label>
@@ -502,7 +506,7 @@ function PokePayment() {
                   id="color1"
                   placeholder="TW6 2PL"
                 />
-                { postcodeValid ? null : <p>enter a valid postcode</p> }
+                { postcodeValid === '' ? null : postcodeValid ? null : <p>enter a valid postcode</p> }
               </div>
             </div>
           </div>
@@ -566,7 +570,16 @@ function PokePayment() {
                 </div>
               </div>
               <div className="button_wrapper">
-                <button type={ weGood() ? 'submit' : 'button' }>Checkout</button>
+                {weGood() ?
+                  <Link
+                    to={{
+                      pathname: '/pokecheckout'
+                      // state: { },
+                    }}>
+                      Checkout
+                  </Link>
+                  :
+                  null}
               </div>
             </div>
             :
@@ -576,7 +589,6 @@ function PokePayment() {
     </>
   )
 }
-
 
 export default PokePayment
 

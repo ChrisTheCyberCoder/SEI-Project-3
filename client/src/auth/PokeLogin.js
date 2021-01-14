@@ -60,7 +60,7 @@ function PokeLogin() {
       setTimeout(()=>{
         setToken(data.token)
         history.push('/')
-        // window.location.reload()
+        window.location.reload()
       },500)
 
     } catch (err) {
