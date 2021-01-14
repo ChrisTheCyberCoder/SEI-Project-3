@@ -4,6 +4,8 @@ import axios from 'axios'
 import { headers } from '../lib/api' 
 import { getPayload } from '../lib/auth'
 
+/* need styling on this page */
+
 function PokeBasket() {
 
   const [iterateResponse, setIterateResponse] = React.useState(null)
@@ -74,11 +76,11 @@ function PokeBasket() {
   function checkStatus() {
     if (unauthorised) {
       return  (
-        <h1>Access Denied: Please Login</h1> 
+        <h1>Access Denied: Please Login</h1> /* need styling here */
       )
     } else if (!iterateResponse) {
       return (
-        <h1>...Loading</h1>
+        <h1>...Loading</h1>  /* need styling here */
       )
     } 
   }

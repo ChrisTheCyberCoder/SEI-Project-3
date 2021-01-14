@@ -5,14 +5,6 @@ import axios from 'axios'
 
 function PokeComment() {
 
-  // ! Done
-
-  // in the comment form we need to collect text and rating
-  // we need to axios post 
-  // it's a secure route, so we need a header and token. 
-  // once comment made it needs to be display on item show
-  // so once comment submitted go push history to comment show
-
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
   const [unauthorized, setUnauthorized] = React.useState(false)
 
@@ -69,7 +61,7 @@ function PokeComment() {
   return (
 
     <section className="page_wrapper">
-      {unauthorized ? <h1>Access Denied: Please Login</h1>
+      {unauthorized ? <h1>Access Denied: Please Login</h1> /* need styling here */
 
         :
 

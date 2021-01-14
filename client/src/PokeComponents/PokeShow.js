@@ -175,7 +175,7 @@ function PokeShow() {
             { itemAlreadyInBasket ? 
               <div>
                 <p>You have already placed the item in the basket</p> 
-                <button onClick={()=>setItemAlreadyInBasket(false)}>Ok</button> 
+                <button onClick={()=>setItemAlreadyInBasket(false)}>Ok</button>   {/* need styling here */}
               </div>
               : null }
           </div>
