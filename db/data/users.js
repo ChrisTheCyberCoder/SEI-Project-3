@@ -128,7 +128,7 @@ export default [
       address: '16 pallet town',
       dob: '25/5/2009'
   }, {
-      username: 'Jos',
+      username: 'Jos', 
       email: 'jos@email',
       password: `pass`,
       passwordConfirmation: 'pass',
