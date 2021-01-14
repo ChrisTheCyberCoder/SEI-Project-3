@@ -30,9 +30,10 @@ async function userShow(req, res, next) {
 async function userProfile(req, res, next) {
   try {
     const user = await User.findById(req.currentUser._id) //.populate(basket1.item)
-    if (!user) throw new Error('notFound')
+    if (!user) res.json({ message: 'Access Denied, Please Log In'}) //throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {
+    console.log(err.response)
     next(err)
   }
 }
