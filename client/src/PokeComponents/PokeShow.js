@@ -1,23 +1,25 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { getSingleItem, getItems } from '../lib/api'
+import { Link, useParams, useHistory } from 'react-router-dom'
+import { getSingleItem, getItems, headers } from '../lib/api'
 import { deleteComment } from '../lib/api'
 import { getPayload } from '../lib/auth'
 
 function PokeShow() {
+  const history = useHistory()
   const { id } = useParams()
   const [ hasError, setHasError ] = React.useState(false)
   const [ item, setItem] = React.useState(null)
   const [ items, setItems ] = React.useState(null)
-  const [ itemQty, setItemQty ] = React.useState(null)
+  const [ itemQty, setItemQty ] = React.useState(1)
   const [commentToDelete, setCommentToDelete] = React.useState(null)
   const [itemAlreadyInBasket, setItemAlreadyInBasket] = React.useState(false)
 
-  const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
-    itemId: `${id}`, 
-    quantity: `${itemQty}` 
-  })
+  // const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
+  //   itemId: `${id}`, 
+  //   quantity: `${itemQty}` 
+  // })
   
   let starId = 0
   
@@ -49,6 +51,11 @@ function PokeShow() {
     getData()
   }, [])
   
+  function goToItemPage(id){
+    history.push(`/pokeshow/${id}`)
+    window.location.reload()
+  }
+
   const filteredItems = []
   const filterItems = (items)=> {
     if (!item) return
@@ -69,21 +76,19 @@ function PokeShow() {
 
   const addToBasket = async e => {
     e.preventDefault()
-    if (itemQty < 1) return
-    console.log(`add qty of ${itemQty} item id ${id} to the basket`)
-
-    setFormData({ ...formdata })
+    const body = {
+      quantity: itemQty,
+      item: id
+    }
 
     try {
-      const response = await axios.put(`/api/userprofile/${getUserId()}/basket`, formdata) //Adding Items to basket key array in userprofile
-      // console.log('the response', response) //debugging purposes
-      if (response.data.message === 'Item already in basket') {
-        setItemAlreadyInBasket(true)
-        return
-      }
+      const response = await axios.post('/api/userprofile/basket', body, headers())
+      console.log('the response', response)
     } catch (err) {
-      console.log('Bloody error', err)
+      console.log(err)
     }
+
+
   }
 
   function getUserId(){
@@ -167,7 +172,7 @@ function PokeShow() {
                 :
                 <p>sorry, out of stock</p>
               }
-              <input type="number" name="qty" min="0" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
+              <input type="number" defaultValue="1" name="qty" min="1" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
               <button>
                 <img src="../assets/pokeball_grey.svg" alt="pokeball" /> add to basket
               </button>
@@ -187,16 +192,20 @@ function PokeShow() {
                 {filteredItems.map(item=>{
                   return (
                     <>
-                      <Link to={`/pokeshow/${item._id}`}>
-                        <div className="similar_items" key={item.name}>
-                          {item.name}
-                          <img src={item.image} alt={item.name} />
-                          <div>
-                            <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
-                            {item.price}
-                          </div>
-                        </div>  
-                      </Link>
+                      {/* <Link to={`/pokeshow/${item._id}`}> */}
+                      <div className="similar_items" 
+                        key={item.name}
+                        onClick={()=>{ 
+                          goToItemPage(item._id)
+                        }}>
+                        {item.name}
+                        <img src={item.image} alt={item.name} />
+                        <div>
+                          <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
+                          {item.price}
+                        </div>
+                      </div>  
+                      {/* </Link> */}
                     </>
                   )
                 })}
@@ -224,7 +233,7 @@ function PokeShow() {
             
         </>
         :
-        hasError ? 
+        !hasError ? 
           <img src="../assets/pika_anim.gif" alt="loading" />
           :
           <h1>error</h1>

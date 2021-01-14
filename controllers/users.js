@@ -1,5 +1,5 @@
 import User from '../models/user.js'
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
 
 // user index 
 
@@ -29,7 +29,7 @@ async function userShow(req, res, next) {
 
 async function userProfile(req, res, next) {
   try {
-    const user = await User.findById(req.currentUser._id) //.populate(basket1.item)
+    const user = await User.findById(req.currentUser._id).populate('basket.item')
     if (!user) throw new Error('notFound') //throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {
@@ -55,69 +55,31 @@ async function userProfileUpdate(req, res, next){
   }
 }
 
-async function userBasketUpdate(req, res, next){ //more like userbasket add. 
-  const { id } = req.params 
-  const {itemId} = req.body
-
-  console.log('DID IT WORK', itemId)
+async function addItemToBasket(req, res, next) {
   try {
-    const userToEdit = await User.findById(id)
-    if (!userToEdit) throw new Error('notFound')
-
-    userToEdit.basket1.find(item => {
-      if (item.itemId === itemId) throw new Error('Item already in basket') // throw new Error('Item Already added to basket')
-    })
-
-    // const ObjectId = mongoose.Types.ObjectId; //! Get rid temporarily
-    // const itemBasketId = new ObjectId; //! Get rid temporarily
-    userToEdit.basket1.push({...req.body}) // this one is better // ({...req.body, itemBasketId}) 
-    // userToEdit.basket1.push(req.body, id1)
-
-    /*
-    const { _id } = req.body
-    console.log('REQUESTBODY',_id)
-    const item = await item.findById(_id)
-    userToEdit.basketcheckout.push(item) */
-
-    await userToEdit.save()
-    return res.status(202).json(userToEdit)
-  } catch (err) {
-    //console.log(err.response.message)
+    const user = await User.findById(req.currentUser._id)
+    if (!user) throw new Error('notFound')
+    user.basket.push(req.body)
+    await user.save()
+    return res.status(201).json(user)
+  } catch(err) {
     next(err)
   }
 }
 
-async function userBasketDelete(req, res, next){
+async function removeItemFromBasket(req, res, next){
 
-  const { id, itemdelete } = req.params 
+  const { itemId } = req.params
+
   try {
-    const userToEdit = await User.findById(id)
-    if (!userToEdit) throw new Error('notFound')
-
-    const check = userToEdit.basket1.filter(item => {
-
-      if (item.itemId !== itemdelete) {
-        console.log('REQPARAM', itemdelete)
-        console.log('THE ITEM', item.itemId)
-        return item.itemId
-      }
-    })
-
-    console.log('CHECK IT', check)
-
-    userToEdit.basket1= check
-
-    //userToEdit.basket1 = []
-
-    //userToEdit.basket1.push(check)
-
-    //console.log(test)
-
-    await userToEdit.save()
-    return res.status(202).json(userToEdit)
-    
-  } catch (err) {
-    console.log(err)
+    const user = await User.findById(req.currentUser._id)
+    if (!user) throw new Error('notFound')
+    const itemToRemove = user.basket.id(itemId)
+    if (!itemToRemove) throw new Error ('Item not found')
+    await itemToRemove.remove()
+    await user.save()
+    return res.sendStatus(204)
+  } catch(err) {
     next(err)
   }
 
@@ -128,8 +90,8 @@ export default {
   userShow: userShow,
   userProfile: userProfile, 
   userProfileUpdate: userProfileUpdate,
-  userBasketUpdate: userBasketUpdate,
-  userBasketDelete: userBasketDelete
+  addItemToBasket,
+  removeItemFromBasket
 }
 
 

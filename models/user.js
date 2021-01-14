@@ -2,6 +2,11 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import uniqueValidator from 'mongoose-unique-validator'
 
+const basketItem = new mongoose.Schema({
+  quantity: {type: Number, default: 1}, 
+  item: { type: mongoose.Schema.ObjectId, required: true, ref: 'Item' }
+})
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, maxlength: 40 },
   email: { type: String, required: true, unique: true },
@@ -9,9 +14,8 @@ const userSchema = new mongoose.Schema({
   image: { type: String, required: true },
   address: { type: String, required: true }, 
   dob: { type: String, required: true },
-  basket: {type: Array},
-  basket1: {type: Array}
-  // basketcheckout: {type: Array}
+  basket: [basketItem]
+  //add time stamps
 })
 
 userSchema.virtual('passwordConfirmation')
