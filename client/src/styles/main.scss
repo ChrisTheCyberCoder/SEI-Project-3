@@ -373,6 +373,12 @@ body {
   display: flex;
   justify-content: center;
   height: 300px;
+
+  label {
+    margin: 3px 0 -16px 5px;
+    height: 20px;
+    color: white;
+  }
  
   .home_section {
     margin: 16px;

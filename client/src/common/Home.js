@@ -51,7 +51,6 @@ function Home() {
 
 
   function makeRandomArray(array){
-
     const randomItems = []
     const filteredArray = array.filter(item=>{
       return item.category !== 'pokeballs' && item.category !== 'berries & apricorns'
@@ -177,6 +176,7 @@ function Home() {
 
           <div className="home_content_wrapper float_up_no_margin">
             <div className="home_section grey_background quarter">
+              <label>Random Pick</label>
               {mapSmallBoxes(randomItems)}
             </div>  
             <div className="home_section default_box_style quarter">
