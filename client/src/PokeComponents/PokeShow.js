@@ -1,11 +1,9 @@
 import axios from 'axios'
-// import { headers } from '../lib/api'
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getSingleItem, getItems } from '../lib/api'
 import { deleteComment } from '../lib/api'
 import { getPayload } from '../lib/auth'
-
 
 function PokeShow() {
   const { id } = useParams()
@@ -15,6 +13,12 @@ function PokeShow() {
   const [ itemQty, setItemQty ] = React.useState(null)
   const [commentToDelete, setCommentToDelete] = React.useState(null)
   const [itemAlreadyInBasket, setItemAlreadyInBasket] = React.useState(false)
+
+  const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
+    itemId: `${id}`, 
+    quantity: `${itemQty}` 
+  })
+  
   let starId = 0
   
   //* get single item
@@ -63,48 +67,20 @@ function PokeShow() {
   console.log(filteredItems)
   if (id) console.log('id',id)
 
-  //
-
-  // let userProfileData = null
-
-  // React.useEffect(() => {
-  //   const getData = async () => {
-  //     try { 
-  //       const { data } = await axios.get('api/userprofile', headers())
-        
-  //       //data.basket.push('5')
-  //       userProfileData = data
-  //       console.log('im looking for this', userProfileData)
-  //       console.log('data of the user', userProfileData)
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
-  //   getData()
-
-  // }, [1])
-
-
-
   const addToBasket = async e => {
     e.preventDefault()
     if (itemQty < 1) return
     console.log(`add qty of ${itemQty} item id ${id} to the basket`)
 
-    //input axios here. 
-
     setFormData({ ...formdata })
 
-
     try {
-      //const response = await axios.put(`/api/userprofile/${getUserId()}`, formdata)
-      const response = await axios.put(`/api/userprofile/${getUserId()}/basket`, formdata)
+      const response = await axios.put(`/api/userprofile/${getUserId()}/basket`, formdata) //Adding Items to basket key array in userprofile
+      // console.log('the response', response) //debugging purposes
       if (response.data.message === 'Item already in basket') {
         setItemAlreadyInBasket(true)
         return
       }
-      console.log('new updated profile', response)
-      console.log('it worked!')
     } catch (err) {
       console.log('Bloody error', err)
     }
@@ -118,28 +94,9 @@ function PokeShow() {
   }  
   getUserId()
 
-  const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
-    // _id: `${getUserId()}`,
-
-    // basket1: 
-    //   {
-    //     item: `${id}`,
-    //     quantity: `${itemQty}`, 
-    //     wentthrough: 'test'
-    //     // price can be extracted from the item api 
-    //   }
-
-    itemId: `${id}`, //item
-    quantity: `${itemQty}` 
-    // price can be extracted from the item api 
-    
-  })
-
   //note to self: if you reload page after stopping and starting the server it could lead to error because the id in url has changed. 
 
-  console.log('this is the form data', formdata)
-
-  //
+  //console.log('this is the form data', formdata) //! Debugging purposes 
 
   function itemRating(n){
     // console.log('n',n)
@@ -163,33 +120,26 @@ function PokeShow() {
     return staryus
   }
 
-  // if (commentToDelete) {
+  // if (commentToDelete) { //! Note to self: Leave here, still need to fix one comment bug. THis can be uncommented (alternative)
   //   window.location.reload()
   //   return
   // }
 
   
-  const handleChangeDelete = async event => {
-    console.log('delete button triggered')
-    console.log(event.target.value)
-
-    
-
+  const handleChangeDelete = async event => { //Delete Comments Logic 
+    // console.log('delete button triggered')
+    // console.log(event.target.value)
     const commentId = event.target.value 
-
-
     try {
       await deleteComment(id, commentId)
       setCommentToDelete(event.target.value)
-      // window.location.reload()
+      // window.location.reload() //! Note to self: Leave this here. 
     } catch (err) {
       console.log(err)
     }
   }
 
-  console.log(item)
-  
-
+  // console.log(item)
 
   return (
 

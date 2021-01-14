@@ -82,13 +82,6 @@ async function itemCommentCreate(req, res, next) {
   }
 }
 
-// I need to GET the item to delete first so that I know which one to delete
-// I need to set up a delete button on pokeshow, and I need the response to give me the specific item, and the specific id. 
-
-
-
-
-
 // delete comments
 
 async function itemCommentDelete(req, res, next) {
