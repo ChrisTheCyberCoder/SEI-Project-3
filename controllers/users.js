@@ -47,7 +47,7 @@ async function userProfileUpdate(req, res, next){
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
     Object.assign(userToEdit, req.body)
-    userToEdit.basket1.push(req.body)
+    // userToEdit.basket1.push(req.body)
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {

@@ -1,15 +1,23 @@
 import React from 'react'
-// import PokeCardHome from '../PokeComponents/PokeCardHome'
-// import '../styles/Home.scss'
 import { getItems } from '../lib/api'
-import dynamicSort from '../lib/sort'
+// import dynamicSort from '../lib/sort'
+import { Link } from 'react-router-dom'
 
+import PikachuLoadingScreen from '../PokeComponents/PikachuLoadingScreen'
+import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
+
+import leftArrow from '../assets/arrow_left_white.svg'
+import rightArrow from '../assets/arrow_right_white.svg'
+import pokeDollar from '../assets/poke_dollar.svg'
 
 function Home() {
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
   const [heroPos, setHeroPos] = React.useState(150)
-  // const [slideIsAuto, setSlideIsAuto] = React.useState(true)
+  const [randomItems, setRandomItems] = React.useState([])
+  const [randomPokeball, setRandomPokeball] = React.useState({})
+  const [randomBerry, setRandomBerry] = React.useState({})
+
   
   let interval = null
   React.useEffect(() => {
@@ -17,21 +25,74 @@ function Home() {
       try {
         const { data } = await getItems()
         setItems(data)
+        setRandomItems(makeRandomArray(data))
+        setRandomPokeball(pickRandomItem(data,'pokeballs'))
+        setRandomBerry(pickRandomItem(data,'berries & apricorns'))
+        // console.log(data)
       } catch (err) {
         setHasError(true)
         // console.log(err)
       }
     }
-    
-    
     getData()
     interval = setInterval(() => {
-      // if (slideIsAuto) 
       nextHero()
     }, 2000)
     return () => clearInterval(interval)
     
   }, [])
+  
+  function pickRandomItem(array,category){
+    const filteredArray = array.filter(item=>{
+      return item.category === category
+    })
+    return filteredArray[Math.floor(Math.random() * filteredArray.length)]
+  }
+
+
+  function makeRandomArray(array){
+
+    const randomItems = []
+    const filteredArray = array.filter(item=>{
+      return item.category !== 'pokeballs' && item.category !== 'berries & apricorns'
+    })
+    for (let i = 0 ; i < 4; i++){
+      randomItems.push(filteredArray[Math.floor(Math.random() * filteredArray.length)])
+    }
+    return randomItems
+  }
+
+  function mapSmallBoxes(array){
+    if (!items) return
+    console.log('error item',items)
+    console.log('error',array)
+    return array.map(item=>{
+      return (
+        <Link to={`/pokeshow/${item._id}`} key={item.name}>
+          <div className="small_box" >
+            <p>{item.name}</p>
+            <img src={item.image} alt={item.name} />
+            <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
+          </div>  
+        </Link>
+      ) 
+    })
+  }
+  
+  //* change class
+  function mapOneItem(item){
+    return ( 
+      <Link to={`/pokeshow/${item._id}`} key={item.name}>
+        <div className="poke_card" >
+          <p>{item.name}</p>
+          <img src={item.image} alt={item.name} />
+          <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
+        </div>  
+      </Link>
+    )
+  }
+
+  // if (randomItems) console.log('r',randomItems[0])
 
 
   const nextHero = () =>{ 
@@ -48,72 +109,81 @@ function Home() {
     // setSlideIsAuto(false)
   }
   
+ 
+  // const randomItems = [
 
-  //! create custom filter for different purpose, perhaps enter different parameters like category or price
-  // const filterItems = (items)=> {
-  //   if (category === 'all' && searchCriteria === '0') return items
-  //   let result = items
-  //   result = category === 'all' ? result : result.filter(item => item.category === category )
-  //   result = searchCriteria === '0' ? result : result.filter(item => item.name.includes(searchCriteria))
-  //   return result
-  // }
+  // ]
+  
+
+  //! this may not be required
 
   let filteredItems = null
   
-  if (items) console.log(items)
-  if (items) {
-    filteredItems = items.sort(dynamicSort('name'))
-    console.log(filteredItems)
-  }
+  React.useEffect(() => {
+    if (items){
+      // filteredItems = items.sort(dynamicSort('name'))
+      filteredItems = items.sort((a, b) => a.price - b.price)
+      console.log('fil',filteredItems)
+      
+    }
+  }, [items])
+
+  //! sort based on price
+  // if (items) console.log(filterItems(items).sort((a, b) => a.price - b.price))
 
 
   return (
     <>
-      <div className="home_hero_wrapper">
-        <div className="left_arrow"  onClick={prevHero}>
-        </div>  
-        <div className="inner_wrapper">
-          <div className="hero" style = {{ left: `${heroPos}%` }}>
-            <img
-              src="../assets/prime.png" 
-              alt=""
-            />  
-          </div>
-          
-          <div className="hero" style = {{ left: `${heroPos}%` }}>
-            <img
-              src="../assets/catch.png" 
-              alt=""
-            />  
-          </div>
-          
-          <div className="hero" style = {{ left: `${heroPos}%` }}>
-            <img
-              src="../assets/battle.png" 
-              alt=""
-            />  
-          </div>
-          
-          <div className="hero" style = {{ left: `${heroPos}%` }}>
-            <img
-              src="../assets/podcast.png" 
-              alt=""
-            />  
-          </div>
-       
-        </div>
-    
-        <div className="right_arrow" onClick={nextHero}>
-        </div> 
-      </div>
       {items ?
         <>
-          <div className="home_content_wrapper">
-            <div className="home_section default_box_style quarter">
+          <div className="home_hero_wrapper">
+            <div className="left_arrow"  onClick={prevHero}>
+              <img className="left" src={leftArrow} alt="left arrow" />
+            </div>  
+            <div className="inner_wrapper">
+              <div className="hero" style = {{ left: `${heroPos}%` }}>
+                <img
+                  src="../assets/prime.png" 
+                  alt="Pokezon prime coming soon"
+                />  
+              </div>
+          
+              <div className="hero" style = {{ left: `${heroPos}%` }}>
+                <img
+                  src="../assets/catch.png" 
+                  alt="Catch pokemon with Master ball"
+                />  
+              </div>
+          
+              <div className="hero" style = {{ left: `${heroPos}%` }}>
+                <img
+                  src="../assets/battle.png" 
+                  alt="Trainers get your items here"
+                />  
+              </div>
+          
+              <div className="hero" style = {{ left: `${heroPos}%` }}>
+                <img
+                  src="../assets/podcast.png" 
+                  alt="Pokezon podcast coming soon"
+                />  
+              </div>
+            </div>
+    
+            <div className="right_arrow" onClick={nextHero}>
+              <img className="right" src={rightArrow} alt="right arrow" />
+            </div> 
+          </div>
+
+          <div className="home_content_wrapper float_up_no_margin">
+            <div className="home_section grey_background quarter">
+              {mapSmallBoxes(randomItems)}
             </div>  
             <div className="home_section default_box_style quarter">
+              {mapOneItem(randomPokeball)}
             </div>  
             <div className="home_section default_box_style quarter">
+              {mapOneItem(randomBerry)}
             </div>  
             <div className="home_section  default_box_style quarter">
             </div>  
@@ -127,10 +197,13 @@ function Home() {
         </>
         :
         hasError ? 
-          
-          <p>error</p> 
+          <section className="page_wrapper">
+            <SlowPokeErrorCard
+              errorMessage='hmm... server might be down...'
+            />
+          </section>
           : 
-          <p>loading</p> 
+          <PikachuLoadingScreen/>
 
         
       }
@@ -139,58 +212,4 @@ function Home() {
 }
 
 export default Home
-
-
-
-// <div className="home__row">
-// <PokeCardHome
-//   title="Código Limpio / Clean Code : Robert C. Martin"
-//   price={9361}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// <PokeCardHome
-//   title="Código Limpio / Clean Code : Robert C. Martin"
-//   price={9361}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// <PokeCardHome
-//   title="Código Limpio / Clean Code : Robert C. Martin"
-//   price={9361}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// <PokeCardHome
-//   id="6987"
-//   title="Book : Javascript: Javascript Programming For Absolute Be..."
-//   price={1349}
-//   rating={5}
-//   image="https://http2.mlstatic.com/D_NQ_NP_794903-MLA26289240932_112017-O.webp"
-// />
-// </div>
-
-// <div className="home__row">
-// <PokeCardHome
-//   title="Book : React For Real Front-end Code, Untangled - Fischer,.."
-//   price={4720}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// <PokeCardHome
-//   title="Book : React Design Patterns And Best Practices Build Easy.."
-//   price={4800}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// </div>
-
-// <div className="home__row">
-// <PokeCardHome
-//   title="Book : Python Crash Course The Introduction To Programming.."
-//   price={4951}
-//   rating={5}
-//   image="https://via.placeholder.com/300"
-// />
-// </div>
 

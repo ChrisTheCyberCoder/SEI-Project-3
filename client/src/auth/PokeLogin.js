@@ -2,9 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 
+import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
+
 import marchamp from '../assets/marchamp.svg'
-import slowpoke from '../assets/slowpoke.svg'
-import questionMark from '../assets/question_mark.svg'
 
 import desk from '../assets/desk.svg'
 import leftEar from '../assets/eevee_left_ear.svg'
@@ -91,23 +91,9 @@ function PokeLogin() {
   function loadFailure() {
     if (loadfailure) {
       return (
-        <div className="message default_box_style float_up">
-          <h2>We do apologise, the server is down.</h2>
-          <div className="slowpoke">
-            <img className="question" src={questionMark} alt="question mark" />
-            <img className="main" src={slowpoke} alt="confused slowpoke" />
-          </div>  
-            
-          <div className="button_wrapper"> 
-            <Link to={'/'}>
-              <button>
-                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-                Home
-              </button> 
-            </Link>
-          </div>  
-          
-        </div>
+        <SlowPokeErrorCard
+          errorMessage='We do apologise, the server is down.'
+        />
       )
     } else {
       return (
@@ -190,3 +176,21 @@ function PokeLogin() {
 }
 
 export default PokeLogin
+
+{/* <div className="message default_box_style float_up">
+          <h2>We do apologise, the server is down.</h2>
+          <div className="slowpoke">
+            <img className="question" src={questionMark} alt="question mark" />
+            <img className="main" src={slowpoke} alt="confused slowpoke" />
+          </div>  
+            
+          <div className="button_wrapper"> 
+            <Link to={'/'}>
+              <button>
+                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+                Home
+              </button> 
+            </Link>
+          </div>  
+          
+        </div> */}

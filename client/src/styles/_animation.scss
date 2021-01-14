@@ -1,6 +1,37 @@
 
 
 
+
+//* arrows
+@keyframes left_motion{
+  0%{ left: -2px; transform: scale(1.2);}
+  50%{ left: 2px; transform: scale(0.7);}
+  100%{ left: -2px; transform: scale(1.2);}
+} 
+
+
+@keyframes right_motion{
+  0%{ right: -2px; transform: scale(1.2);}
+  50%{ right: 2px; transform: scale(0.7);}
+  100%{ right: -2px; transform: scale(1.2);}
+} 
+
+
+//* page load animation
+
+.float_up_no_margin {
+  position: relative;
+  animation: float_up forwards 0.8s;
+}
+
+@keyframes float_up_no_margin {
+  0% { transform: scale(1); margin-top: 200vh;}
+  70% { transform: scale(1.04,0.96); margin-top: 10px;}
+  80% { transform: scale(0.96,1.04); margin-top: 0px;}
+  90% { transform: scale(1.04,0.96); }
+  100% { transform: scale(1); margin-top: 0px;}
+}
+
 .float_up {
   position: relative;
   animation: float_up forwards 0.8s;
@@ -27,6 +58,8 @@
   100% { transform: scale(1); margin-top: 0px;}
 }
 
+
+//* form animation
 
 .shake {
   animation: shake infinite 0.2s;
@@ -63,16 +96,17 @@
   100% { transform: scale(1) ;  margin-top: -200vh;}
 }
 
+
+//* staryu (rating)
+
 @keyframes staryu_motion {
   0% {transform: scale(1);}
   40% {transform: scale(0.95,1.05);}
   100% {transform: scale(1);}
 }
 
-@keyframes bg_scrolling {
-  0% { background-position: 0 50px; }
-  100% { background-position: 50px 0; }
-}
+
+//* button related animation
 
 @keyframes hop {
   0% {bottom: 0; transform: scale(1);}
@@ -96,6 +130,8 @@
   100% {transform: scale(1);}
 }
 
+
+//*slowpoke and marchamp animation
 
 @keyframes confused {
   0% {right:45px; top:0px;  transform-origin: 50% 50%;transform: rotate(0deg);}
@@ -152,4 +188,49 @@
   90% {bottom: 80px; transform: scale(0.95,1.05);}
   95% {transform: scale(1.1,0.8);}
   100% {bottom: 70px; transform: scale(1);}
+}
+
+
+//* load bar
+
+
+.bar {
+  margin-left:25px;
+  width: calc(100% - 50px);
+  height: 20px;
+  border-radius: 50px;
+  background-color: white;
+  overflow: hidden;
+} 
+
+.inside {
+  // position: absolute;
+  float: left;
+  width: 0%;
+  height: 50px;
+  background-color: rgb(255, 204, 93);
+  transition: 1s;
+  animation: bar_load forwards 1s; 
+}
+
+@keyframes bar_load {
+  0%{ width: 0%;}
+  100%{ width: 100%;}
+}
+
+.pika {
+  animation: pika_load forwards 1s; 
+}
+
+@keyframes pika_load {
+  0%{ left: 0%;}
+  100%{ left: calc(100% - 100px);}
+}
+
+
+//* background animation
+
+@keyframes bg_scrolling {
+  0% { background-position: 0 50px; }
+  100% { background-position: 50px 0; }
 }

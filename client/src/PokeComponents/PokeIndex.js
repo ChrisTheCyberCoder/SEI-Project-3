@@ -2,24 +2,21 @@ import React from 'react'
 import { getItems } from '../lib/api'
 import { useParams, useHistory } from 'react-router-dom'
 
+import PikachuLoadingScreen from './PikachuLoadingScreen'
+import PokeCard from './PokeCardIndex'
+
 import leftArrow from '../assets/arrow_left_orange.svg'
 import rightArrow from '../assets/arrow_right_orange.svg'
-import pika from '../assets/pika_anim.gif'
 import dynamicSort from '../lib/sort'
 
 
-import PokeCard from './PokeCardIndex'
+
 
 function PokeIndex() {
   const history = useHistory()
   const { category, searchCriteria, page } = useParams()
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  // const [pageNo, setPageNo] = React.useState(page)
-  // const [pikaPos, setPikaPos] = React.useState({  
-  //   pika: '0%',
-  //   bar: '0%'
-  // })
 
   const filterItems = (items)=> {
     if (category === 'all' && searchCriteria === '0') return items
@@ -74,9 +71,7 @@ function PokeIndex() {
   if (items) {
     filteredItems = filterItems(items).sort(dynamicSort('name')).slice(firstItem,page * itemToDisplay)
   }
-  
-  //! sort based on price
-  // if (items) console.log(filterItems(items).sort((a, b) => a.price - b.price))
+
 
   function mapPageLinks(maxvalue){
     const pages = []
@@ -152,15 +147,7 @@ function PokeIndex() {
               Error
             </h2>
             : 
-            <div className="center_box">
-              <div className="bar">
-                {/* <div className="inside" style = {{ width: `${pikaPos.bar}` }}></div> */}
-                <div className="inside"></div>
-              </div>
-              {/* <img className="pika" style = {{ left: `${pikaPos.pika}` }} src={pika} alt="pikachu" /> */}
-              <img className="pika" src={pika} alt="pikachu" />
-            </div> 
-
+            <PikachuLoadingScreen/>
           }
         </>
       }
@@ -173,3 +160,11 @@ function PokeIndex() {
 
 
 export default PokeIndex
+
+
+{/* <div className="center_box">
+<div className="bar">
+  <div className="inside"></div>
+</div>
+<img className="pika" src={pika} alt="pikachu" />
+</div>  */}
