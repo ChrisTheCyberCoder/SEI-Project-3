@@ -400,6 +400,12 @@ body {
   .home_section {
     height: 300px;
   }
+
+  .home_section {
+    img:hover {
+      animation: infinite 1s pulsate;
+    }
+  }
  
   .home_section.grey_background {
     margin: 16px;
@@ -578,29 +584,26 @@ body {
   z-index: 10;
 }
 
-// .page_wrapper_overlay {
-//   height: 100%;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-start;
+.basket_wrapper {
+  padding: 20px;
+  width: calc(100% - 50px);
+  margin: 20px 0;
+  display:flex;
 
-//   .marchamp {
-//     margin-top:10px;
-//     height: 280px;
-//     width: 200px;
-//     display: flex;
-//     justify-content: center;
+  label {
+    text-transform: capitalize;
+    font-size: 25px;
+  }
+
+  .description {
+    padding: 10px;
+  }
   
-//     img {
-//       margin: auto 0 0 0;
-//       height: 250px;
-//       // width: auto;
-//       // border: blue 1px solid;
-//       animation: squidge infinite ease 1s;
-//     }
-//   }
-// } 
+  img {
+    height: 200px;
+    width: auto;
+  }
+}
 
 
 .comments_wrapper {
@@ -732,6 +735,10 @@ img.staryu {
   border-radius: 8px;
   width: calc(100% - 50px);
   height: 250px;
+
+  img:hover {
+    animation: infinite 1s pulsate;
+  }
 
   label {
     color: white;
@@ -884,13 +891,16 @@ img.staryu {
       border: 0;
       padding: 10px 15px;
       font-size: 17px;
-      margin: 5px 5px 0;
+      margin: 20px 5px 0;
       font-family: $main_font;
       color: $dark_color;
       background-color: $input_background_color;
       text-align: center;
+
     }
+
   }
+ 
 }
 
 .profile_preview {
@@ -1085,6 +1095,9 @@ img.staryu {
     margin: 5px 0 0 25px;
     height: 100%;
     width: auto;
+  }
+  img:hover {
+    animation: pulsate infinite 1s;
   }
 }
 

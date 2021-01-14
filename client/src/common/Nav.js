@@ -177,7 +177,7 @@ function Nav() {
                     <div className="profile_image" onClick={openUserMenu}>
                       <img src={userData.image} alt="user profile image" />
                     </div> 
-                    <div className={`user_menu ${userMenuDisplay && 'display'}`}>
+                    <div onMouseLeave={()=>setuserMenuDisplay(false)} className={`user_menu ${userMenuDisplay && 'display'}`}>
                       <button onClick={handleLogout} >
                         <img src={pokeballGrey} alt="pokeball" />
                   Log out

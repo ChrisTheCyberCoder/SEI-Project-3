@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
+import MarchampSecurity from '../PokeComponents/MarchampSecurity'
 
-import marchamp from '../assets/marchamp.svg'
+
 
 import desk from '../assets/desk.svg'
 import leftEar from '../assets/eevee_left_ear.svg'
@@ -150,22 +151,12 @@ function PokeLogin() {
 
   return (
     <section className="page_wrapper">
-      { ranOutOfAttempts ? 
-        <div className="message default_box_style float_up">
-          <h2>As a Security Precaution, you are blocked.</h2>
-          <div className="marchamp">
-            <img className="main" src={marchamp} alt="marchamp security guard" />
-          </div>  
-            
-          <div className="button_wrapper"> 
-            <Link to={'/'}>
-              <button>
-                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-                Home
-              </button> 
-            </Link>
-          </div>  
-        </div>
+      {ranOutOfAttempts ? 
+        <MarchampSecurity 
+          message='As a Security Precaution, you are blocked.'
+          link='/'
+          buttonText='Home'
+        />
         : 
         <>
           {loadFailure()}
@@ -175,3 +166,5 @@ function PokeLogin() {
 }
 
 export default PokeLogin
+
+

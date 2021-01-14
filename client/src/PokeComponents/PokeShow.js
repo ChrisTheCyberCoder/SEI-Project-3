@@ -70,6 +70,8 @@ function PokeShow() {
   }, [item])
   
   function goToItemPage(id){
+    setItemInBasket(false)
+    setItemQty(1)
     history.push(`/pokeshow/${id}`)
     // window.location.reload()
   }
@@ -116,26 +118,9 @@ function PokeShow() {
   }
 
 
-
-
-  // console.log(filteredItems)
   if (id) console.log('id',id)
 
-  // const addToBasket = async e => {
-  //   e.preventDefault()
-  //   const body = {
-  //     quantity: itemQty,
-  //     item: id
-  //   }
-  //   if (itemInBasket) return 
-  //   try {
-  //     const response = await axios.post('/api/userprofile/basket', body, headers())
-  //     setItemInBasket(true)
-  //     console.log('the response', response)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
+
 
 
   const addToBasket = async e => {
@@ -157,8 +142,6 @@ function PokeShow() {
       }
     }
   }
-
-
 
 
 
@@ -253,10 +236,11 @@ function PokeShow() {
                   {mapStars(itemRating(item.avgRating))}
                 </div>
               
-                <label>{item.name}
+                <label>
+                  {item.name}
                   <img src="../assets/poke_dollar.svg" alt="pokedollar sign" /> {item.price}
                 </label>
-                <div className="description">description {item.description}</div>
+                <div className="description">{item.description}</div>
                 <div className="button_wrapper comment">
                   <Link to={`/pokecomment/${id}`}>
                     <button>
@@ -265,19 +249,19 @@ function PokeShow() {
                   </Link>
                 </div>
               </div>
-              <form className="buy_wrapper" onSubmit={addToBasket}>
+              <form className={`buy_wrapper ${itemInBasket && 'accepted'}`} onSubmit={addToBasket}>
                 {item.stock ?
                   <p>{item.stock} left in stock</p>
                   :
                   <p>sorry, out of stock</p>
                 }
-                <input type="number" defaultValue="1" name="qty" min="1" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
+                <input type="number" defaultValue={itemQty} name="qty" min="1" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
 
-                { itemInBasket ? <p className="blue">Item added in basket</p> : null }
+                { itemInBasket ? <p className="blue">Item added in basket!!</p> : null }
                 { notLoggedIn ? <p className="blue">! Login to add to basket</p> : null}
                 <div className="button_wrapper">
                   <button>
-                    <img src="../assets/pokeball_orange.svg" alt="pokeball" /> add to basket
+                    <img src="../assets/pokeball_orange.svg" alt="pokeball" /> Add to basket
                   </button>
                 </div>  
 
