@@ -1,0 +1,17 @@
+export default ['I wouldn\'t mind if they had taken more care with the packgage',
+'Item looks great, but it took too long to arrive',
+'I wouldn\'t mind buying again',
+'I think theres still some thinks to work on',
+'I was expecting more from Pokezone on this one',
+'Pokezone let me down with the packaging on this item',
+'Item is good, delivery not so',
+'Would love if they had a speedier delivery option',
+'Like the item but maybe different packaging would\'ve done the trick',
+'Wouldn\'t mind a better packgage next time',
+'Would love if the packaging wasn\'t so revealing',
+'Will have to order with a lot more premeditation next time',
+'Great item, not so great packaging',
+'The item was ok',
+'Item was 50/50',
+'Would change some things about the packaging'
+]

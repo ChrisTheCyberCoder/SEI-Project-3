@@ -1,16 +1,35 @@
 import React from 'react'
-import { getToken } from '../lib/auth'
-import { useHistory,useParams  } from 'react-router-dom'
+import { useHistory, useParams, Link  } from 'react-router-dom'
 import axios from 'axios'
+import { headers } from '../lib/api'
+
 
 function PokeComment() {
 
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
-  const [unauthorized, setUnauthorized] = React.useState(false)
+  const [notLoggedIn, setNotLoggedIn] = React.useState(false)
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try { 
+        const response = await axios.get('/api/userprofile', headers())
+        console.log(response)
+
+      } catch (err) {
+        console.log(err.response.status)
+        if (err.response.status === 401) {
+          setNotLoggedIn(true)
+          return
+        }
+      }
+    }
+    getData()
+
+  }, [])
 
   const { id } = useParams()
 
-  console.log('this is the id', id)
+  //console.log('this is the id', id)
 
   const history = useHistory()
 
@@ -36,21 +55,10 @@ function PokeComment() {
     } catch (err) {
       console.log('da error', err.response)
 
-      if (err.response.data.message === 'Unauthorized') {
-        setUnauthorized(true)
-        return
-      }
-
       if (err.response.data.errors) {
         console.log('Rating way too high')
         setRatingTooHigh(true)
       }
-    }
-  }
-
-  function headers() {
-    return {
-      headers: { Authorization: `Bearer ${getToken()}` }
     }
   }
 
@@ -60,8 +68,17 @@ function PokeComment() {
 
   return (
 
+    
+
     <section className="page_wrapper">
-      {unauthorized ? <h1>Access Denied: Please Login</h1> /* need styling here */
+      {notLoggedIn ? 
+      
+        <>
+          <h1>Access Denied: Please Login</h1> {/*Need styling here */}
+          <Link to={`/pokeshow/${id}`}>
+            <button>Back</button>    
+          </Link> 
+        </>                                   
 
         :
 
@@ -92,9 +109,7 @@ function PokeComment() {
 
       }
     </section>
-
-
-  //text and rating needed 
+    
   )
 }
 
