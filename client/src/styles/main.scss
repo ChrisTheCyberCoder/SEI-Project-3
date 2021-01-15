@@ -794,6 +794,7 @@ img.staryu {
     height: 100%;
     width: calc(25% - 8px);
     text-transform: capitalize;
+    cursor: pointer;
   
     img {
       height: calc(100% - 70px);

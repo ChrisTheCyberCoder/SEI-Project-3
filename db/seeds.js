@@ -97,7 +97,7 @@ async function seedDatabase() {
 
           item.comments = [{
             text: randomiseNeutralComments(), 
-            rating: rater, 
+            rating: 2, 
             owner: users[randomGen()].id
           }]
 
@@ -130,7 +130,7 @@ async function seedDatabase() {
             owner: users[randomGen()].id
           }, {
             text: randomiseNeutralComments(),
-            rating: rater,
+            rating: 2,
             owner: users[randomGen()].id
           })
         }
@@ -261,7 +261,7 @@ async function seedDatabase() {
 
       item.comments.push({
         text: randomiseGoodComments(),
-        rating: 5,
+        rating: 4,
         owner: users[randomGen()].id
       }, {
         text: randomiseGoodComments(),
@@ -269,7 +269,7 @@ async function seedDatabase() {
         owner: users[randomGen()].id
       }, {
         text: randomiseGoodComments(),
-        rating: 5,
+        rating: 4,
         owner: users[randomGen()].id
       })
     }
