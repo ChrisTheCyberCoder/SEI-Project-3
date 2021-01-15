@@ -1,6 +1,7 @@
 $main_font: 'Roboto', sans-serif;
 $orange: #ffc200;
 $amazon_orange: #ff9900;
+$input_background_color: rgb(252, 245, 235);
 
 html {
   scroll-behavior: smooth;
@@ -30,46 +31,53 @@ html {
 
 h2 {
   font-family: $main_font;
-  color: rgb(226, 60, 0);
+  color: rgb(230, 99, 13);
   margin: 1rem;
 }
 
 .selectPokePayment {
-  border-radius: 10px;
-  border: 1px solid orange;
+  border-radius: 8px;
+  // border: 1px solid orange;
+  border: 0;
   height: 35px;
-  padding: 0 12px;
-  font-size: 12px;
-  margin: 10px;
-  color: black;
-  background-color: #fffcd2;
+  padding: 0px 10px;
+  font-size: 15px;
+  margin: 5px 5px 0;
+  // color: black;
+  color: #ffc588;
+  background-color: $input_background_color;
   transition: 0.2s;
   cursor: pointer;
   font-family: $main_font;
 }
 
-#color1 {
-  color: $orange;
+.selectPokePayment.selected {
+  color: black;
 }
 
-#color2 {
-  color: rgb(114, 0, 0);
-}
+
+// #color1 {
+//   color: $orange;
+// }
+
+// #color2 {
+//   color: #ffc588;
+// }
 
 .capitalized {
   text-transform: capitalize;
   // color: $amazon_orange;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+//   -webkit-appearance: none;
+//   margin: 0;
+// }
 
-#color1:focus {
-  color: #0598b3;
-}
+// #color1:focus {
+//   color: #0598b3;
+// }
 
 .scrolling-box {
   overflow-y: scroll;

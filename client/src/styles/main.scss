@@ -671,6 +671,7 @@ body {
         // width: 500px;
         img{
           height: 20px;
+          margin: 0 1.1px;
           width: solid;
         }
       }
@@ -794,6 +795,7 @@ img.staryu {
     height: 100%;
     width: calc(25% - 8px);
     text-transform: capitalize;
+    cursor: pointer;
   
     img {
       height: calc(100% - 70px);
@@ -1231,7 +1233,7 @@ img.staryu {
 }
 
 .user_menu.display {
-  height: 100px;
+  height: 65px;
 }
 
 
@@ -1474,4 +1476,14 @@ button.up:hover {
     position: relative;
     animation: up_motion infinite 1s;
   }
+}
+
+.display_none {
+  display: none;
+}
+
+.eevee_thankyou_wrapper {
+  padding: 50px 0 0 0;
+  height: 350px;
+  width: 400px;
 }

@@ -2,9 +2,10 @@ import React from 'react'
 import axios from 'axios'
 import { headers } from '../lib/api'
 import '../styles/PokePayment.scss'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function PokePayment() {
+  const history = useHistory()
   const [userProfileData, setUserProfileData] = React.useState(null)
 
   React.useEffect(() => {
@@ -19,6 +20,10 @@ function PokePayment() {
     getData()
 
   }, [1])
+
+  const handleSelect = e =>{
+    e.target.classList.add('selected')
+  }
 
   // const [doCheckout, setDoCheckout] = React.useState(true)
   const [cardValid, setCardValid] = React.useState('')
@@ -38,6 +43,10 @@ function PokePayment() {
     postcode: ''
   })
   // const [sendthis, setSendthis] = React.useState({})
+<<<<<<< HEAD
+=======
+  const [sendthis] = React.useState({})
+>>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
 
   // console.log(setCardValid)
   // console.log()
@@ -51,6 +60,8 @@ function PokePayment() {
   const postcodeRegexSimplified = new RegExp(/^[A-Za-z0-9]{2,10}(?:[-\s]*[A-Za-z0-9]{2,10})/)
 
   const everyStateValid = cardValid && nameValid && monthValid && yearValid && codeValid && countryValid && postcodeValid
+
+
 
   // function addSpaceToCard(event) {                  //* kept here only for record-keeping reasons
   //   let str = event.target.value
@@ -213,7 +224,10 @@ function PokePayment() {
                     className="selectPokePayment"
                     required 
                     id="color2"
-                    onChange={handleValidation}
+                    onChange={(e)=>{
+                      handleValidation(e)
+                      handleSelect(e)
+                    }}
                   >
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
@@ -234,7 +248,10 @@ function PokePayment() {
                   <select name="year" 
                     required 
                     id="color2"
-                    onChange={handleValidation}
+                    onChange={(e)=>{
+                      handleValidation(e)
+                      handleSelect(e)
+                    }}
                     className="selectPokePayment"
                   >
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
@@ -288,7 +305,10 @@ function PokePayment() {
                   id="color2"
                   className="selectPokePayment"
                   required
-                  onChange={handleValidation}
+                  onChange={(e)=>{
+                    handleValidation(e)
+                    handleSelect(e)
+                  }}
                   name="country"
                 >
                   <option value="">Select Country</option>
@@ -547,18 +567,24 @@ function PokePayment() {
                   required
                   onChange={handleValidation}
                   name="postcode"
-                  id="color1"
+                  // id="color1"
                   placeholder="TW6 2PL"
                 />
                 {postcodeValid === '' ? null : postcodeValid ? null : <p>enter a valid postcode</p>}
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <div className="button_wrapper">
+=======
+
+          <div className="button_wrapper display_none">
+>>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
             <Link
               to={{
                 pathname: '/pokecheckout',
                 state: 
+<<<<<<< HEAD
                 userProfileData,
                 formdata
               }}
@@ -567,6 +593,40 @@ function PokePayment() {
               Checkout
             </Link>
           </div>
+=======
+                sendthis,
+                userProfileData,
+                formdata         }}
+              className={weGood() ? '' : 'isDisabled'}
+            >
+            Checkout
+            </Link>
+          </div>
+
+          <div className="button_wrapper flexend">
+
+            {/* <Link
+              to={{
+                pathname: '/pokethankyou',
+                state: 
+                sendthis,
+                userProfileData,
+                formdata         }}
+              className={weGood() ? '' : 'isDisabled'}
+            > */}
+            <button
+              onClick={()=>history.push('/pokethankyou')}
+              className={weGood() ? '' : 'isDisabled'}
+            >
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+              Checkout
+            </button>
+            {/* </Link> */}
+          </div>
+
+
+          
+>>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
         </form>
       </section>
     </>
@@ -574,6 +634,12 @@ function PokePayment() {
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
 export default PokePayment
 
 // {userProfileData ?
@@ -588,6 +654,7 @@ export default PokePayment
 //   :
 //   <p>...Loading</p>}
 
+<<<<<<< HEAD
 {/* {userProfileData ?
             <div id="div2">
               <div><h2>Shipping Details</h2></div>
@@ -647,3 +714,82 @@ export default PokePayment
                   />
                 </div>
               </div> */}
+=======
+
+// {userProfileData ?
+//   <div id="div2">
+//     <div><h2>Shipping Details</h2></div>
+//     <div>
+//       <div className="input_box">
+//         <label>Name</label>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input 
+//           required
+//           className="capitalized"
+//           onChange={handleShipping}
+//           name="shippingname"
+//           id="color1"
+//           defaultValue={userProfileData.username}
+//         />
+//       </div>
+//       <div className="input_box">
+//         <label>Email</label>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input 
+//           type="text"
+//           required
+//           id="color1"
+//           onChange={handleShipping}
+//           name="shippingemail"
+//           defaultValue={userProfileData.email}
+//         />
+//       </div>
+//     </div>
+//     <div>
+//       <div className="input_box">
+//         <label>Phone (optional)</label>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input 
+//           type="number"
+//           onKeyDown={ (evt) => (evt.key === 'e' || evt.key === 'E') && evt.preventDefault() }
+//           id="color1"
+//           onChange={handleShipping}
+//           name="phonenumber"
+//         />
+//       </div>
+//       <div className="input_box">
+//         <label>Address</label>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
+//         <input
+//           id="color1"
+//           type="text"
+//           className="capitalized"
+//           required
+//           onChange={handleShipping}
+//           name="address"
+//           defaultValue={userProfileData.address}
+//         />
+//       </div>
+//     </div>
+//     <div className="button_wrapper">
+//       <Link
+//         to={{
+//           pathname: '/pokecheckout',
+//           state: 
+//           sendthis,
+//           userProfileData,
+//           formdata
+//         }}
+//         className={weGood() ? '' : 'isDisabled'}
+//       >
+//         Checkout
+//       </Link>
+//     </div>
+//   </div>
+//   :
+//   <p>...Loading</p>}
+>>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8

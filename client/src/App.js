@@ -16,6 +16,7 @@ import PokeIndex from './PokeComponents/PokeIndex'
 import PokeProfile from './PokeComponents/PokeProfile'
 import PokeConfirmation from './PokeComponents/PokeConfirmation'
 import PokeCheckout from './PokeComponents/PokeCheckout'
+import PokeThankyou from './PokeComponents/PokeThankyou'
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/pokelogin" component={PokeLogin} />
         <Route exact path="/pokeregister" component={PokeRegister} />
         <Route exact path="/pokeprofile" component={PokeProfile} />
+        <Route exact path="/pokethankyou" component={PokeThankyou} />
         <Route path="/pokeindex/:category/:searchCriteria/:page" component={PokeIndex} />
         <Route exact path="/pokebasket" component={PokeBasket} />
         <Route exact path="/pokecomment/:id" component={PokeComment} />
