@@ -2,7 +2,10 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { headers } from '../lib/api'
+
+
 import MarchampSecurity from '../PokeComponents/MarchampSecurity'
+
 function PokeComment() {
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
   const [notLoggedIn, setNotLoggedIn] = React.useState(false)
