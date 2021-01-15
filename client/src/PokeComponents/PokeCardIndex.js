@@ -15,21 +15,15 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
   //* function for displaying the rating
   let starId = null
   
-  // function itemRating(n){
-  //   const rating = []
-  //   for (let a = 0; a < n; a++) rating.push('star') 
-  //   for (let b = 0; b < (5 - n); b++) rating.push('blank') 
-  //   return rating
-  // }
  
   function mapStars(rating){
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
       // console.log('id',starId)
-      const random = Math.ceil(Math.random() * 50)
+      const random = Math.ceil(Math.random() * 60)
       return (
         ele === 'star' ?
-          random === 50 ? 
+          random === 60 ? 
             <img className="staryu" key={starId} src={staryu} alt="staryu" />
             :
             <img key={starId} src={star} alt="staryu" />
@@ -44,8 +38,8 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
   return (
     <Link to={`/pokeshow/${_id}`}>
       <div className="poke_card">
-        <img src={image} alt={name}/>
-        <div className="">
+        <img className="pulse" src={image} alt={name}/>
+        <div>
           <p>{name} <img src={pokeDollar} alt="pokedollar sign" />{price}</p>
         </div>
         <div className="rating">

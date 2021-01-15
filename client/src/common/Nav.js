@@ -108,7 +108,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/" className="logo">
-        <img src={logo} alt="Pokezon logo" />
+        <img className="pulse" src={logo} alt="Pokezon logo" />
       </Link>
       <div className="search_wrapper">
 

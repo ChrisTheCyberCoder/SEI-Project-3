@@ -5,8 +5,11 @@ import { headers } from '../lib/api'
 import { isAuthenticated } from '../lib/auth'
 import { Link } from 'react-router-dom'
 
+import pokeDollar from '../assets/poke_dollar.svg'
+import upArrow from '../assets/arrow_up.svg'
 import MarchampSecurity from '../PokeComponents/MarchampSecurity'
 import PikachuLoadingScreen from '../PokeComponents/PikachuLoadingScreen'
+import ditto from '../assets/ditto.svg'
 
 /* need styling on this page */
 function PokeBasket() {
@@ -33,19 +36,26 @@ function PokeBasket() {
   }, [])
 
 
-  const handleBasketItemDelete = async event => {
-    console.log(event.target.dataset.item)
-    const itemToDelete = event.target.dataset.item
+  const handleBasketItemDelete = async e => {
+    console.log(e.target.dataset.item)
+    const itemToDelete = e.target.dataset.item
     try {
       await axios.delete(`/api/userprofile/basket/${itemToDelete}`, headers())
       const { data } = await axios.get('/api/userprofile', headers())
       console.log(data)
-      setUser(data)
+      
+      if (data) e.target.parentNode.parentNode.parentNode.classList.add('slide_away')
+      setTimeout(()=>{
+        setUser(data)
+      },700)
+
     } catch (err) {
       console.log('delete response failed', err)
     }
   } 
-  function checkStatus() { /* need styling here */
+
+
+  function checkStatus() { 
     if (unauthorized) {
       return  (
         <section className="page_wrapper">
@@ -56,36 +66,115 @@ function PokeBasket() {
           />
         </section>
       )
-    } else {
+    } else if (user && user.basket.length === 0){
+      return (
+        <div className="message default_box_style float_up">
+          <h2>Basket is empty!</h2>
+          <img className="ditto" src={ditto} alt="ditto" />
+          <div className="button_wrapper"> 
+            <Link to={'/'}>
+              <button>
+                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
+                  Home
+              </button> 
+            </Link>
+          </div>  
+            
+        </div>
+      )
+    } else {  
       return (
         <PikachuLoadingScreen/>
       )
     } 
   }
 
+  const totalPrice = arr =>{
+    let total = 0
+    arr.forEach(product=>{
+      total += product.item.price
+    })
+    return total
+  }
 
-  return (   /* need styling here */
+
+  return (  
     <div className="page_wrapper_column">
-      {user ? 
+      {user && user.basket.length !== 0 ? 
+        <div className="basket_wrapper default_box_style">
+          <div className="total_price">
+            <span>total:</span><img src={pokeDollar} alt="pokedollar sign" />{totalPrice(user.basket)}
+          </div>
+          
+          <div className="button_wrapper flexend less_margin">
+            <button>
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" />
+              Check Out
+            </button>
+          </div>
+          
+        </div>
+        :
+        null
+      }
+      {user && user.basket.length !== 0 ? 
         user.basket.map(product =>
           <div className="basket_wrapper default_box_style" key={product._id}>
-            <div className="image_wrapper red_border">
-              <img src={product.item.image} alt={product.item.name}/>
+            <div className="image_wrapper">
+              <Link to={`/pokeshow/${product.item._id}`}>
+                <img className="pulse" src={product.item.image} alt={product.item.name}/>
+              </Link>  
             </div>
-            <div className="description red_border">
-              <label>{product.item.name}</label>
-              <div>
-                {product.item.stock < 2 && 'only '}
+            <div className="info">
+              <label>
+                {product.item.name}
+                <img src={pokeDollar} alt="pokedollar sign" />
+                {product.item.price}
+              </label>
+              <div className={`stock ${product.item.stock <= 2 && 'red_text'}`}>
+                {product.item.stock <= 2 && 'only '}
                 {product.item.stock} left in stock
               </div>
-              <div>Description: {product.item.description}</div>
-              <div>Price:{product.item.price}</div>
-              <button data-item={product._id} onClick={handleBasketItemDelete}>Delete</button>
+              {/* <div className="description">
+                {product.item.description}
+              </div> */}
+
+              <div className="button_wrapper flexend">
+                <button data-item={product._id} onClick={handleBasketItemDelete}>
+                  <img src="../assets/pokeball_orange.svg" alt="pokeball" />
+                  Remove from basket
+                </button>
+              </div>
             </div>
           </div>
         ) 
         :
         checkStatus()
+      }
+      {user && user.basket.length !== 0 ? 
+        
+        <div className={`basket_wrapper default_box_style ${user.basket.length < 5 && 'hidden'}`}>
+
+          <div className="total_price">
+            <span>total:</span><img src={pokeDollar} alt="pokedollar sign" />{totalPrice(user.basket)}
+          </div>
+          
+          <div className="button_wrapper flexend less_margin">
+            <button>
+              <img src="../assets/pokeball_orange.svg" alt="pokeball" />
+              Check Out
+            </button>
+            <button className="up" onClick={()=>{
+              window.scrollTo(0, 0)
+            }}>
+              <img src={upArrow} alt="up arrow" />
+              Scroll To Top
+            </button>
+          </div>
+          
+        </div>
+        :
+        null
       }
     </div>
   ) 

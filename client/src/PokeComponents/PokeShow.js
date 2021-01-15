@@ -107,7 +107,7 @@ function PokeShow() {
             goToItemPage(item._id)
           }}>
           {item.name}
-          <img src={item.image} alt={item.name} />
+          <img className="pulse" src={item.image} alt={item.name} />
           <div>
             <img src="../assets/poke_dollar.svg" alt="pokedollar sign" />
             {item.price}
@@ -162,10 +162,10 @@ function PokeShow() {
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
       // console.log('id',starId)
-      const random = Math.ceil(Math.random() * 50)
+      const random = Math.ceil(Math.random() * 60)
       return (
         ele === 'star' ?
-          random === 50 ? 
+          random === 60 ? 
             <img className="staryu" key={starId} src={staryu} alt="staryu" />
             :
             <img key={starId} src={star} alt="staryu" />
@@ -251,9 +251,9 @@ function PokeShow() {
               </div>
               <form className={`buy_wrapper ${itemInBasket && 'accepted'}`} onSubmit={addToBasket}>
                 {item.stock ?
-                  <p>{item.stock} left in stock</p>
+                  <p className={item.stock <= 2 && 'red_text'}> {item.stock <= 2 && 'only '}{item.stock} left in stock</p>
                   :
-                  <p>sorry, out of stock</p>
+                  <p className="red_text">sorry, out of stock</p>
                 }
                 <input type="number" defaultValue={itemQty} name="qty" min="1" max={item.stock} onChange={(e)=>setItemQty(e.target.value)}/>
 

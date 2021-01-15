@@ -80,7 +80,7 @@ function Home() {
             <Link to={`/pokeshow/${item._id}`} key={item.name}>
               <div className="small_box" >
                 <p>{item.name}</p>
-                <img src={item.image} alt={item.name} />
+                <img className="pulse" src={item.image} alt={item.name} />
                 <p><img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
               </div>  
             </Link>
@@ -96,7 +96,7 @@ function Home() {
       <Link to={`/pokeshow/${item._id}`} key={item.name}>
         <div className="single_wrapper" >
           
-          <img src={item.image} alt={item.name} />
+          <img className="pulse" src={item.image} alt={item.name} />
           <p>{item.name} <img src={pokeDollar} alt="pokedollar sign" />{item.price}</p>
         </div>  
       </Link>
@@ -203,12 +203,12 @@ function Home() {
               {mapOneItem(randomCheapItem)}
             </div>  
           </div> 
-          <div className="home_content_wrapper">
+          {/* <div className="home_content_wrapper">
             <div className="home_section default_box_style half">
             </div>  
             <div className="home_section  default_box_style half">
             </div>  
-          </div> 
+          </div>  may add extra filter if we have time*/}
         </>
         :
         hasError ? 
