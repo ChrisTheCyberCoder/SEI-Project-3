@@ -32,13 +32,13 @@ export default [
     address: '4 pallet town',
     dob: '41708'
 }, {
-    username: 'Astrid',
-    email: 'astrid@email.com',
+    username: 'Dan',
+    email: 'dan@email.com',
     password: `pass`,
     passwordConfirmation: 'pass',
     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610572652/user_image/sprite49.png',
-    address: '5 pallet town',
-    dob: '14/7/1984'
+    address: 'somewhere in pallet town looking for my snorlax',
+    dob: '03/03/1998'
 }, {
     username: 'Brandon',
     email: 'brandon@email.com',
@@ -224,21 +224,21 @@ export default [
     address: '28 pallet town',
     dob: '21/10/1985'
 }, {
-    username: 'Pepe',
-    email: 'pepe@email.com',
+    username: 'Christian',
+    email: 'christian@email.com',
     password: `pass`,
     passwordConfirmation: 'pass',
     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610572650/user_image/sprite28.png',
     address: '29 pallet town',
-    dob: '41527'
+    dob: '21/10/1995'
 }, {
-    username: 'Cole',
-    email: 'cole@email.com',
+    username: 'Masa',
+    email: 'masa@email.com',
     password: `pass`,
     passwordConfirmation: 'pass',
     image: 'https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610572650/user_image/sprite25.png',
     address: '30 pallet town',
-    dob: '31021'
+    dob: '10/07/1992'
 }, {
     username: 'Kelly',
     email: 'kelly@email.com',

@@ -12,7 +12,6 @@ function PokePayment() {
       try { 
         const { data } = await axios.get('/api/userprofile', headers())
         setUserProfileData(data)
-        console.log(data)
       } catch (err) {
         console.log(err)
       }
@@ -38,7 +37,7 @@ function PokePayment() {
     country: '',
     postcode: ''
   })
-  const [sendthis, setSendthis] = React.useState({})
+  // const [sendthis, setSendthis] = React.useState({})
 
   // console.log(setCardValid)
   // console.log()
@@ -113,15 +112,15 @@ function PokePayment() {
   //   console.log(formdata)
   // }
 
-  const handleShipping = (event) => {
-    event.preventDefault()
-    const userprofileData = { ...userProfileData, [event.target.name]: event.target.value }
-    setUserProfileData(userprofileData)
-    // setStates(event.target.name, true)
-    const sendme = { ...formdata, ...userProfileData }
-    // console.log(sendme)
-    setSendthis(sendme)
-  }
+  // const handleShipping = (event) => {
+  //   event.preventDefault()
+  //   const userprofileData = { ...userProfileData, [event.target.name]: event.target.value }
+  //   setUserProfileData(userprofileData)
+  //   // setStates(event.target.name, true)
+  //   const sendme = { ...formdata, ...userProfileData }
+  //   // console.log(sendme)
+  //   setSendthis(sendme)
+  // }
 
   const handleValidation = (event) => {
     event.preventDefault()
@@ -555,7 +554,41 @@ function PokePayment() {
               </div>
             </div>
           </div>
-          {userProfileData ?
+          <div className="button_wrapper">
+            <Link
+              to={{
+                pathname: '/pokecheckout',
+                state: 
+                userProfileData,
+                formdata
+              }}
+              className={weGood() ? '' : 'isDisabled'}
+            >
+              Checkout
+            </Link>
+          </div>
+        </form>
+      </section>
+    </>
+  )
+}
+
+
+export default PokePayment
+
+// {userProfileData ?
+//   <div>
+//     <h3>{userProfileData.username}</h3><br/>
+//     <h3>{userProfileData.email}</h3><br/>
+//     {/* <h3>{userProfileData.basket}</h3><br/> */}
+//     <h3>{userProfileData.dob}</h3><br/>
+//     <h3>{userProfileData.address}</h3><br/>
+//     <img src='https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610530139/pokezon/testsprite.png' alt="user profile image"/>
+//   </div>
+//   :
+//   <p>...Loading</p>}
+
+{/* {userProfileData ?
             <div id="div2">
               <div><h2>Shipping Details</h2></div>
               <div>
@@ -613,41 +646,4 @@ function PokePayment() {
                     defaultValue={userProfileData.address}
                   />
                 </div>
-              </div>
-              <div className="button_wrapper">
-                <Link
-                  to={{
-                    pathname: '/pokecheckout',
-                    state: 
-                    sendthis,
-                    userProfileData,
-                    formdata
-                  }}
-                  className={weGood() ? '' : 'isDisabled'}
-                >
-                  Checkout
-                </Link>
-              </div>
-            </div>
-            :
-            <p>...Loading</p>}
-        </form>
-      </section>
-    </>
-  )
-}
-
-
-export default PokePayment
-
-// {userProfileData ?
-//   <div>
-//     <h3>{userProfileData.username}</h3><br/>
-//     <h3>{userProfileData.email}</h3><br/>
-//     {/* <h3>{userProfileData.basket}</h3><br/> */}
-//     <h3>{userProfileData.dob}</h3><br/>
-//     <h3>{userProfileData.address}</h3><br/>
-//     <img src='https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610530139/pokezon/testsprite.png' alt="user profile image"/>
-//   </div>
-//   :
-//   <p>...Loading</p>}
+              </div> */}

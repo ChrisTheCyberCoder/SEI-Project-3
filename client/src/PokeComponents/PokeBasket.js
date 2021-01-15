@@ -91,7 +91,7 @@ function PokeBasket() {
   const totalPrice = arr =>{
     let total = 0
     arr.forEach(product=>{
-      total += product.item.price
+      total += product.quantity * product.item.price
     })
     return total
   }

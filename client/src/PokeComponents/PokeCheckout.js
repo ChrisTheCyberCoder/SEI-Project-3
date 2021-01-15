@@ -2,9 +2,24 @@ import React from 'react'
 import '../styles/PokeCheckout.scss'
 import { useLocation } from 'react-router-dom'
 
+
+
 function PokeCheckout() {
 
   const data  = useLocation()
+  const cart = data.state.basket
+  
+  function OrderTotal() {
+    let sum = 0
+    cart.map(product => {
+      console.log(product.quantity)
+      console.log(product.item.price)
+
+      sum += product.quantity * product.item.price
+    })
+    console.log(sum)
+    return sum
+  }
 
   console.log(data)
 
@@ -16,7 +31,7 @@ function PokeCheckout() {
             Order Confirmation
           </div>
           <div>
-            <p>Order Total :</p> <span>$14500.50</span>
+            <p>Order Total :</p> <span>{OrderTotal()}</span>
           </div>
           <div>
             <button className="button_wrap" type="button">
@@ -33,8 +48,8 @@ function PokeCheckout() {
               </div>
               <div className="line"></div>
               <div>
-                <p className="name">{data.userProfileData.username}</p><br/>
-                <p>{data.userProfileData.email}</p>
+                <p className="name">{data.state.username}</p><br/>
+                <p>{data.state.email}</p>
               </div>
             </div>
             <div>
@@ -43,11 +58,10 @@ function PokeCheckout() {
               </div>
               <div className="line"></div>
               <div>
-                <p className="name">{data.state.name ? data.state.name : data.formdata.name}</p><br/>
-                <p>{data.state.address ? data.state.address : data.userProfileData.address}</p><br/>
-                <p>Kanto, MT </p><br/>
-                <p>Alpha Continent</p><br/>
-                <p>{data.state.phone ? data.state.phone : '(44) 1234-123456' }</p>
+                <p className="name">{data.state.username}</p><br/>
+                <p>{data.formdata.postcode}</p><br/>
+                <p>{data.formdata.country}</p><br/>
+                <p>(44) 1234-123456</p>
               </div>
             </div>
           </div>
@@ -68,10 +82,9 @@ function PokeCheckout() {
               </div>
               <div className="line"></div>
               <div>
-                <p className="name">Jack May</p><br/>
-                <p>Apt 16, Pallet Town</p><br/>
-                <p>Kanto, MT </p><br/>
-                <p>Alpha Continent</p><br/>
+                <p className="name">{data.formdata.name}</p><br/>
+                <p>{data.formdata.postcode}</p><br/>
+                <p>{data.formdata.country}</p><br/>
                 <p>(44) 1234-123456</p>
               </div>
             </div>

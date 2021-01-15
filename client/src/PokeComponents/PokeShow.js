@@ -308,7 +308,7 @@ function PokeShow() {
                         </div>
 
                         <div className="comment_rating">
-                          {mapStars(itemRating(item.avgRating))}
+                          {mapStars(itemRating(comment.rating))}
                           <div className="button_wrapper comment">
                             <button value={comment._id} onClick={handleChangeDelete}
                             >Delete
