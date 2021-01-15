@@ -12,6 +12,7 @@ function PokePayment() {
       try { 
         const { data } = await axios.get('/api/userprofile', headers())
         setUserProfileData(data)
+        console.log(data)
       } catch (err) {
         console.log(err)
       }
@@ -37,17 +38,19 @@ function PokePayment() {
     country: '',
     postcode: ''
   })
-  const [culito, setCulito] = React.useState({})
+  const [sendthis, setSendthis] = React.useState({})
 
   // console.log(setCardValid)
   // console.log()
-  const simpleRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]{1,50}\b$/)
+
+  // const postcodeRegex = new RegExp(/^[A-Za-z0-9]{2,4}(?:[-\s][A-Za-z0-9]{3})$/) //hardest regex of my lifetime
   // const letterAndNums = new RegExp(/^\b(?!.*?\s{2})[A-Za-z0-9 ]{1,50}\b$/)
+  const simpleRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]{1,50}\b$/)
   const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})$/) // ok no this was harder
   const yearRegex = new RegExp(/^[0-9]{4}$/)
   const codeRegex = new RegExp(/^[0-9]{3,4}$/)
-  // const postcodeRegex = new RegExp(/^[A-Za-z0-9]{2,4}(?:[-\s][A-Za-z0-9]{3})$/) //hardest regex of my lifetime
   const postcodeRegexSimplified = new RegExp(/^[A-Za-z0-9]{2,10}(?:[-\s]*[A-Za-z0-9]{2,10})/)
+
   const everyStateValid = cardValid && nameValid && monthValid && yearValid && codeValid && countryValid && postcodeValid
 
   // function addSpaceToCard(event) {                  //* kept here only for record-keeping reasons
@@ -67,12 +70,10 @@ function PokePayment() {
   // }
 
   function weGood() {
-    if (everyStateValid) {
-      // const sendme = { ...formdata, ...userProfileData }
-      // console.log(sendme)
-      // setCulito(sendme)
-      return true
-    }
+    if (everyStateValid) return true
+    // const sendme = { ...formdata, ...userProfileData }
+    // console.log(sendme)
+    // setSendThisState(sendme)
     return false
   }
 
@@ -110,7 +111,6 @@ function PokePayment() {
   //   const sendme = { ...formdata, ...userProfileData }
   //   setFormdata(sendme)
   //   console.log(formdata)
-
   // }
 
   const handleShipping = (event) => {
@@ -119,8 +119,8 @@ function PokePayment() {
     setUserProfileData(userprofileData)
     // setStates(event.target.name, true)
     const sendme = { ...formdata, ...userProfileData }
-    console.log(sendme)
-    setCulito(sendme)
+    // console.log(sendme)
+    setSendthis(sendme)
   }
 
   const handleValidation = (event) => {
@@ -232,7 +232,6 @@ function PokePayment() {
                     <option value="November">November</option>
                     <option value="December">December</option>
                   </select><div>{monthValid === '' ? null : monthValid ? null : <p style={{ margin: '5px 0' }}>select a month</p>}</div>
-                  
                   <select name="year" 
                     required 
                     id="color2"
@@ -264,8 +263,8 @@ function PokePayment() {
                     <option value="2040">2040</option>
                     <option value="2041">2041</option>
                   </select>
+                  <div>{yearValid === '' ? null : yearValid ? null : <p style={{ margin: '5px 0' }}>select a year</p>}</div>
                 </div>
-                <div>{yearValid === '' ? null : yearValid ? null : <p style={{ margin: '5px 0' }}>select a year</p>}</div>
               </div>
               <div className="input_box">
                 <label>Security Code (CVV)</label>
@@ -616,18 +615,18 @@ function PokePayment() {
                 </div>
               </div>
               <div className="button_wrapper">
-                
                 <Link
                   to={{
                     pathname: '/pokecheckout',
-                    state: culito
+                    state: 
+                    sendthis,
+                    userProfileData,
+                    formdata
                   }}
                   className={weGood() ? '' : 'isDisabled'}
                 >
                   Checkout
                 </Link>
-                  
-                
               </div>
             </div>
             :

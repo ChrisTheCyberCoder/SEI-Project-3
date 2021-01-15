@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom'
 
 function PokeCheckout() {
 
-  const { state } = useLocation()
+  const data  = useLocation()
 
-  console.log(state)
+  console.log(data)
 
   return (
     <>
@@ -33,8 +33,8 @@ function PokeCheckout() {
               </div>
               <div className="line"></div>
               <div>
-                <p className="name">Jack May</p><br/>
-                <p>jackmay@email.com</p>
+                <p className="name">{data.userProfileData.username}</p><br/>
+                <p>{data.userProfileData.email}</p>
               </div>
             </div>
             <div>
@@ -43,11 +43,11 @@ function PokeCheckout() {
               </div>
               <div className="line"></div>
               <div>
-                <p className="name">Jack May</p><br/>
-                <p>Apt 16, Pallet Town</p><br/>
+                <p className="name">{data.state.name ? data.state.name : data.formdata.name}</p><br/>
+                <p>{data.state.address ? data.state.address : data.userProfileData.address}</p><br/>
                 <p>Kanto, MT </p><br/>
                 <p>Alpha Continent</p><br/>
-                <p>(44) 1234-123456</p>
+                <p>{data.state.phone ? data.state.phone : '(44) 1234-123456' }</p>
               </div>
             </div>
           </div>
