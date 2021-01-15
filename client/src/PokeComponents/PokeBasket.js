@@ -3,7 +3,7 @@ import React from 'react'
 import axios from 'axios' 
 import { headers } from '../lib/api' 
 import { isAuthenticated } from '../lib/auth'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import pokeDollar from '../assets/poke_dollar.svg'
 import upArrow from '../assets/arrow_up.svg'
@@ -13,6 +13,7 @@ import ditto from '../assets/ditto.svg'
 
 /* need styling on this page */
 function PokeBasket() {
+  const history = useHistory()
   const [user, setUser] = React.useState(null)
   const [unauthorized, setUnauthorized] = React.useState(false)
 
@@ -106,7 +107,7 @@ function PokeBasket() {
           </div>
           
           <div className="button_wrapper flexend less_margin">
-            <button>
+            <button onClick={()=>history.push('/pokepayment')}>
               <img src="../assets/pokeball_orange.svg" alt="pokeball" />
               Check Out
             </button>
@@ -159,7 +160,7 @@ function PokeBasket() {
           </div>
           
           <div className="button_wrapper flexend less_margin">
-            <button>
+            <button onClick={()=>history.push('/pokepayment')}>
               <img src="../assets/pokeball_orange.svg" alt="pokeball" />
               Check Out
             </button>

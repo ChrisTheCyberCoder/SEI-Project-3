@@ -108,7 +108,7 @@ function Home() {
 
   const nextHero = () =>{ 
     clearInterval(interval)
-    const  newPos = heroPos > -300 ? heroPos - 100 : 0
+    const  newPos = heroPos > -400 ? heroPos - 100 : 0
     // console.log('page',newPos)
     setHeroPos(newPos)
    
@@ -117,7 +117,7 @@ function Home() {
 
   const prevHero = () =>{
     clearInterval(interval)
-    const newPos = heroPos < 0 ? heroPos + 100 : -300
+    const newPos = heroPos < 0 ? heroPos + 100 : -400
     setHeroPos(newPos)
     // setSlideIsAuto(false)
   }
@@ -151,17 +151,25 @@ function Home() {
               <img className="left" src={leftArrow} alt="left arrow" />
             </div>  
             <div className="inner_wrapper">
+              
               <div className="hero" style = {{ left: `${heroPos}%` }}>
                 <img
-                  src="../assets/prime.png" 
-                  alt="Pokezon prime coming soon"
+                  src="../assets/pokezon.png" 
+                  alt="pokezon hero image"
                 />  
               </div>
-          
+
               <div className="hero" style = {{ left: `${heroPos}%` }}>
                 <img
                   src="../assets/catch.png" 
                   alt="Catch pokemon with Master ball"
+                />  
+              </div>
+
+              <div className="hero" style = {{ left: `${heroPos}%` }}>
+                <img
+                  src="../assets/prime.png" 
+                  alt="Pokezon prime coming soon"
                 />  
               </div>
           
