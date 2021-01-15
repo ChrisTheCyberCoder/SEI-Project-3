@@ -75,3 +75,11 @@ input::-webkit-inner-spin-button {
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
+
+.isDisabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: currentColor;
+  opacity: 0.5;
+  text-decoration: none;
+}

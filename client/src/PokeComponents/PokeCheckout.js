@@ -1,16 +1,12 @@
 import React from 'react'
 import '../styles/PokeCheckout.scss'
+import { useLocation } from 'react-router-dom'
 
-const PokeCheckout = (props) => {
+function PokeCheckout() {
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     test: this.location.state
-  //   }
-  // }
-  // console.log('Test state:', props.state.test)
-  // console.log(test)
+  const { state } = useLocation()
+
+  console.log(state)
 
   return (
     <>

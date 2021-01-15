@@ -5,13 +5,12 @@ import '../styles/PokePayment.scss'
 import { Link } from 'react-router-dom'
 
 function PokePayment() {
-  // const history = useHistory() 
   const [userProfileData, setUserProfileData] = React.useState(null)
 
   React.useEffect(() => {
     const getData = async () => {
       try { 
-        const { data } = await axios.get('api/userprofile', headers())
+        const { data } = await axios.get('/api/userprofile', headers())
         setUserProfileData(data)
       } catch (err) {
         console.log(err)
@@ -21,13 +20,14 @@ function PokePayment() {
 
   }, [1])
 
-  const [cardValid, setCardValid] = React.useState(true)
-  const [nameValid, setNameValid] = React.useState(true)
-  const [monthValid, setMonthValid] = React.useState(true)
-  const [yearValid, setYearValid] = React.useState(true)
-  const [codeValid, setCodeValid] = React.useState(true)
-  const [countryValid, setCountryValid] = React.useState(true)
-  const [postcodeValid, setPostcodeValid] = React.useState(true)
+  // const [doCheckout, setDoCheckout] = React.useState(true)
+  const [cardValid, setCardValid] = React.useState('')
+  const [nameValid, setNameValid] = React.useState('')
+  const [monthValid, setMonthValid] = React.useState('')
+  const [yearValid, setYearValid] = React.useState('')
+  const [codeValid, setCodeValid] = React.useState('')
+  const [countryValid, setCountryValid] = React.useState('')
+  const [postcodeValid, setPostcodeValid] = React.useState('')
   const [formdata, setFormdata] = React.useState({
     name: '',
     card: '',
@@ -37,15 +37,15 @@ function PokePayment() {
     country: '',
     postcode: ''
   })
-  
+  const [culito, setCulito] = React.useState({})
+
   // console.log(setCardValid)
   // console.log()
-  const nameRegex = new RegExp(/^([a-zA-Z]+ ?)*$/)
+  const simpleRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]{1,50}\b$/)
+  // const letterAndNums = new RegExp(/^\b(?!.*?\s{2})[A-Za-z0-9 ]{1,50}\b$/)
   const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})$/) // ok no this was harder
-  const monthRegex = new RegExp(/^[0-9]{1,2}$/)
   const yearRegex = new RegExp(/^[0-9]{4}$/)
   const codeRegex = new RegExp(/^[0-9]{3,4}$/)
-  const countryRegex = new RegExp(/^([a-zA-Z]+ ?)*$/)
   // const postcodeRegex = new RegExp(/^[A-Za-z0-9]{2,4}(?:[-\s][A-Za-z0-9]{3})$/) //hardest regex of my lifetime
   const postcodeRegexSimplified = new RegExp(/^[A-Za-z0-9]{2,10}(?:[-\s]*[A-Za-z0-9]{2,10})/)
   const everyStateValid = cardValid && nameValid && monthValid && yearValid && codeValid && countryValid && postcodeValid
@@ -57,16 +57,28 @@ function PokePayment() {
   //     event.target.value = event.target.value + ' '
   //   }
   // }
+  // console.log(doCheckout)
+  // function showLink() {
+  //   if (everyStateValid) {
+  //     // setDoCheckout(true)
+  //     return true
+  //   }
+  //   return false
+  // }
 
   function weGood() {
-    // if (everyStateValid === true) {
-    //   return true
-    // }
-    // return false
-
-    if (everyStateValid) return true
+    if (everyStateValid) {
+      // const sendme = { ...formdata, ...userProfileData }
+      // console.log(sendme)
+      // setCulito(sendme)
+      return true
+    }
     return false
   }
+
+  // if (everyStateValid) return true
+  // return false
+  
 
   function setStates(nombre, bool) {
     switch (nombre) {
@@ -90,7 +102,25 @@ function PokePayment() {
         break
       case 'postcode':
         setPostcodeValid(bool)
+        break
     }
+  }
+
+  // const handleSend = () => {
+  //   const sendme = { ...formdata, ...userProfileData }
+  //   setFormdata(sendme)
+  //   console.log(formdata)
+
+  // }
+
+  const handleShipping = (event) => {
+    event.preventDefault()
+    const userprofileData = { ...userProfileData, [event.target.name]: event.target.value }
+    setUserProfileData(userprofileData)
+    // setStates(event.target.name, true)
+    const sendme = { ...formdata, ...userProfileData }
+    console.log(sendme)
+    setCulito(sendme)
   }
 
   const handleValidation = (event) => {
@@ -103,11 +133,11 @@ function PokePayment() {
         nombre = 'card'
         break
       case 'name':
-        regex = nameRegex
+        regex = simpleRegex
         nombre = 'name'
         break
       case 'month':
-        regex = monthRegex
+        regex = simpleRegex
         nombre = 'month'
         break
       case 'year':
@@ -119,7 +149,7 @@ function PokePayment() {
         nombre = 'code'
         break
       case 'country':
-        regex = countryRegex
+        regex = simpleRegex
         nombre = 'country'
         break
       case 'postcode':
@@ -128,10 +158,9 @@ function PokePayment() {
         break
     }
     if (regex.test(event.target.value)) {
-      const renderintime = { ...formdata, [event.target.name]: event.target.value }
-      setFormdata(renderintime)
+      const formData = { ...formdata, [event.target.name]: event.target.value }
+      setFormdata(formData)
       setStates(nombre, true)
-      console.log(formdata)
       return
     }
     setStates(nombre, false)
@@ -140,12 +169,8 @@ function PokePayment() {
       setStates(nombre, true)
     }
   }
-
-
-  // async function setForm(event) {
-  //   if ()
-  //   await setFormdata({ ...formdata, [event.target.name]: event.target.value })
-  // }
+  // console.log(userProfileData)
+  // console.log(formdata)
 
   return (
     <>
@@ -165,7 +190,7 @@ function PokePayment() {
                 name="name"
                 // value={formdata.email}
               />
-              { nameValid ? null : <p>Name cannot contain numbers or special characters</p> }
+              {nameValid === '' ? null : nameValid ? null : <p>Name cannot contain numbers or special characters</p>}
             </div>
             <div className="input_box">
               <label>Card Number</label>
@@ -179,13 +204,14 @@ function PokePayment() {
                 name="card"
                 onChange={handleValidation}
               />
-              { cardValid ? null : <p>Enter a valid card number</p> }
+              {cardValid === '' ? null : cardValid ? null : <p>Enter a valid card number</p>}
             </div>
             <div>
               <div className="input_box">
                 <label>Expiry Date (MM YYYY)</label>
-                <div>
+                <div style={{ display: 'flex' }}>
                   <select name="month" 
+                    className="selectPokePayment"
                     required 
                     id="color2"
                     onChange={handleValidation}
@@ -193,24 +219,25 @@ function PokePayment() {
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                     <option value="">Select Month</option>
-                    <option value="1">January</option>
-                    <option value="2">Febuary</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                  { monthValid ? null : 'select a month' }
+                    <option value="January">January</option>
+                    <option value="Febuary">Febuary</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select><div>{monthValid === '' ? null : monthValid ? null : <p style={{ margin: '5px 0' }}>select a month</p>}</div>
+                  
                   <select name="year" 
                     required 
                     id="color2"
                     onChange={handleValidation}
+                    className="selectPokePayment"
                   >
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                     <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
@@ -238,7 +265,7 @@ function PokePayment() {
                     <option value="2041">2041</option>
                   </select>
                 </div>
-                { yearValid ? null : 'select a year' }
+                <div>{yearValid === '' ? null : yearValid ? null : <p style={{ margin: '5px 0' }}>select a year</p>}</div>
               </div>
               <div className="input_box">
                 <label>Security Code (CVV)</label>
@@ -251,7 +278,7 @@ function PokePayment() {
                   onChange={handleValidation}
                   name="code"
                 />
-                { codeValid ? null : <p>Enter a valid security code</p> }
+                {codeValid === '' ? null : codeValid ? null : <p>Enter a valid security code</p>}
               </div>
             </div>
             <div>
@@ -261,6 +288,7 @@ function PokePayment() {
                 <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
                 <select
                   id="color2"
+                  className="selectPokePayment"
                   required
                   onChange={handleValidation}
                   name="country"
@@ -511,7 +539,7 @@ function PokePayment() {
                   <option value="Zambia">Zambia</option>
                   <option value="Zimbabwe">Zimbabwe</option>
                 </select>
-                { countryValid ? null : 'select a country' }
+                {countryValid === '' ? null : countryValid ? null : <p>select a country</p>}
               </div>
               <div className="input_box">
                 <label>Post Code</label>
@@ -524,7 +552,7 @@ function PokePayment() {
                   id="color1"
                   placeholder="TW6 2PL"
                 />
-                { postcodeValid ? null : <p>enter a valid postcode</p> }
+                {postcodeValid === '' ? null : postcodeValid ? null : <p>enter a valid postcode</p>}
               </div>
             </div>
           </div>
@@ -539,8 +567,8 @@ function PokePayment() {
                   <input 
                     required
                     className="capitalized"
-                    // onChange={handleValidation}
-                    name="name"
+                    onChange={handleShipping}
+                    name="shippingname"
                     id="color1"
                     defaultValue={userProfileData.username}
                   />
@@ -553,7 +581,7 @@ function PokePayment() {
                     type="text"
                     required
                     id="color1"
-                    // onChange={handleValidation}
+                    onChange={handleShipping}
                     name="shippingemail"
                     defaultValue={userProfileData.email}
                   />
@@ -568,7 +596,7 @@ function PokePayment() {
                     type="number"
                     onKeyDown={ (evt) => (evt.key === 'e' || evt.key === 'E') && evt.preventDefault() }
                     id="color1"
-                    // onChange={handleValidation}
+                    onChange={handleShipping}
                     name="phonenumber"
                   />
                 </div>
@@ -581,25 +609,25 @@ function PokePayment() {
                     type="text"
                     className="capitalized"
                     required
-                    // onChange={handleValidation}
+                    onChange={handleShipping}
                     name="address"
                     defaultValue={userProfileData.address}
                   />
                 </div>
               </div>
               <div className="button_wrapper">
-                {weGood() ?
-                  <Link
-                    to={{
-                      pathname: '/pokecheckout',
-                      state: {
-                        test: 'algo aqui'
-                      }
-                    }}>
-                          Checkout
-                  </Link>
-                  : null
-                }
+                
+                <Link
+                  to={{
+                    pathname: '/pokecheckout',
+                    state: culito
+                  }}
+                  className={weGood() ? '' : 'isDisabled'}
+                >
+                  Checkout
+                </Link>
+                  
+                
               </div>
             </div>
             :
