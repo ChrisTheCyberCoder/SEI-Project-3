@@ -1,17 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
+import MarchampSecurity from '../PokeComponents/MarchampSecurity'
+import Eevee from '../PokeComponents/Eevee'
 
-import marchamp from '../assets/marchamp.svg'
 
-import desk from '../assets/desk.svg'
-import leftEar from '../assets/eevee_left_ear.svg'
-import rightEar from '../assets/eevee_right_ear.svg'
-import face from '../assets/eevee_face.svg'
-import body from '../assets/eevee_body.svg'
-import tail from '../assets/eevee_tail.svg'
 
 
 function PokeLogin() {
@@ -60,7 +55,6 @@ function PokeLogin() {
       setTimeout(()=>{
         setToken(data.token)
         history.push('/')
-        window.location.reload()
       },500)
 
     } catch (err) {
@@ -119,24 +113,7 @@ function PokeLogin() {
             <p>{error}</p>
           </div>
 
-          <div className="eevee_wrapper">
-
-            <div className="eevee">
-              <div className="head">
-                <img className="left_ear" src={leftEar} alt="eevee left ear" />
-                <img className="right_ear" src={rightEar} alt="eevee right ear" />
-                <img className="face" src={face} alt="eevee face" />
-              </div>  
-
-              <div className="body">
-                <img className="tail" src={tail} alt="eevee tail" />
-                <img className="main" src={body} alt="eevee body" />
-              </div>  
-            </div>
-
-            <img className="desk" src={desk} alt="reception desk" /> 
-
-          </div>
+          <Eevee />
           <div className="button_wrapper flexend">
             <button type="submit">
               <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
@@ -151,22 +128,12 @@ function PokeLogin() {
 
   return (
     <section className="page_wrapper">
-      { ranOutOfAttempts ? 
-        <div className="message default_box_style float_up">
-          <h2>As a Security Precaution, you are blocked.</h2>
-          <div className="marchamp">
-            <img className="main" src={marchamp} alt="marchamp security guard" />
-          </div>  
-            
-          <div className="button_wrapper"> 
-            <Link to={'/'}>
-              <button>
-                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-                Home
-              </button> 
-            </Link>
-          </div>  
-        </div>
+      {ranOutOfAttempts ? 
+        <MarchampSecurity 
+          message='As a Security Precaution, you are blocked.'
+          link='/'
+          buttonText='Home'
+        />
         : 
         <>
           {loadFailure()}
@@ -177,20 +144,4 @@ function PokeLogin() {
 
 export default PokeLogin
 
-{/* <div className="message default_box_style float_up">
-          <h2>We do apologise, the server is down.</h2>
-          <div className="slowpoke">
-            <img className="question" src={questionMark} alt="question mark" />
-            <img className="main" src={slowpoke} alt="confused slowpoke" />
-          </div>  
-            
-          <div className="button_wrapper"> 
-            <Link to={'/'}>
-              <button>
-                <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
-                Home
-              </button> 
-            </Link>
-          </div>  
-          
-        </div> */}
+

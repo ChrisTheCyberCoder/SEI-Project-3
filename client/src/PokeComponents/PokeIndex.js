@@ -11,7 +11,6 @@ import dynamicSort from '../lib/sort'
 
 
 
-
 function PokeIndex() {
   const history = useHistory()
   const { category, searchCriteria, page } = useParams()
@@ -105,10 +104,6 @@ function PokeIndex() {
     })
   }
 
-  // if (items) mapPageLinks(Math.ceil(filterItems(items).length / 12))
-
-
-  // Math.ceil(filterItems(items).length / 12)
 
   return (
     <section className="card_wrapper">
@@ -117,7 +112,7 @@ function PokeIndex() {
           {filteredItems.map(item => (
             <PokeCard key={item._id} {...item} />
           ))}
-          <div className="pagination_wrapper red_border">
+          <div className="pagination_wrapper">
             <div className="inner_wrapper">
               {
                 Number(page) !== 1 &&
