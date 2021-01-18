@@ -9,23 +9,26 @@ const router = express.Router()
 router.route('/users')
   .get(users.userIndex)
 
-router.route('/users/:id') // use this just to help you code, debugging purposes. 
+router.route('/users/:id') 
   .get(users.userShow)
 
-router.route('/userprofile') //use this one for profile as it checks they have a token // goes through secure route. 
+router.route('/userprofile') 
   .get(secureRoute, users.userProfile)
 
 router.route('/userprofile/:id')
   .put(users.userProfileUpdate)
 
 router.route('/userprofile/basket')
-  .post(secureRoute, users.addItemToBasket) //may need secure route
-
-// router.route('/userprofile/:id/:itemdelete') //just added in today (wednesday) // '/userprofile/:id/basket/:itemtodelete' BASKET
-//   .delete(users.userBasketDelete) //secureroute
+  .post(secureRoute, users.addItemToBasket) 
 
 router.route('/userprofile/basket/:itemId')
   .delete(secureRoute, users.removeItemFromBasket)
+
+router.route('/userprofile/basket/update/:itemId')
+  .put(secureRoute, users.updateBasket)
+
+router.route('/userprofile/emptybasket')
+  .get(secureRoute, users.checkoutAndEmptybasket)
 
 router.route('/items')
   .get(items.index)
@@ -47,7 +50,5 @@ router.route('/register')
 
 router.route('/login')
   .post(auth.loginUser)
-
-
 
 export default router
