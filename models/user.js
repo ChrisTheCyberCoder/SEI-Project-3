@@ -7,6 +7,10 @@ const basketItem = new mongoose.Schema({
   item: { type: mongoose.Schema.ObjectId, required: true, ref: 'Item' }
 })
 
+const pastItem = new mongoose.Schema({
+  item: { type: mongoose.Schema.ObjectId, required: true, ref: 'Item' }
+})
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, maxlength: 40 },
   email: { type: String, required: true, unique: true },
@@ -14,7 +18,9 @@ const userSchema = new mongoose.Schema({
   image: { type: String, required: true },
   address: { type: String, required: true }, 
   dob: { type: String, required: true },
-  basket: [basketItem]
+  basket: [basketItem],
+  total: {type: Number, default: 0},
+  recentPurchases: [pastItem]
   //add time stamps
 })
 

@@ -9,6 +9,9 @@ import MarchampSecurity from '../PokeComponents/MarchampSecurity'
 function PokeComment() {
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)
   const [notLoggedIn, setNotLoggedIn] = React.useState(false)
+  const [alreadycommented, setAlreadyCommented] = React.useState(false)
+
+
   React.useEffect(() => {
     const getData = async () => {
       try { 
@@ -43,6 +46,11 @@ function PokeComment() {
       history.push(`/pokeshow/${id}`)
     } catch (err) {
       console.log('da error', err.response)
+
+      if (err.response.data.message === 'You have already commented') {
+        setAlreadyCommented(true)
+      }
+
       if (err.response.data.errors) {
         console.log('Rating way too high')
         setRatingTooHigh(true)
@@ -82,6 +90,7 @@ function PokeComment() {
               value={formdata.rating}
             />
             { ratingTooHigh ? <p>Please rate from 1-5</p> :  null }
+            { alreadycommented ? <p>You have already posted a comment</p> : null}
           </div>
           <div className="button_wrapper flexend">
             <button type="submit">

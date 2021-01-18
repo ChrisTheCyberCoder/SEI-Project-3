@@ -30,16 +30,13 @@ async function userShow(req, res, next) {
 async function userProfile(req, res, next) {
   try {
     const user = await User.findById(req.currentUser._id).populate('basket.item')
-    if (!user) throw new Error('notFound') //throw new Error('notFound')
+    if (!user) throw new Error('notFound') 
     return res.status(200).json(user)
   } catch (err) {
     next(err)
   }
 }
 
-//update userprofile // Update baseket in userprofile specifically , but it essentially userprofile update. 
-
-//set router to /userProfileUpdate/id --> the id would be the userprofile page, you can get the user if from there, just like what you worked on yesterday. 
 
 async function userProfileUpdate(req, res, next){
   const { id } = req.params 
@@ -47,7 +44,6 @@ async function userProfileUpdate(req, res, next){
     const userToEdit = await User.findById(id)
     if (!userToEdit) throw new Error('notFound')
     Object.assign(userToEdit, req.body)
-    // userToEdit.basket1.push(req.body) //This shouldnt be here.
     await userToEdit.save()
     return res.status(202).json(userToEdit)
   } catch (err) {
@@ -56,6 +52,7 @@ async function userProfileUpdate(req, res, next){
 }
 
 async function addItemToBasket(req, res, next) {
+
   try {
     const user = await User.findById(req.currentUser._id)
     if (!user) throw new Error('notFound')
@@ -65,6 +62,25 @@ async function addItemToBasket(req, res, next) {
   } catch(err) {
     next(err)
   }
+}
+
+async function updateBasket(req, res, next) {
+  const { itemId } = req.params
+  
+  try {
+    const user = await User.findById(req.currentUser._id)
+    if (!user) throw new Error('notFound')
+    const itemToUpdate = user.basket.id(itemId)
+    if (!itemToUpdate) throw new Error ('Item not found')
+    await itemToUpdate.remove()
+    user.basket.push(req.body)
+    await user.save()
+    return res.status(201).json(user)
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+
 }
 
 async function removeItemFromBasket(req, res, next){
@@ -85,13 +101,30 @@ async function removeItemFromBasket(req, res, next){
 
 }
 
+async function checkoutAndEmptybasket(req, res, next){ //also add to recent purchases
+
+  try {
+    const user = await User.findById(req.currentUser._id)
+    if (!user) throw new Error('notFound')
+    user.recentPurchases = user.basket
+    user.basket = []
+    await user.save()
+    return res.json(user)
+  } catch(err) {
+    next(err)
+  }
+
+}
+
 export default {
-  userIndex: userIndex,
-  userShow: userShow,
-  userProfile: userProfile, 
-  userProfileUpdate: userProfileUpdate,
+  userIndex,
+  userShow,
+  userProfile, 
+  userProfileUpdate,
   addItemToBasket,
-  removeItemFromBasket
+  removeItemFromBasket,
+  updateBasket, 
+  checkoutAndEmptybasket
 }
 
 

@@ -68,15 +68,34 @@ async function itemDelete(req, res, next) {
 
 async function itemCommentCreate(req, res, next) {
   const { id } = req.params
-
-  console.log('backend id', id)
+  const userId = req.currentUser._id
+  
   try {
     const item = await Item.findById(id)
     if (!item) throw new Error(notFound)
+
+    const onlyCommentOwnerId = item.comments.map(comment => {
+      return comment.owner._id
+    })
+
+    const findComment = onlyCommentOwnerId.find(specificId => {
+      if (`${specificId}` === `${userId}`) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    if (findComment) {
+      // return res.status(501).json({ message: 'You already commented'})
+      throw new Error ('You have already commented')
+    } 
+    
     const newComment = { ...req.body, owner: req.currentUser._id }
     item.comments.push(newComment)
     await item.save()
-    return res.status(201).json(item) // Note to self: this was originally item, but need to change to only get the exact one that was created, since I need its id.
+    return res.status(201).json(item) 
+
   } catch (err) {
     next(err)
   }

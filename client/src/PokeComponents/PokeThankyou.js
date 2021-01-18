@@ -10,7 +10,7 @@ function PokeThankyou() {
   return (
     <section className="page_wrapper">
       <div className="message default_box_style float_up">
-        <h2>Thank you for you order!</h2>
+        <h2>Thank you for your order!</h2>
 
         <div className="eevee_thankyou_wrapper">
           <Eevee/>

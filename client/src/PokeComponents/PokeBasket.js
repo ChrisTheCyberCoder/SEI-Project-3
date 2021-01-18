@@ -16,7 +16,7 @@ function PokeBasket() {
   const history = useHistory()
   const [user, setUser] = React.useState(null)
   const [unauthorized, setUnauthorized] = React.useState(false)
-
+  const [ itemQty, setItemQty ] = React.useState(1)
 
   React.useEffect(() => {
     if (!isAuthenticated) return 
@@ -97,6 +97,31 @@ function PokeBasket() {
     return total
   }
 
+  const updateBasket = async e => {
+    const itemIdToUpdate = e.target.dataset.item
+    const itemId = e.target.name
+   
+    const body = {
+      quantity: itemQty,
+      item: itemId
+    }
+
+    try {
+      const response = await axios.put(`/api/userprofile/basket/update/${itemIdToUpdate}`, body, headers())
+      const { data } = await axios.get('/api/userprofile', headers())
+      setUser(data)
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const clearBasketAddToRecentPurchases = async e => {
+    const response = await axios.get('/api/userprofile/emptybasket', headers())
+    console.log(response)
+    history.push('/pokepayment')
+  }
+
 
   return (  
     <div className="page_wrapper_column">
@@ -107,7 +132,7 @@ function PokeBasket() {
           </div>
           
           <div className="button_wrapper flexend less_margin">
-            <button onClick={()=>history.push('/pokepayment')}>
+            <button onClick={clearBasketAddToRecentPurchases}>
               <img src="../assets/pokeball_orange.svg" alt="pokeball" />
               Check Out
             </button>
@@ -134,11 +159,12 @@ function PokeBasket() {
               <div className={`stock ${product.item.stock <= 2 && 'red_text'}`}>
                 {product.item.stock <= 2 && 'only '}
                 {product.item.stock} left in stock
+                <input onClick={updateBasket} data-item={product._id} name={product.item._id} type="number" defaultValue={product.quantity} min="1" max={product.stock} onChange={(e)=>setItemQty(e.target.value)} />
               </div>
               {/* <div className="description">
                 {product.item.description}
               </div> */}
-
+              
               <div className="button_wrapper flexend">
                 <button data-item={product._id} onClick={handleBasketItemDelete}>
                   <img src="../assets/pokeball_orange.svg" alt="pokeball" />

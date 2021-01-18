@@ -30,12 +30,6 @@ function PokeShow() {
   const [ unauthorized, setUnauthorized]  = React.useState(false)
   const [ itemInBasket, setItemInBasket] = React.useState(false)
   const [ notLoggedIn, setNotLoggedIn ] = React.useState(false)
-
-  // const [formdata, setFormData] = React.useState({ // This form is ONLY for basket. 
-  //   itemId: `${id}`, 
-  //   quantity: `${itemQty}` 
-  // })
-
   
   let starId = 0
   
@@ -45,10 +39,9 @@ function PokeShow() {
       try { 
         const { data } = await getSingleItem(id)
         setItem(data)
-        console.log(item) //chris added
+        console.log(item) 
       } catch (err) {
         setHasError(true)
-        // console.log(err)
       }
     }
     getData()
@@ -73,7 +66,6 @@ function PokeShow() {
     setItemInBasket(false)
     setItemQty(1)
     history.push(`/pokeshow/${id}`)
-    // window.location.reload()
   }
 
   const closeWarning = e =>{
@@ -121,8 +113,6 @@ function PokeShow() {
   if (id) console.log('id',id)
 
 
-
-
   const addToBasket = async e => {
     e.preventDefault()
     const body = {
@@ -153,11 +143,6 @@ function PokeShow() {
   }  
   getUserId()
 
-  //note to self: if you reload page after stopping and starting the server it could lead to error because the id in url has changed. 
-
-  //console.log('this is the form data', formdata) //! Debugging purposes 
-
-
   function mapStars(rating){
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
@@ -177,23 +162,12 @@ function PokeShow() {
   }
 
 
-  // if (commentToDelete) { //! Note to self: Leave here, still need to fix one comment bug. THis can be uncommented (alternative)
-  //   window.location.reload()
-  //   return
-  // }
-
-
   const handleChangeDelete = async event => { //Delete Comments Logic 
-    // console.log('delete button triggered')
-    // console.log(event.target.value)
     const commentId = event.target.value 
     try {
       await deleteComment(id, commentId)
-      setCommentToDelete(event.target.value)
-      // window.location.reload() //! Note to self: Leave this here. 
+      setCommentToDelete(event.target.value) 
     } catch (err) {
-      // console.log(err)
-      // setUnauthorized(true)
       if (err.response.data.message === 'Unauthorized') {
         setUnauthorized(true)
         return 

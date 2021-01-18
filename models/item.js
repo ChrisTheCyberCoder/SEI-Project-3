@@ -36,10 +36,4 @@ itemSchema.plugin(uniqueValidator)
 
 export default mongoose.model('Item', itemSchema)
 
-//pseudo code
-
-//we would need a link from pokeshow page to the comments page 
-// they fill out the form
-//only those who have logged in can make the comment
-// add the secure route just before the comments request in router
 
