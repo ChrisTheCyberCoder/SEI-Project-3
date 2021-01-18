@@ -20,7 +20,6 @@ function PokeCheckout() {
     console.log(sum)
     return sum
   }
-
   console.log(data)
 
   return (

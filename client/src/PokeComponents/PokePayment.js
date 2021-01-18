@@ -43,10 +43,7 @@ function PokePayment() {
     postcode: ''
   })
   // const [sendthis, setSendthis] = React.useState({})
-<<<<<<< HEAD
-=======
   const [sendthis] = React.useState({})
->>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
 
   // console.log(setCardValid)
   // console.log()
@@ -574,26 +571,12 @@ function PokePayment() {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-          <div className="button_wrapper">
-=======
 
           <div className="button_wrapper display_none">
->>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
             <Link
               to={{
                 pathname: '/pokecheckout',
                 state: 
-<<<<<<< HEAD
-                userProfileData,
-                formdata
-              }}
-              className={weGood() ? '' : 'isDisabled'}
-            >
-              Checkout
-            </Link>
-          </div>
-=======
                 sendthis,
                 userProfileData,
                 formdata         }}
@@ -626,7 +609,6 @@ function PokePayment() {
 
 
           
->>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
         </form>
       </section>
     </>
@@ -634,12 +616,9 @@ function PokePayment() {
 }
 
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
 export default PokePayment
 
 // {userProfileData ?
@@ -654,67 +633,6 @@ export default PokePayment
 //   :
 //   <p>...Loading</p>}
 
-<<<<<<< HEAD
-{/* {userProfileData ?
-            <div id="div2">
-              <div><h2>Shipping Details</h2></div>
-              <div>
-                <div className="input_box">
-                  <label>Name</label>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input 
-                    required
-                    className="capitalized"
-                    onChange={handleShipping}
-                    name="shippingname"
-                    id="color1"
-                    defaultValue={userProfileData.username}
-                  />
-                </div>
-                <div className="input_box">
-                  <label>Email</label>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input 
-                    type="text"
-                    required
-                    id="color1"
-                    onChange={handleShipping}
-                    name="shippingemail"
-                    defaultValue={userProfileData.email}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="input_box">
-                  <label>Phone (optional)</label>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input 
-                    type="number"
-                    onKeyDown={ (evt) => (evt.key === 'e' || evt.key === 'E') && evt.preventDefault() }
-                    id="color1"
-                    onChange={handleShipping}
-                    name="phonenumber"
-                  />
-                </div>
-                <div className="input_box">
-                  <label>Address</label>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-                  <input
-                    id="color1"
-                    type="text"
-                    className="capitalized"
-                    required
-                    onChange={handleShipping}
-                    name="address"
-                    defaultValue={userProfileData.address}
-                  />
-                </div>
-              </div> */}
-=======
 
 // {userProfileData ?
 //   <div id="div2">
@@ -792,4 +710,3 @@ export default PokePayment
 //   </div>
 //   :
 //   <p>...Loading</p>}
->>>>>>> e6f1647732e4c12d53542f20ade82f69e986fca8
