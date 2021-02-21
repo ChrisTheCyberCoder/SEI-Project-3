@@ -99,11 +99,9 @@ function PokeBasket() {
 
   const updateBasket = async e => {
     const itemIdToUpdate = e.target.dataset.item
-    const itemId = e.target.name
    
     const body = {
-      quantity: itemQty,
-      item: itemId
+      quantity: itemQty
     }
 
     try {
@@ -159,7 +157,7 @@ function PokeBasket() {
               <div className={`stock ${product.item.stock <= 2 && 'red_text'}`}>
                 {product.item.stock <= 2 && 'only '}
                 {product.item.stock} left in stock
-                <input onClick={updateBasket} data-item={product._id} name={product.item._id} type="number" defaultValue={product.quantity} min="1" max={product.stock} onChange={(e)=>setItemQty(e.target.value)} />
+                <input onClick={updateBasket} data-item={product._id} type="number" defaultValue={product.quantity} min="1" max={product.stock} onChange={(e)=>setItemQty(e.target.value)} />
               </div>
               {/* <div className="description">
                 {product.item.description}

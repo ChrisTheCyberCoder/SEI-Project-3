@@ -72,15 +72,13 @@ async function updateBasket(req, res, next) {
     if (!user) throw new Error('notFound')
     const itemToUpdate = user.basket.id(itemId)
     if (!itemToUpdate) throw new Error ('Item not found')
-    await itemToUpdate.remove()
-    user.basket.push(req.body)
+    itemToUpdate.quantity = req.body.quantity
     await user.save()
     return res.status(201).json(user)
   } catch (err) {
     console.log(err)
     next(err)
   }
-
 }
 
 async function removeItemFromBasket(req, res, next){
