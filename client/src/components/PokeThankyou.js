@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Eevee from '../PokeComponents/Eevee'
+import Eevee from '../components/Eevee'
 
 function PokeThankyou() {
   

@@ -2,9 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
-import SlowPokeErrorCard from '../PokeComponents/SlowpokeErrorCard'
-import MarchampSecurity from '../PokeComponents/MarchampSecurity'
-import Eevee from '../PokeComponents/Eevee'
+import SlowPokeErrorCard from '../components/SlowpokeErrorCard'
+import MarchampSecurity from '../components/MarchampSecurity'
+import Eevee from '../components/Eevee'
 
 
 

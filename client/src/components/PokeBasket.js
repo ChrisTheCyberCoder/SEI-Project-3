@@ -7,8 +7,8 @@ import { Link, useHistory } from 'react-router-dom'
 
 import pokeDollar from '../assets/poke_dollar.svg'
 import upArrow from '../assets/arrow_up.svg'
-import MarchampSecurity from '../PokeComponents/MarchampSecurity'
-import PikachuLoadingScreen from '../PokeComponents/PikachuLoadingScreen'
+import MarchampSecurity from '../components/MarchampSecurity'
+import PikachuLoadingScreen from '../components/PikachuLoadingScreen'
 import ditto from '../assets/ditto.svg'
 
 /* need styling on this page */

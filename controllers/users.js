@@ -18,7 +18,7 @@ async function userShow(req, res, next) {
   const { id } = req.params
   try {
     const user = await User.findById(id) //.populate('comments.owner')
-    if (!user) throw new Error(notFound)
+    if (!user) throw new Error('notFound')
     return res.status(200).json(user)
   } catch (err) {
     next(err)

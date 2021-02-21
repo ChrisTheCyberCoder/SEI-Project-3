@@ -4,7 +4,7 @@ import axios from 'axios'
 import { headers } from '../lib/api'
 
 
-import MarchampSecurity from '../PokeComponents/MarchampSecurity'
+import MarchampSecurity from '../components/MarchampSecurity'
 
 function PokeComment() {
   const [ratingTooHigh, setRatingTooHigh] = React.useState(false)

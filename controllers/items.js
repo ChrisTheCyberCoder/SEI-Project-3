@@ -41,7 +41,7 @@ async function itemUpdate(req, res, next){
   const { id } = req.params
   try {
     const itemToEdit = await Item.findById(id)
-    if (!itemToEdit) throw new Error(notFound)
+    if (!itemToEdit) throw new Error('notFound')
     Object.assign(itemToEdit, req.body)
     await itemToEdit.save()
     return res.status(202).json(itemToEdit)
@@ -56,7 +56,7 @@ async function itemDelete(req, res, next) {
   const { id } = req.params
   try {
     const itemToDelete = await Item.findById(id)
-    if (!itemToDelete) throw new Error(notFound)
+    if (!itemToDelete) throw new Error('notFound')
     await itemToDelete.remove()
     return res.sendStatus(204)
   } catch (err) {
@@ -72,7 +72,7 @@ async function itemCommentCreate(req, res, next) {
   
   try {
     const item = await Item.findById(id)
-    if (!item) throw new Error(notFound)
+    if (!item) throw new Error('notFound') 
 
     const onlyCommentOwnerId = item.comments.map(comment => {
       return comment.owner._id
@@ -107,10 +107,10 @@ async function itemCommentDelete(req, res, next) {
   const { id, commentId } = req.params
   try {
     const item = await Item.findById(id)
-    if (!item) throw new Error(notFound)
+    if (!item) throw new Error('notFound')
     const commentToDelete = item.comments.id(commentId)
-    if (!commentToDelete) throw new Error(notFound)
-    if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error(forbidden)
+    if (!commentToDelete) throw new Error('notFound')
+    if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error('forbidden')
     await commentToDelete.remove()
     await item.save()
     return res.sendStatus(204)

@@ -168,6 +168,7 @@ function PokeShow() {
       await deleteComment(id, commentId)
       setCommentToDelete(event.target.value) 
     } catch (err) {
+      console.log(err.response)
       if (err.response.data.message === 'Unauthorized') {
         setUnauthorized(true)
         return 
