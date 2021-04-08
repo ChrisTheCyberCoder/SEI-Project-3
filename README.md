@@ -7,11 +7,24 @@
 * [Technologies](#technologies)
 * [Plan](#plan)
 * [Registering a Customer](#registering-a-customer)
+    * [The User Model](#The-User-Model)
 * [Logging In](#login)
 * [Comments](#comments)
+    * [The Comment Model](#The-Comment-Model)
+    * [Creating Comments](#Creating-Comments)
+    * [Comment Error Handling](#Comment-Error-Handling)
+    * [Deleting Comments](#Deleting-Comments)
+    * [Creating pre-existing comments](#Creating-pre-existing-comments)     
 * [Basket](#Basket)
+    * [Basket Model](#Basket-Model)
+    * [The Basket controller](#The-Basket-controller)
+    * [Adding Items to the Basket](#Adding-Items-to-the-Basket)
+    * [Deleting Items from the basket](#Deleting-Items-from-the-basket)
+    * [Updating-Items-in-the-basket](#Updating-Items-in-the-basket)
 * [Addressing Security](#security)
 * [Conclusion](#conclusion)
+    * [Wins and Challenges](#Wins-and-Challenges)
+    * [Challenges](#Challenges)
 
 ## Overview
 
@@ -61,7 +74,7 @@ My main role in this project was to focus purely on the functionalities mentione
 
 ## Registering a Customer
 
-The User Model
+### The User Model
 
 ```const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, maxlength: 40 },
@@ -156,7 +169,6 @@ Some error messages are also handled in the front-end before the object form is 
 
 ## Login
 
-
 The controller requires both the email and the password that was used to create the account. The controller checks to find a user which has an email the matches the one provided. It also checks to see if the password provided matches the password in the database. Failure to match both, throws an error of ‘unauthorised’ to the front-end to handle. If the given email and passwords are successful, the user is given a token, a token of which is needed to access areas of the website that are specific to the user.
 
 ```
@@ -191,7 +203,7 @@ In the front-end, the email and password are sent using forms. Users who success
 
 We wanted customers to have the ability to comment on items they have purchased. In order to do this, I created a backend controller, and attached a relationship with the items model: This can be defined as a one to many relationship: items can have many comments. 
 
-The Comment Model
+### The Comment Model
 
 ```
 export const commentSchema = new mongoose.Schema({
@@ -218,7 +230,7 @@ const itemSchema = new mongoose.Schema({
 
 The comment schema attached to the item scheme has three fields: text, rating, and owner, the person who made the comment. 
 
-<ins>Creating Comments</ins>
+### Creating Comments
 
 The general rules I wanted to follow here with comments are, customers can create comments, but cannot delete comments. Ratings have to be made from 1 - 5, and the owner refers to a user id that has to exist in the user database. All fields are required, the timestamp field being one which is created automatically. 
 
@@ -299,7 +311,7 @@ The one comment system is achieved by this logic: each pre-existing comment on t
 
 However, if the current user has not created a comment on an item, the user otherwise, succesfully has his/her comment created from the request body (the object form) that is sent to the backend. The requests body will include both the item and text. Just before the comment is created, a further key is also added on to the owner field, the user id of the current user, this completes the creation of the comment and the item is saved and updated in the database, after a comment is created a unique id for that comment is created, the comment id. The user is then re-directed to the specific item page they viewed, and they are able to see the comment they just created.
 
-<ins>Comment Error Handling</ins>
+### Comment Error Handling
 
 As mentioned above, users cannot make comments if they are not signed in, if they fail to rate from 1 - 5, or if they already commented. All of these are checked from the back-end controller, which sends the responses to the front-end to handle. The images below, styled and created by a team member, will be diplayed accordingly: 
 
@@ -312,7 +324,7 @@ As mentioned above, users cannot make comments if they are not signed in, if the
   <img src="client/src/assets/already_commented.png" height="300" width="345"/>
 </p>
 
-<ins>Deleting Comments</ins>
+### Deleting Comments
 
 ```
   const handleChangeDelete = async event => { //Delete Comments Logic 
@@ -353,13 +365,13 @@ async function itemCommentDelete(req, res, next) {
 
 At the back-end controller, the item id is checked to see if the item exists, the controller then checks to see if the comment id exists in the item object. I have then only allowed users who created their own comments to delete their own. Thus, if the owner of the comment does not match the current user that is logged in, an error of ‘forbidden’ will be thrown in the front-end to handle. If it is the owner, the comment would be deleted and the item will be updated with the comments accordingly.
 
-<ins>Creating pre-existing comments</ins>
+### Creating pre-existing comments
 
-
+Pre-existing comments on items were made in the seeds.js file. In this file essentially all objects inside item data are given a randomised comment, which would come from a randomised owner. The rating of the comment would also reflect on the contents of the comment, and the number of comments on each item are randomised. This algorithm was achieved by using a number of random generators and essentially mapping data to a return each object back. Once the array had all the modified items-comments in it, it was set in a variable which was used to create the data from it using the Item model. The data for the comments are in the data directory: badData.js, goodData.js and neutralData.js
 
 ## Basket
 
-<ins>Basket Model</ins>
+### Basket Model
 
 ```
 
@@ -385,13 +397,13 @@ const userSchema = new mongoose.Schema({
 
 The basket is attached to the userSchema model, but is referenced to the basket item schema in order to form the relationship. There are two fields in the basketItem model, quantity, the default being 1, and item, this is in reference to the “Item” model, the pokemon items. 
 
-<ins>The Basket controllers</ins>
+### The Basket controller
 
 There were three main functionalities that I incorporated with the shopping basket functionality: adding items to the basket, updating the quantity baskets in the basket and removing items in the basket. 
 
 In the backend, all three controllers were set up to check if the current customer logged in has an account. This makes sure that only customers can see their own baskets, and not others. It also makes sure that customers must have an account and need to be logged in to view their basket. The error image of, "Please Log In", will be displayed. 
 
-<ins>Adding Items to the Basket</ins>
+### Adding Items to the Basket
 
 ```
 const basketItem = new mongoose.Schema({
@@ -416,7 +428,7 @@ async function addItemToBasket(req, res, next) {
 
 To add items to the basket, the back-end controller requires both the quantity, and the specific item id. This item id is in reference to an item id in the item database/model. The quantity has a default of 1 if the user was to leave this field blank. If users provide an item id that exists, then the user would successfully add the item and the quantity to their basket. The record of the user will be now have the item in the user object, and will be saved in the database. For every item that is added to the basket, a uniqie id will be created. This unique id is needed for both updating the quantity of items and removement of items in the basket. 
 
-<ins>Deleting Items from the basket</ins>
+### Deleting Items from the basket
 
 Deleting items in the user's basket is as essential feature for a shopping basket. I decided to implement this functionality on the separate, basket webpage. 
 
@@ -464,7 +476,7 @@ async function removeItemFromBasket(req, res, next){
 
 The controller for removing items from the basket requires the unique id. The controller looks inside the current user’s basket and finds the unique id that matches the unique item id that was sent from the front-end. If unsuccessful an error of “Item not found” would be provided as a response. If successful, then the item is successfully removed, and the user record is saved and updated in the database.  
 
-<ins>Updating Items in the basket</ins>
+### Updating Items in the basket
 
 ```
   const updateBasket = async e => {
@@ -507,17 +519,17 @@ async function updateBasket(req, res, next) {
 
 I wanted customers to have the ability to update the quantities of the items in their basket on the basket webpage. Therefore, similar to the previous controller, the controllers looks inside the current’s user’s basket and finds the unique id that matches the unique item id sent from the front-end. If the match is successful, the controller selects the item, and updates the quantity key-value with the new quantity that is provided from the request body. The user object is then saved and updated in the database. In conjunction with this, the backend sends the updated user the latest version of the basket as a response. 
 
-<ins>Checkout</ins>
+## Security 
 
-## Security
+Throughout the web application, and as mentioned before, the controllers are set up in the back in such a way to prevent those who have not logged in from accessing certain parts of the website. Moreover, those who are logged in can only see was is unique to them. This is also achieved through the secureRoute.js file which checks to see if the user has a token, and then from there the controller only allows the person who is logged in to see what is specific to them. 
 
 ## Conclusion
 
-<ins>Wins and Challenges</ins>
+### Wins and Challenges
 
 Up to this point of the course, this project was the most enjoyable. There were definitely a number of wins working on this project. I was comfortable using git as a team to manage the project: every monring we all git merged and pulled, so that all members had the most latest version of the project. I was able to work in a well-organised, functional team: we held meetings every morning, outlining all the tasks we did the previous day, and the tasks we set out to do on the present day. I was able to code most of the functionalities of the e-commerce website. I believe we worked very well in a team: we were organised, and discussed any issues we were facing collectively as a team. 
 
-<ins>Challenges</ins>
+### Challenges
 
 Although there were many wins with the project, in hindsight the biggest challenge would have to be finishing off the ambitious plan we set out to begin with. Although most of the functionalities of an eccomerce, shopping website were complete, we ran out a time with a few minor functionalities we wanted to implement. 
 
