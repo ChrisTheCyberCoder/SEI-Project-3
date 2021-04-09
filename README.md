@@ -23,8 +23,9 @@
     * [Updating-Items-in-the-basket](#Updating-Items-in-the-basket)
 * [Addressing Security](#security)
 * [Conclusion](#conclusion)
-    * [Wins and Challenges](#Wins-and-Challenges)
+    * [Wins](#Wins)
     * [Challenges](#Challenges)
+    * [Key Learnings](#Key-Learnings)
 
 ## Overview
 
@@ -525,13 +526,20 @@ Throughout the web application, and as mentioned before, the controllers are set
 
 ## Conclusion
 
-### Wins and Challenges
+### Wins
 
-Up to this point of the course, this project was the most enjoyable. There were definitely a number of wins working on this project. I was comfortable using git as a team to manage the project: every monring we all git merged and pulled, so that all members had the most latest version of the project. I was able to work in a well-organised, functional team: we held meetings every morning, outlining all the tasks we did the previous day, and the tasks we set out to do on the present day. I was able to code most of the functionalities of the e-commerce website. I believe we worked very well in a team: we were organised, and discussed any issues we were facing collectively as a team. 
+Up to this point of the course, this project was the most enjoyable. There were definitely a number of wins working on this project. I was comfortable using git as a team to manage the project: every morning we all git merged and pulled, so that all members had the most latest version of the project. I was able to work in a well-organised, functional team: we held meetings every morning, outlining all the tasks we did the previous day, and the tasks we set out to do on the present day. I was able to code most of the functionalities of the e-commerce website. I believe we worked very well in a team: we were organised, and discussed any issues we were facing collectively as a team. 
 
 ### Challenges
 
 Although there were many wins with the project, in hindsight the biggest challenge would have to be finishing off the ambitious plan we set out to begin with. Although most of the functionalities of an eccomerce, shopping website were complete, we ran out a time with a few minor functionalities we wanted to implement. 
+
+### Key Learnings
+
+- By the end of it I was very comfortable coding in the back-end with NodeJs and Express. 
+- I was also able to practice further with REACT. 
+- I was able to do both the front-end and back-end requirements for the functionalities I did. 
+- I learnt how to use a noSQL database, MongoDB, in line with Mongoose. 
 
 
 
