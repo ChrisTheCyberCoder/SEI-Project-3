@@ -27,10 +27,10 @@ function ImageUploadField( { value, name, onChange } ) {
       </div>
       <div className="upload_button_wrapper">
         <div className="input_wrapper" onMouseEnter={handleHover} onMouseLeave={handleHover}>
-          {/* <label className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
+          <label className={`upload_button ${hover ? 'hover' : ''}`} htmlFor="upload" > 
             <img src="../assets/pokeball_orange.svg" alt="pokeball" /> 
               Upload Your Own Image
-          </label> */}
+          </label>
           <input
             id="upload"
             type="file"
