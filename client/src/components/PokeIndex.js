@@ -24,13 +24,7 @@ function PokeIndex() {
     result = searchCriteria === '0' ? result : result.filter(item => item.name.includes(searchCriteria))
     return result
   }
-  
-  //* styling for the load animation
-  // function load() {
-  //   setPikaPos({ pika: 'calc(100% - 100px)', bar: '100%' })
-  // }
-  
-  //* scrolls to top of page when page is changed 
+ 
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [page])

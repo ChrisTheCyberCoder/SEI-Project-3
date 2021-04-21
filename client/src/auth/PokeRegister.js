@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom'
 import ImageUploadField from './ImageUploadField'
 
 function PokeRegister() {
-  //*error message to be cleared on focus.
 
   const [passwordNotMatch, setPasswordNotMatch] = React.useState(false)
   const [usernameNotUnique, setUsernameNotUnique] = React.useState(false)
@@ -24,7 +23,6 @@ function PokeRegister() {
     address: '',
     dob: ''
   })
-  //* add default image
 
   function errorShake(form){
     form.classList.remove('float_up')
@@ -36,33 +34,19 @@ function PokeRegister() {
 
   const handleChange = e => {
     if (e.target.name === 'dob') e.target.style.color = 'black'
-    // console.log(event.target.name)
-    // console.log(event.target.value)
     setFormdata({ ...formdata, [e.target.name]: e.target.value })
   }
-
-  // console.log(formdata)
 
   const handleSubmit = async e => {
     e.preventDefault()
 
     
-    if (formdata.email.slice(-4) !== '.com' && formdata.email.slice(-6) !== '.co.uk' && formdata.email.slice(-6) !== '.co.jp') { //if neither in field throw error execute code. If one in field code can't execute. 
-      console.log('no .com or co.uk')
+    if (formdata.email.slice(-4) !== '.com' && formdata.email.slice(-6) !== '.co.uk' && formdata.email.slice(-6) !== '.co.jp') { 
       setEmailInIncorrectFormat(true)
       return 
     }
 
-    // if (formdata.email.slice(-6) !== '.co.uk') {
-    //   console.log('no .co.uk')
-    //   return
-    // }
-
-    // console.log(formdata.email.slice(-4))
-
     const passwordToCheck = formdata.password.split('')
-    // console.log(passwordToCheck)
-    // console.log(typeof passwordToCheck)
 
     const check = passwordToCheck.find(item => {
       const num = ['0','1','2','3','4','5','6','7','8','9']
@@ -70,11 +54,9 @@ function PokeRegister() {
         return true
     })
 
-    console.log(check)
-
     if (!check) {
       setPasswordHasNoSpecialCharacter(true)
-      return //note to self: keeep this return here so that it does not execute the catch block below
+      return 
     }
 
     const checkCapitals = passwordToCheck.find(item => {
@@ -85,15 +67,12 @@ function PokeRegister() {
 
     if (!checkCapitals) {
       setPasswordHasNoSpecialCharacter(true)
-      return //note to self: keeep this return here so that it does not execute the catch block below
+      return 
     }
 
 
     try {
-      const response = await registerUser(formdata)
-      // console.log('check out', response.errors.passwordConfirmation)
-      console.log(response)
-      
+      await registerUser(formdata)
       e.target.classList.remove('float_up_more')
       e.target.classList.add('accepted')
       setTimeout(()=>{
@@ -105,10 +84,6 @@ function PokeRegister() {
     } catch (err) {
 
       errorShake(e.target)
-
-      //console.log(err.response)
-      // console.log('catche error', err.response.data) 
-      // console.log('check if correct', err.response.data.errors.passwordConfirmation)
       if (err.response.data.errors.username) {
         setUsernameNotUnique(true)
         'error name'

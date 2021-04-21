@@ -30,10 +30,8 @@ function Home() {
         setRandomPokeball(pickRandomItem(data,'pokeballs'))
         setRandomBerry(pickRandomItem(data,'berries & apricorns'))
         setRandomCheapItem(pickRandomCheapItem(data))
-        // console.log(data)
       } catch (err) {
         setHasError(true)
-        // console.log(err)
       }
     }
     getData()
@@ -96,8 +94,6 @@ function Home() {
   }
   const nextHero = () =>{ 
     clearTimeout(timer)
-    // console.log('interval next', interval)
-    // console.log('heropos',heroPos)
     const newPos = heroPos > -400 ? heroPos - 100 : 0
     setHeroPos(newPos)
   }

@@ -29,7 +29,7 @@ function PokeLogin() {
 
   const handleSubmit = async e => { 
     e.preventDefault()
-    // console.log('etarget',e.target)
+    
 
     try {
       const { data } = await loginUser(formdata)
@@ -42,7 +42,6 @@ function PokeLogin() {
           e.target.classList.remove('shake') 
         },500)
 
-        console.log(data.message)
         setError(`The Information you provided is incorrect. You have ${numberOfAttempts} attempt(s) remaining`) 
         if (numberOfAttempts === 0 ) setRanOutOfAttempts(true)
         setNumberOfAttempts(numberOfAttempts - 1)
@@ -59,7 +58,6 @@ function PokeLogin() {
 
     } catch (err) {
       console.log(err)
-      console.log('Sorry failure to load the login page')
       setLoadFailure(true)
 
       e.target.classList.remove('float_up')
@@ -69,7 +67,6 @@ function PokeLogin() {
       },500)
     }
 
-    console.log('submitting', formdata)
   }
 
   function loginUser(formdata) {

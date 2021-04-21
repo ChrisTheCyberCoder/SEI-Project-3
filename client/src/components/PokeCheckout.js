@@ -12,15 +12,10 @@ function PokeCheckout() {
   function OrderTotal() {
     let sum = 0
     cart.map(product => {
-      console.log(product.quantity)
-      console.log(product.item.price)
-
       sum += product.quantity * product.item.price
     })
-    console.log(sum)
     return sum
   }
-  console.log(data)
 
   return (
     <>

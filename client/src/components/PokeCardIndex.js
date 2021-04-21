@@ -19,7 +19,6 @@ function PokeCard({  _id, name, price, image, stock, avgRating }) {
   function mapStars(rating){
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
-      // console.log('id',starId)
       const random = Math.ceil(Math.random() * 60)
       return (
         ele === 'star' ?

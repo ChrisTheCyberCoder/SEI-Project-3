@@ -11,7 +11,6 @@ import MarchampSecurity from '../components/MarchampSecurity'
 import PikachuLoadingScreen from '../components/PikachuLoadingScreen'
 import ditto from '../assets/ditto.svg'
 
-/* need styling on this page */
 function PokeBasket() {
   const history = useHistory()
   const [user, setUser] = React.useState(null)
@@ -23,10 +22,8 @@ function PokeBasket() {
     const getData = async () => {
       try { 
         const { data } = await axios.get('/api/userprofile', headers())
-        console.log(data)
         setUser(data)
       } catch (err) {
-        console.log(err.response.status)
         if (err.response.status === 401) {
           setUnauthorized(true)
           return
@@ -37,12 +34,10 @@ function PokeBasket() {
   }, [])
 
   const handleBasketItemDelete = async e => {
-    console.log(e.target.dataset.item)
     const itemToDelete = e.target.dataset.item
     try {
       await axios.delete(`/api/userprofile/basket/${itemToDelete}`, headers())
       const { data } = await axios.get('/api/userprofile', headers())
-      console.log(data)
       
       if (data) e.target.parentNode.parentNode.parentNode.classList.add('slide_away')
       setTimeout(()=>{
@@ -105,18 +100,16 @@ function PokeBasket() {
     }
 
     try {
-      const response = await axios.put(`/api/userprofile/basket/update/${itemIdToUpdate}`, body, headers())
+      await axios.put(`/api/userprofile/basket/update/${itemIdToUpdate}`, body, headers())
       const { data } = await axios.get('/api/userprofile', headers())
       setUser(data)
-      console.log(response)
     } catch (err) {
       console.log(err)
     }
   }
 
   const clearBasketAddToRecentPurchases = async e => {
-    const response = await axios.get('/api/userprofile/emptybasket', headers())
-    console.log(response)
+    await axios.get('/api/userprofile/emptybasket', headers())
     history.push('/pokepayment')
   }
 
@@ -157,7 +150,7 @@ function PokeBasket() {
               <div className={`stock ${product.item.stock <= 2 && 'red_text'}`}>
                 {product.item.stock <= 2 && 'only '}
                 {product.item.stock} left in stock
-                <input onClick={updateBasket} data-item={product._id} type="number" defaultValue={product.quantity} min="1" max={product.stock} onChange={(e)=>setItemQty(e.target.value)} />
+                <input className="the_basket_input" onClick={updateBasket} data-item={product._id} type="number" defaultValue={product.quantity} min="1" max={product.stock} onChange={(e)=>setItemQty(e.target.value)} />
               </div>
               {/* <div className="description">
                 {product.item.description}

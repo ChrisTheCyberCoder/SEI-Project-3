@@ -15,10 +15,8 @@ function PokeComment() {
   React.useEffect(() => {
     const getData = async () => {
       try { 
-        const response = await axios.get('/api/userprofile', headers())
-        console.log(response)
+        await axios.get('/api/userprofile', headers())
       } catch (err) {
-        console.log(err.response.status)
         if (err.response.status === 401) {
           setNotLoggedIn(true)
           return
@@ -28,7 +26,6 @@ function PokeComment() {
     getData()
   }, [])
   const { id } = useParams()
-  //console.log('this is the id', id)
   const history = useHistory()
   const [formdata, setFormdata] = React.useState({
     text: '',
@@ -37,22 +34,20 @@ function PokeComment() {
   const handleChange = event => {
     setFormdata({ ...formdata, [event.target.name]: event.target.value })
   }
-  // console.log(formdata)
+
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      const response = await createComment(formdata)
-      console.log('the response', response)
+      await createComment(formdata)
       history.push(`/pokeshow/${id}`)
     } catch (err) {
-      console.log('da error', err.response)
+      console.log(err)
 
       if (err.response.data.message === 'You have already commented') {
         setAlreadyCommented(true)
       }
 
       if (err.response.data.errors) {
-        console.log('Rating way too high')
         setRatingTooHigh(true)
       }
     }

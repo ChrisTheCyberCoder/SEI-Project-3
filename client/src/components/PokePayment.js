@@ -25,7 +25,6 @@ function PokePayment() {
     e.target.classList.add('selected')
   }
 
-  // const [doCheckout, setDoCheckout] = React.useState(true)
   const [cardValid, setCardValid] = React.useState('')
   const [nameValid, setNameValid] = React.useState('')
   const [monthValid, setMonthValid] = React.useState('')
@@ -42,51 +41,22 @@ function PokePayment() {
     country: '',
     postcode: ''
   })
-  // const [sendthis, setSendthis] = React.useState({})
+  
   const [sendthis] = React.useState({})
 
-  // console.log(setCardValid)
-  // console.log()
-
-  // const postcodeRegex = new RegExp(/^[A-Za-z0-9]{2,4}(?:[-\s][A-Za-z0-9]{3})$/) //hardest regex of my lifetime
-  // const letterAndNums = new RegExp(/^\b(?!.*?\s{2})[A-Za-z0-9 ]{1,50}\b$/)
   const simpleRegex = new RegExp(/^\b(?!.*?\s{2})[A-Za-z ]{1,50}\b$/)
-  const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})$/) // ok no this was harder
+  const cardRegex = new RegExp(/^[0-9]{4}(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})(?:[-\s]*[A-Za-z0-9]{4})$/) 
   const yearRegex = new RegExp(/^[0-9]{4}$/)
   const codeRegex = new RegExp(/^[0-9]{3,4}$/)
   const postcodeRegexSimplified = new RegExp(/^[A-Za-z0-9]{2,10}(?:[-\s]*[A-Za-z0-9]{2,10})/)
 
   const everyStateValid = cardValid && nameValid && monthValid && yearValid && codeValid && countryValid && postcodeValid
 
-
-
-  // function addSpaceToCard(event) {                  //* kept here only for record-keeping reasons
-  //   let str = event.target.value
-  //   str = str.replace(/\s/g, '')
-  //   if ( str.length % 4 === 0 && str.length !== 16){
-  //     event.target.value = event.target.value + ' '
-  //   }
-  // }
-  // console.log(doCheckout)
-  // function showLink() {
-  //   if (everyStateValid) {
-  //     // setDoCheckout(true)
-  //     return true
-  //   }
-  //   return false
-  // }
-
   function weGood() {
     if (everyStateValid) return true
-    // const sendme = { ...formdata, ...userProfileData }
-    // console.log(sendme)
-    // setSendThisState(sendme)
     return false
   }
 
-  // if (everyStateValid) return true
-  // return false
-  
 
   function setStates(nombre, bool) {
     switch (nombre) {
@@ -113,22 +83,6 @@ function PokePayment() {
         break
     }
   }
-
-  // const handleSend = () => {
-  //   const sendme = { ...formdata, ...userProfileData }
-  //   setFormdata(sendme)
-  //   console.log(formdata)
-  // }
-
-  // const handleShipping = (event) => {
-  //   event.preventDefault()
-  //   const userprofileData = { ...userProfileData, [event.target.name]: event.target.value }
-  //   setUserProfileData(userprofileData)
-  //   // setStates(event.target.name, true)
-  //   const sendme = { ...formdata, ...userProfileData }
-  //   // console.log(sendme)
-  //   setSendthis(sendme)
-  // }
 
   const handleValidation = (event) => {
     event.preventDefault()
@@ -176,8 +130,7 @@ function PokePayment() {
       setStates(nombre, true)
     }
   }
-  // console.log(userProfileData)
-  // console.log(formdata)
+
 
   return (
     <>
@@ -195,7 +148,6 @@ function PokePayment() {
                 id="color1"
                 onChange={handleValidation}
                 name="name"
-                // value={formdata.email}
               />
               {nameValid === '' ? null : nameValid ? null : <p>Name cannot contain numbers or special characters</p>}
             </div>
@@ -204,7 +156,6 @@ function PokePayment() {
               <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
               <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
               <input
-                // onKeyDown={addSpaceToCard}
                 required
                 id="color1"
                 placeholder="0000 0000 0000 0000"
@@ -620,93 +571,3 @@ function PokePayment() {
 
 
 export default PokePayment
-
-// {userProfileData ?
-//   <div>
-//     <h3>{userProfileData.username}</h3><br/>
-//     <h3>{userProfileData.email}</h3><br/>
-//     {/* <h3>{userProfileData.basket}</h3><br/> */}
-//     <h3>{userProfileData.dob}</h3><br/>
-//     <h3>{userProfileData.address}</h3><br/>
-//     <img src='https://res.cloudinary.com/dcwxp0m8g/image/upload/v1610530139/pokezon/testsprite.png' alt="user profile image"/>
-//   </div>
-//   :
-//   <p>...Loading</p>}
-
-
-// {userProfileData ?
-//   <div id="div2">
-//     <div><h2>Shipping Details</h2></div>
-//     <div>
-//       <div className="input_box">
-//         <label>Name</label>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input 
-//           required
-//           className="capitalized"
-//           onChange={handleShipping}
-//           name="shippingname"
-//           id="color1"
-//           defaultValue={userProfileData.username}
-//         />
-//       </div>
-//       <div className="input_box">
-//         <label>Email</label>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input 
-//           type="text"
-//           required
-//           id="color1"
-//           onChange={handleShipping}
-//           name="shippingemail"
-//           defaultValue={userProfileData.email}
-//         />
-//       </div>
-//     </div>
-//     <div>
-//       <div className="input_box">
-//         <label>Phone (optional)</label>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input 
-//           type="number"
-//           onKeyDown={ (evt) => (evt.key === 'e' || evt.key === 'E') && evt.preventDefault() }
-//           id="color1"
-//           onChange={handleShipping}
-//           name="phonenumber"
-//         />
-//       </div>
-//       <div className="input_box">
-//         <label>Address</label>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input name="chrome-autofill" style={{ display: 'none' }} disabled/>
-//         <input
-//           id="color1"
-//           type="text"
-//           className="capitalized"
-//           required
-//           onChange={handleShipping}
-//           name="address"
-//           defaultValue={userProfileData.address}
-//         />
-//       </div>
-//     </div>
-//     <div className="button_wrapper">
-//       <Link
-//         to={{
-//           pathname: '/pokecheckout',
-//           state: 
-//           sendthis,
-//           userProfileData,
-//           formdata
-//         }}
-//         className={weGood() ? '' : 'isDisabled'}
-//       >
-//         Checkout
-//       </Link>
-//     </div>
-//   </div>
-//   :
-//   <p>...Loading</p>}

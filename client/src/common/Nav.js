@@ -1,23 +1,19 @@
 import React from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { logout } from '../lib/auth' //* get token
-// isAuthenticated,
+import { logout } from '../lib/auth' 
 import { getUserInfo } from '../lib/api.js'
 
 import logo from '../assets/logo.svg'
 import searchIcon from '../assets/search_icon.svg'
 import pokeballGrey from '../assets/pokeball_grey.svg'
 import pikaFace from '../assets/pika_face_icon.svg'
-// import testProfile from  '../assets/test_profile_image.jpg'
 import pokeballOrange from '../assets/pokeball_orange.svg'
 import basket from '../assets/basket.svg'
 
 
 function Nav() {
-  // let isLoggedIn = isAuthenticated()
   const { pathname } = useLocation()
   const history = useHistory()
-  // const isLoggedIn = isAuthenticated()
   const [category, setCategory] = React.useState('')
   const [searchCriteria, setSearchCriteria] = React.useState('')
   const [categoryWidth, setCategoryWidth] = React.useState(50)
@@ -25,22 +21,13 @@ function Nav() {
   const [userMenuDisplay, setuserMenuDisplay] = React.useState(false)
   const [userData, setUserData] = React.useState(null)
   
-  // React.useEffect(()=>{ 
-  //   isLoggedIn = isAuthenticated()
-  // },[pathname])
-
-
   React.useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await getUserInfo()
-        // console.log()
         setUserData(data)
 
-        // console.log('pokedexselected:', selected)
-        // console.log('pokedexitems:', items)
       } catch (err) {
-        // setHasError(true)
         console.log(err)
       }
     }
@@ -48,20 +35,13 @@ function Nav() {
   }, [pathname])
   
   if (userData) console.log('user_data',userData)
-
-  // React.useEffect(() => {
-  //   if (userData) setUserData(null)
-  // }, [userData])  
   
   const handleLogout = () => {
     logout()
     history.push('/pokelogin')
     setUserData(null)
     setuserMenuDisplay(false)
-    // window.location.reload()
   }
-
-  // const username = 'Pokebros'
 
   const handleSelect = e =>{
     resizeCategoryWidth(e)
@@ -72,15 +52,11 @@ function Nav() {
     setSearchCriteria(e.target.value)
   }
 
- 
-  
   const handleSubmit = e =>{
     e.preventDefault()
-    // if (!searchCriteria) return
     const chosenCategory = category ? category.toLowerCase() : 'all'
     const chosenSearchCriteria = searchCriteria ? searchCriteria.toLowerCase() : '0'
     history.push(`/pokeindex/${chosenCategory}/${chosenSearchCriteria}/1`) 
-    // window.location.reload()
   }
 
   const resizeCategoryWidth = e => {
@@ -96,14 +72,10 @@ function Nav() {
   
     setCategoryWidth(textLength + 30) 
   }
-  //* this function resizes select's width
   
   function openUserMenu() {
-    console.log('test')
     setuserMenuDisplay(!userMenuDisplay)
   }
-
-  //! note, value is deliberately spelt with capitals to get the correct string width
 
   return (
     <div className="nav">

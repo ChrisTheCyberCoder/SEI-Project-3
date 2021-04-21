@@ -10,8 +10,6 @@ function PokeProfile() {
     const getData = async () => {
       try { 
         const { data } = await axios.get('api/userprofile', headers())
-        console.log(data)
-        data.basket.push('5')
         setUserProfileData(data)
       } catch (err) {
         console.log(err)

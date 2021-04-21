@@ -19,8 +19,6 @@ async function startServer() {
 
     app.use('/api', router)
 
-    //error handler needed here
-
     app.use(errorHandler)
 
     app.listen(port, () => console.log(`Up and running on port ${port}`))

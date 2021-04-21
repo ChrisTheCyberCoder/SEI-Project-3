@@ -39,7 +39,6 @@ function PokeShow() {
       try { 
         const { data } = await getSingleItem(id)
         setItem(data)
-        console.log(item) 
       } catch (err) {
         setHasError(true)
       }
@@ -110,7 +109,7 @@ function PokeShow() {
   }
 
 
-  if (id) console.log('id',id)
+  // if (id) console.log('id',id)
 
 
   const addToBasket = async e => {
@@ -121,11 +120,9 @@ function PokeShow() {
     }
     if (itemInBasket) return 
     try {
-      const response = await axios.post('/api/userprofile/basket', body, headers())
+      await axios.post('/api/userprofile/basket', body, headers())
       setItemInBasket(true)
-      console.log('the response', response)
     } catch (err) {
-    // console.log(err.response.status)
       if (err.response.status === 401) {
         setNotLoggedIn(true)
         return
@@ -138,7 +135,6 @@ function PokeShow() {
   function getUserId(){
     const payload = getPayload()
     if (!payload) return false
-    console.log( 'userId on pokeshow',payload.sub )
     return payload.sub
   }  
   getUserId()
@@ -146,7 +142,6 @@ function PokeShow() {
   function mapStars(rating){
     const staryus = rating.map((ele)=>{
       starId = uuidv4()
-      // console.log('id',starId)
       const random = Math.ceil(Math.random() * 60)
       return (
         ele === 'star' ?
@@ -162,7 +157,7 @@ function PokeShow() {
   }
 
 
-  const handleChangeDelete = async event => { //Delete Comments Logic 
+  const handleChangeDelete = async event => { 
     const commentId = event.target.value 
     try {
       await deleteComment(id, commentId)

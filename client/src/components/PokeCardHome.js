@@ -6,7 +6,7 @@ import { getItems } from '../lib/api'
 function PokeCardHome({ title, image, price, rating }){
   const [items, setItems] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
-  // console.log(items)
+
   console.log('error', hasError)
   
   if (items) console.log('items',items)
@@ -48,21 +48,4 @@ function PokeCardHome({ title, image, price, rating }){
 
 export default PokeCardHome
 
-
-
-// const [{}, dispatch] = useStateValue()
-
-// const addToBasket = () => {
-//   //Add item to basket....
-//   dispatch({
-//     type: 'ADD_TO_BASKET',
-//     item: {
-//       id: id,
-//       title: title,
-//       image: image,
-//       price: price,
-//       rating: rating
-//     }
-//   })
-// };
 
