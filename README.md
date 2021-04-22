@@ -1,4 +1,4 @@
-# Project 3: Pokezon
+# Project 3: Pokézon
 
 ## Index
 
@@ -26,12 +26,13 @@
     * [Wins](#Wins)
     * [Challenges](#Challenges)
     * [Key Learnings](#Key-Learnings)
+* [View the Application](#View-the-application)
 
 ## Overview
 
 For the third project at General Assembly, we were given just under 10 days, in a group of three, to create a fullstack web application. The software engineering course was taken remotely, so we communicated through Trello, Zoom, Slack and GitHub. 
 
-The idea of Pokezon was essentially a merge between pokemon, a common interest we shared, and Amazon, a well-known shopping, ecommerce website. We essentially created Amazon that was Pokemon themed. Most of the assets, shopping items and data came from the original games.
+The idea of Pokézon was essentially a merge between Pokémon, a common interest we shared, and Amazon, a well-known shopping, ecommerce website. We essentially created Amazon that was Pokémon themed. Most of the assets, shopping items and data came from the original games.
 
 ## Brief 
 
@@ -396,7 +397,7 @@ const userSchema = new mongoose.Schema({
 
 ```
 
-The basket is attached to the userSchema model, but is referenced to the basket item schema in order to form the relationship. There are two fields in the basketItem model, quantity, the default being 1, and item, this is in reference to the “Item” model, the pokemon items. 
+The basket is attached to the userSchema model, but is referenced to the basket item schema in order to form the relationship. There are two fields in the basketItem model, quantity, the default being 1, and item, this is in reference to the “Item” model, the Pokémon items. 
 
 ### The Basket controller
 
@@ -540,6 +541,15 @@ Although there were many wins with the project, in hindsight the biggest challen
 - I was also able to practice further with REACT. 
 - I was able to do both the front-end and back-end requirements for the functionalities I did. 
 - I learnt how to use a noSQL database, MongoDB, in line with Mongoose. 
+
+# View the application
+
+To view the application <a href="https://pokezonwebapplication.herokuapp.com/">click here.</a>
+
+Use the information below to login, or register an account. 
+
+Email: christian@email.com </br>
+Pasword: pass
 
 
 
